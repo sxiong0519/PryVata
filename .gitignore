@@ -387,4 +387,6 @@ FodyWeavers.xsd
 .idea/
 *.sln.iml
 
+#Sue's additional ignored files
 appsettings.Local.json
+.env.local
