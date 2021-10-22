@@ -1,7 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 
-const _apiUrl = "https://localhost:5001/api/user";
+const _apiUrl = "/api/user";
 
 const _doesUserExist = (firebaseUserId) => {
   return getToken().then((token) =>
@@ -13,7 +13,7 @@ const _doesUserExist = (firebaseUserId) => {
     }).then(resp => resp.ok));
 };
 
-const _saveUser = (user) => {
+const _saveUser = (userProfile) => {
   return getToken().then((token) =>
     fetch(_apiUrl, {
       method: "POST",
@@ -21,9 +21,11 @@ const _saveUser = (user) => {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(user)
+      body: JSON.stringify(userProfile)
     }).then(resp => resp.json()));
 };
+
+
 
 export const getToken = () => firebase.auth().currentUser.getIdToken();
 
@@ -37,10 +39,10 @@ export const login = (email, pw) => {
         // If we couldn't find the user in our app's database, we should logout of firebase
         logout();
 
-        throw new Error("help");
+        throw new Error("Something's wrong. The user exists in firebase, but not in the application database.");
       }
     }).catch(err => {
-      console.error("this is error", err);
+      console.error(err);
       throw err;
     });
 };
@@ -51,10 +53,10 @@ export const logout = () => {
 };
 
 
-export const register = (user, password) => {
-  return firebase.auth().createUserWithEmailAndPassword(user.email, password)
+export const register = (userProfile, password) => {
+  return firebase.auth().createUserWithEmailAndPassword(userProfile.email, password)
     .then((createResponse) => _saveUser({ 
-      ...user, 
+      ...userProfile, 
       firebaseUserId: createResponse.user.uid 
     }));
 };
