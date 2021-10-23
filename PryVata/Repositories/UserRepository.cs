@@ -21,7 +21,10 @@ namespace PryVata.Repositories
 
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT * FROM [User] 
+                    cmd.CommandText = @"SELECT u.*, ut.Name, FacilityName 
+                                        FROM [User] u 
+                                        LEFT JOIN UserType ut ON u.UserTypeId = ut.Id
+                                        LEFT JOIN Facility f on u.FacilityId = f.Id
                                         WHERE FirebaseUserId = @firebaseUserId";
 
                     DbUtils.AddParameter(cmd, "@FirebaseUserId", firebaseUserId);
@@ -39,7 +42,15 @@ namespace PryVata.Repositories
                             FullName = DbUtils.GetString(reader, "FullName"),
                             Email = DbUtils.GetString(reader, "Email"),
                             UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
-                            FacilityId = DbUtils.GetInt(reader, "FacilityId")                            
+                            UserType = new UserType
+                            {
+                                Name = DbUtils.GetString(reader, "Name")
+                            },
+                            FacilityId = DbUtils.GetInt(reader, "FacilityId"),
+                            Facility = new Facility
+                            {
+                                FacilityName = DbUtils.GetString(reader, "FacilityName")
+                            }
                         };
                     }
 
@@ -57,7 +68,10 @@ namespace PryVata.Repositories
 
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT * FROM [User]";
+                    cmd.CommandText = @"SELECT u.*, ut.Name, FacilityName 
+                                        FROM [User] u 
+                                        LEFT JOIN UserType ut ON u.UserTypeId = ut.Id
+                                        LEFT JOIN Facility f on u.FacilityId = f.Id";
 
                     List<User> users = new List<User>();
 
@@ -72,7 +86,15 @@ namespace PryVata.Repositories
                                 FullName = DbUtils.GetString(reader, "FullName"),
                                 Email = DbUtils.GetString(reader, "Email"),
                                 UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
-                                FacilityId = DbUtils.GetNullableInt(reader, "FacilityId")
+                                UserType = new UserType
+                                {
+                                    Name = DbUtils.GetString(reader, "Name")
+                                },
+                                FacilityId = DbUtils.GetInt(reader, "FacilityId"),
+                                Facility = new Facility
+                                {
+                                    FacilityName = DbUtils.GetString(reader, "FacilityName")
+                                }
                             };
                             users.Add(user);
                         }

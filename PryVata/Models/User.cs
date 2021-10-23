@@ -12,7 +12,9 @@ namespace PryVata.Models
         public string Email { get; set; }
         public string FirebaseUserId { get; set; }
         public int UserTypeId { get; set; }
+        public UserType UserType { get; set; }
         public int? FacilityId { get; set; }
+        public Facility Facility { get; set; }
         public bool isActive { get; set; }
     }
 }

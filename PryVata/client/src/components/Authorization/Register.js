@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { useHistory } from "react-router-dom";
-import { register } from "../../modules/AuthManager";
+import { register } from "../../modules/authManager";
 
 export default function Register() {
   const history = useHistory();
