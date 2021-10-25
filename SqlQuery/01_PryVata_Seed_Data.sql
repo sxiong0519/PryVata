@@ -20,8 +20,8 @@ set identity_insert [Facility] off
 --User
 
 set identity_insert [User] on
-insert into [User] (Id, [FullName], Email, FirebaseUserId, UserTypeId, FacilityId, isActive) values (1, 'Rachel Green', 'rachel@green.com', 'QbnnFQPJRkQSqL2MGyby2m5Xln22', 1, 1, 1);
-insert into [User] (Id, [FullName], Email, FirebaseUserId, UserTypeId, FacilityId, isActive) values (2, 'Ross Geller', 'ross@geller.com', 'jVpCQfXDNch0wUIGgdO5oV0gvuC3', 1, 2, 1);
+insert into [User] (Id, [FullName], Email, FirebaseUserId, UserTypeId, FacilityId, isActive) values (1, 'Rachel Green', 'rachel@green.com', '7jET0TCGZNNJHwYsMlyuDESvYLS2', 1, 1, 1);
+insert into [User] (Id, [FullName], Email, FirebaseUserId, UserTypeId, FacilityId, isActive) values (2, 'Ross Geller', 'ross@geller.com', 'qQzTjWJoM3YU2wgUUG8bKERZPit1', 1, 2, 1);
 insert into [User] (Id, [FullName], Email, FirebaseUserId, UserTypeId, FacilityId, isActive) values (3, 'Monica Geller', 'monica@geller.com', 'BNxfNDfalHYwMDp2xqsjXI1b80K3', 1, 1, 1);
 insert into [User] (Id, [FullName], Email, FirebaseUserId, UserTypeId, FacilityId, isActive) values (4, 'Chandler Bing', 'chandler@bing.com', '6HEjc1XOxkWEaeupluCSiLmCy0F3', 1, NULL, 1);
 insert into [User] (Id, [FullName], Email, FirebaseUserId, UserTypeId, FacilityId, isActive) values (5, 'Phoebe Buffay', 'phoebe@buffay.com', 'JxYbc7vcooSJmgbgWtnNicBBq7G3', 1, 2, 1);
@@ -78,3 +78,22 @@ set identity_insert [Exception] on
 insert into [Exception] (Id, Exception) VALUES (1, 'Good faith, unintentional acquisition, access or use of PHI by employee/workforce'),
 (2, 'Inadvertent disclosure to another authorized person within the entity or OHCA'), (3, 'Recipient could not reasonably have retained the data'), (4, 'Data is limited to limited data set that does not include dates of birth or zip codes');
 set identity_insert [Exception] off
+
+--Incident
+
+set identity_insert [Incident] on
+insert into [Incident] (Id, AssignedUserId, Title, [Description], DateReported, DateOccurred, FacilityId, Confirmed, Reportable, DBRAId) VALUES
+(1, 4, 'Testing this incident stuff out', 'Will it work? Will it not work? Who knows', '09/01/2021', '10/25/2021', 1, NULL, NULL, NULL);
+set identity_insert [Incident] off
+
+--Notes
+
+set identity_insert [Notes] on
+insert into [Notes] (Id, [Description], ImageUrl, IncidentId) VALUES (1, 'Did she do it? Interviews are coming up', NULL, 1), (2, 'Accesses being taken', NULL, 1);
+set identity_insert [Notes] off
+
+--Patient
+set identity_insert [Patient] on
+insert into [Patient] (Id, PatientNumber, FirstName, LastName, IncidentId) VALUES (1, 12345678, 'Harry', 'Potter', 1);
+set identity_insert [Patient] off
+

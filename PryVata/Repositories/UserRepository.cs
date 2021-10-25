@@ -46,7 +46,7 @@ namespace PryVata.Repositories
                             {
                                 Name = DbUtils.GetString(reader, "Name")
                             },
-                            FacilityId = DbUtils.GetInt(reader, "FacilityId"),
+                            FacilityId = DbUtils.GetNullableInt(reader, "FacilityId"),
                             Facility = new Facility
                             {
                                 FacilityName = DbUtils.GetString(reader, "FacilityName")
@@ -90,7 +90,7 @@ namespace PryVata.Repositories
                                 {
                                     Name = DbUtils.GetString(reader, "Name")
                                 },
-                                FacilityId = DbUtils.GetInt(reader, "FacilityId"),
+                                FacilityId = DbUtils.GetNullableInt(reader, "FacilityId"),
                                 Facility = new Facility
                                 {
                                     FacilityName = DbUtils.GetString(reader, "FacilityName")

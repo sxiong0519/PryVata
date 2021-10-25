@@ -15,6 +15,6 @@ namespace PryVata.Models
         public UserType UserType { get; set; }
         public int? FacilityId { get; set; }
         public Facility Facility { get; set; }
-        public bool isActive { get; set; }
+        public bool? isActive { get; set; }
     }
 }

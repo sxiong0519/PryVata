@@ -66,7 +66,8 @@ namespace PryVata.Repositories
                             {
                                 Id = DbUtils.GetInt(reader, "Id"),
                                 Description = DbUtils.GetString(reader, "Description"),
-                                ImageUrl = DbUtils.GetString(reader, "ImageUrl")
+                                ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
+                                IncidentId = DbUtils.GetInt(reader, "IncidentId")
                             };
                         }
                     }
@@ -108,7 +109,7 @@ namespace PryVata.Repositories
                                         ImageUrl = @imageUrl
                                         WHERE Id = @id";
                     cmd.Parameters.AddWithValue("@description", note.Description);
-                    cmd.Parameters.AddWithValue("@imageUrl", note.ImageUrl);
+                    cmd.Parameters.AddWithValue("@imageUrl", DbUtils.ValueOrDBNull(note.ImageUrl));
                     cmd.Parameters.AddWithValue("@id", note.Id);
 
                     cmd.ExecuteNonQuery();
