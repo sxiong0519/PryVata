@@ -43,6 +43,7 @@ namespace PryVata
 
             services.AddControllers();
 
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PryVata", Version = "v1" });
@@ -78,7 +79,7 @@ namespace PryVata
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PryVata v1"));
             }
-
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();

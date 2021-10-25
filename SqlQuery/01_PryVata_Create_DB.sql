@@ -18,7 +18,7 @@ GO
 DROP TABLE IF EXISTS [Circumstance];
 DROP TABLE IF EXISTS [Controls];
 DROP TABLE IF EXISTS [DBRA];
-DROP TABLE IF EXISTS [DispositionOfInformation];
+DROP TABLE IF EXISTS [Disposition];
 DROP TABLE IF EXISTS [Exception];
 DROP TABLE IF EXISTS [Facility];
 DROP TABLE IF EXISTS [Incident];
@@ -58,7 +58,7 @@ CREATE TABLE [Incident] (
   [FacilityId] integer NOT NULL,
   [PatientId] integer NOT NULL,
   [Confirmed] bit NOT NULL,
-  [Reportable] bit NOT NULL,
+  [Reportable] bit,
   [DBRAId] integer
 )
 GO
@@ -78,12 +78,12 @@ CREATE TABLE [DBRA] (
   [Id] integer PRIMARY KEY IDENTITY,
   [IncidentTypeId] integer NOT NULL,
   [UserCompleteId] integer NOT NULL,
-  [MethodOfDisclosureId] integer NOT NULL,
-  [TypeOfRecipientId] integer NOT NULL,
-  [CircumstanceOfDisclosureId] integer NOT NULL,
-  [DispositionOfDisclosureId] integer NOT NULL,
+  [MethodId] integer NOT NULL,
+  [RecipientId] integer NOT NULL,
+  [CircumstanceId] integer NOT NULL,
+  [DispositionId] integer NOT NULL,
   [InformationId] integer NOT NULL,
-  [AdditionalControlsId] integer NOT NULL
+  [ControlsId] integer NOT NULL
 )
 GO
 
@@ -108,7 +108,7 @@ CREATE TABLE [Circumstance] (
 )
 GO
 
-CREATE TABLE [DispositionOfInformation] (
+CREATE TABLE [Disposition] (
   [Id] integer PRIMARY KEY IDENTITY,
   [Disposition] nvarchar(255) NOT NULL,
   [DispositionValue] integer NOT NULL
@@ -169,19 +169,19 @@ GO
 ALTER TABLE [DBRA] ADD FOREIGN KEY ([UserCompleteId]) REFERENCES [User] ([Id])
 GO
 
-ALTER TABLE [DBRA] ADD FOREIGN KEY ([MethodOfDisclosureId]) REFERENCES [MethodType] ([Id])
+ALTER TABLE [DBRA] ADD FOREIGN KEY ([MethodId]) REFERENCES [MethodType] ([Id])
 GO
 
-ALTER TABLE [DBRA] ADD FOREIGN KEY ([TypeOfRecipientId]) REFERENCES [RecipientType] ([Id])
+ALTER TABLE [DBRA] ADD FOREIGN KEY ([RecipientId]) REFERENCES [RecipientType] ([Id])
 GO
 
-ALTER TABLE [DBRA] ADD FOREIGN KEY ([CircumstanceOfDisclosureId]) REFERENCES [Circumstance] ([Id])
+ALTER TABLE [DBRA] ADD FOREIGN KEY ([CircumstanceId]) REFERENCES [Circumstance] ([Id])
 GO
 
-ALTER TABLE [DBRA] ADD FOREIGN KEY ([DispositionOfDisclosureId]) REFERENCES [DispositionOfInformation] ([Id])
+ALTER TABLE [DBRA] ADD FOREIGN KEY ([DispositionId]) REFERENCES [Disposition] ([Id])
 GO
 
-ALTER TABLE [DBRA] ADD FOREIGN KEY ([AdditionalControlsId]) REFERENCES [Controls] ([Id])
+ALTER TABLE [DBRA] ADD FOREIGN KEY ([ControlsId]) REFERENCES [Controls] ([Id])
 GO
 
 ALTER TABLE [User] ADD FOREIGN KEY ([UserTypeId]) REFERENCES [UserType] ([Id])

@@ -23,7 +23,7 @@ set identity_insert [User] on
 insert into [User] (Id, [FullName], Email, FirebaseUserId, UserTypeId, FacilityId, isActive) values (1, 'Rachel Green', 'rachel@green.com', 'QbnnFQPJRkQSqL2MGyby2m5Xln22', 1, 1, 1);
 insert into [User] (Id, [FullName], Email, FirebaseUserId, UserTypeId, FacilityId, isActive) values (2, 'Ross Geller', 'ross@geller.com', 'jVpCQfXDNch0wUIGgdO5oV0gvuC3', 1, 2, 1);
 insert into [User] (Id, [FullName], Email, FirebaseUserId, UserTypeId, FacilityId, isActive) values (3, 'Monica Geller', 'monica@geller.com', 'BNxfNDfalHYwMDp2xqsjXI1b80K3', 1, 1, 1);
-insert into [User] (Id, [FullName], Email, FirebaseUserId, UserTypeId, FacilityId, isActive) values (4, 'Chandler Bing', 'chandler@bing.com', 'CVhTVIdIt2PMHAaGSQ5xfvRYRZ83', 1, NULL, 1);
+insert into [User] (Id, [FullName], Email, FirebaseUserId, UserTypeId, FacilityId, isActive) values (4, 'Chandler Bing', 'chandler@bing.com', '6HEjc1XOxkWEaeupluCSiLmCy0F3', 1, NULL, 1);
 insert into [User] (Id, [FullName], Email, FirebaseUserId, UserTypeId, FacilityId, isActive) values (5, 'Phoebe Buffay', 'phoebe@buffay.com', 'JxYbc7vcooSJmgbgWtnNicBBq7G3', 1, 2, 1);
 insert into [User] (Id, [FullName], Email, FirebaseUserId, UserTypeId, FacilityId, isActive) values (6, 'Joey Tribbiani', 'joey@tribbiani.com', '3hZJ8GS2GRYHYChcDLPEqkdrotG3', 1, NULL, 1);
 set identity_insert [User] off
@@ -55,12 +55,12 @@ set identity_insert [Circumstance] off
 
 --Disposition of Information
 
-set identity_insert [DispositionOfInformation] on
-insert into [DispositionOfInformation] (Id, Disposition, DispositionValue) VALUES (1, 'Original, complete information returned', 1), (2, 'Information properly destroyed (Written attestation/assurance obtained)', 1),
+set identity_insert [Disposition] on
+insert into [Disposition] (Id, Disposition, DispositionValue) VALUES (1, 'Original, complete information returned', 1), (2, 'Information properly destroyed (Written attestation/assurance obtained)', 1),
 (3, 'Information could NOT be reasonably retained', 1), (4, 'Information properly destroyed (No attestation/assurance obtained)', 2),
 (5, 'Electronically deleted', 2), (6, 'Disclosed to Media', 3), (7, 'Unable to retrieve or unsure of location/disposition', 3),
 (8, 'High probability of re-disclosure or suspected re-disclosure', 3);
-set identity_insert [DispositionOfInformation] off
+set identity_insert [Disposition] off
 
 --Information
 

@@ -92,7 +92,7 @@ namespace PryVata.Repositories
                 {
                     cmd.CommandText = @"INSERT INTO Facility (FacilityName, Address, City, State, ZipCode, isDeleted)
                                         OUTPUT INSERTED.Id
-                                        VALUES (@facilityName, @address, @city, @state, @zipCode, @isDeleted";
+                                        VALUES (@facilityName, @address, @city, @state, @zipCode, @isDeleted)";
                     cmd.Parameters.AddWithValue("@facilityName", facility.FacilityName);
                     cmd.Parameters.AddWithValue("@address", facility.Address);
                     cmd.Parameters.AddWithValue("@city", facility.City);

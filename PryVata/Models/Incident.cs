@@ -20,6 +20,7 @@ namespace PryVata.Models
         public int PatientId { get; set; }
         public bool Confirmed { get; set; }
         public int DBRAId { get; set; }
+        public DBRA DBRA { get; set; }
         public bool Reportable { get; set; }
     }
 }
