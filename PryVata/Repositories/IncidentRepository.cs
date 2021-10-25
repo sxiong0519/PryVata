@@ -75,7 +75,7 @@ namespace PryVata.Repositories
 
                                         FullName,
                                         
-                                        n.Id AS NotesId, n.Description as Notes, ImageUrl
+                                        n.Id AS NotesId, n.Description as Notes, n.ImageUrl AS Image,
                                 
                                         FacilityName,
                     
@@ -127,7 +127,7 @@ namespace PryVata.Repositories
                             incident.Notes.Add(new Notes
                             {
                                 Description = DbUtils.GetString(reader, "Notes"),
-                                ImageUrl = DbUtils.GetString(reader, "ImageUrl")
+                                ImageUrl = DbUtils.GetNullableString(reader, "Image")
                             });
                         }
 

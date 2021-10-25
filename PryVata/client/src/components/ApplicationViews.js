@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "./Authorization/Login";
 import Hello from "./Hello";
 import IncidentList from "./Incident/IncidentList";
+import IncidentDetails from "./Incident/IncidentDetails";
 
 export default function ApplicationViews({ isLoggedIn }) {
 
@@ -17,8 +18,12 @@ export default function ApplicationViews({ isLoggedIn }) {
           <Login />
         </Route>
 
-        <Route path="/incident">
+        <Route path="/incident" exact>
           <IncidentList />
+        </Route>
+
+        <Route path="/incident/detail/:id">
+          <IncidentDetails />
         </Route>
 
         {/* <Route path="/register">
