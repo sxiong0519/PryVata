@@ -49,15 +49,13 @@ GO
 
 CREATE TABLE [Incident] (
   [Id] integer PRIMARY KEY IDENTITY,
-  [CreatorUserId] integer NOT NULL,
+  [AssignedUserId] integer NOT NULL,
   [Title] nvarchar(100) NOT NULL,
   [Description] nvarchar(1000) NOT NULL,
   [DateReported] datetime NOT NULL,
   [DateOccurred] datetime NOT NULL,
-  [NotesId] integer NOT NULL,
   [FacilityId] integer NOT NULL,
-  [PatientId] integer NOT NULL,
-  [Confirmed] bit NOT NULL,
+  [Confirmed] bit,
   [Reportable] bit,
   [DBRAId] integer
 )
@@ -122,13 +120,6 @@ CREATE TABLE [Controls] (
 )
 GO
 
-CREATE TABLE [IncidentType] (
-  [Id] integer PRIMARY KEY IDENTITY,
-  [Type] nvarchar(255) NOT NULL,
-  [IncidentValue] integer NOT NULL
-)
-GO
-
 CREATE TABLE [UserType] (
   [Id] integer PRIMARY KEY IDENTITY,
   [Name] nvarchar(255) NOT NULL
@@ -138,7 +129,8 @@ GO
 CREATE TABLE [Notes] (
   [Id] integer PRIMARY KEY IDENTITY,
   [Description] nvarchar(255) NOT NULL,
-  [ImageUrl] nvarchar(255)
+  [ImageUrl] nvarchar(255),
+  [IncidentId] integer NOT NULL
 )
 GO
 
@@ -153,14 +145,21 @@ CREATE TABLE [Exception] (
   [Id] integer PRIMARY KEY IDENTITY,
   [Exception] nvarchar(255) NOT NULL
 )
+GO
 
-ALTER TABLE [Incident] ADD FOREIGN KEY ([CreatorUserId]) REFERENCES [User] ([Id])
+CREATE TABLE [Patient] (
+  [Id] integer PRIMARY KEY IDENTITY,
+  [PatientNumber] integer NOT NULL,
+  [FirstName] nvarchar(255) NOT NULL,
+  [LastName] nvarchar(255) NOT NULL,
+  [IncidentId] integer NOT NULL
+)
+GO
+
+ALTER TABLE [Incident] ADD FOREIGN KEY ([AssignedUserId]) REFERENCES [User] ([Id])
 GO
 
 ALTER TABLE [Incident] ADD FOREIGN KEY ([FacilityId]) REFERENCES [Facility] ([Id])
-GO
-
-ALTER TABLE [DBRA] ADD FOREIGN KEY ([IncidentTypeId]) REFERENCES [IncidentType] ([Id])
 GO
 
 ALTER TABLE [Incident] ADD FOREIGN KEY ([DBRAId]) REFERENCES [DBRA] ([Id]) ON DELETE CASCADE ON UPDATE NO ACTION
@@ -190,8 +189,11 @@ GO
 ALTER TABLE [User] ADD FOREIGN KEY ([FacilityId]) REFERENCES [Facility] ([Id])
 GO
 
-ALTER TABLE [Incident] ADD FOREIGN KEY ([NotesId]) REFERENCES [Notes] ([Id])
+ALTER TABLE [DBRA] ADD FOREIGN KEY ([InformationId]) REFERENCES [Information] ([Id])
 GO
 
-ALTER TABLE [DBRA] ADD FOREIGN KEY ([InformationId]) REFERENCES [Information] ([Id])
+ALTER TABLE [Patient] ADD FOREIGN KEY ([IncidentId]) REFERENCES [Incident] ([Id])
+GO
+
+ALTER TABLE [Notes] ADD FOREIGN KEY ([IncidentId]) REFERENCES [Incident] ([Id])
 GO

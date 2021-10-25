@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PryVata.Repositories;
@@ -22,7 +23,9 @@ namespace PryVata
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+       
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IIncidentRepository, IncidentRepository>();
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";
@@ -30,7 +33,7 @@ namespace PryVata
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                    options.Authority = googleTokenUrl;
+                    /*options.Authority = googleTokenUrl;*/
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
@@ -43,6 +46,7 @@ namespace PryVata
 
             services.AddControllers();
 
+            IdentityModelEventSource.ShowPII = true;
 
             services.AddSwaggerGen(c =>
             {

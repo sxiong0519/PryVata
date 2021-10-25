@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "./Authorization/Login";
 import Hello from "./Hello";
+import IncidentList from "./Incident/IncidentList";
 
 export default function ApplicationViews({ isLoggedIn }) {
 
@@ -14,6 +15,10 @@ export default function ApplicationViews({ isLoggedIn }) {
 
         <Route path="/login">
           <Login />
+        </Route>
+
+        <Route path="/incident">
+          <IncidentList />
         </Route>
 
         {/* <Route path="/register">
