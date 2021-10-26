@@ -50,6 +50,10 @@ return (
         Information: {DBRA.information.map(i => 
             <ListGroupItem>{i.information.informationType}</ListGroupItem>)}
         </ListGroup>
+        <ListGroup>
+        Controls: {DBRA.control.map(c =>
+            <ListGroupItem>{c.control} </ListGroupItem>)}
+        </ListGroup>
         <Link to={`/DBRA/edit/${DBRA.id}`}>Edit</Link>
         <button onClick={deleteADBRA}>Delete</button>
     </div>
