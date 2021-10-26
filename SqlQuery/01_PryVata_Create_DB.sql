@@ -29,6 +29,7 @@ DROP TABLE IF EXISTS [Notes];
 DROP TABLE IF EXISTS [RecipientType];
 DROP TABLE IF EXISTS [User];
 DROP TABLE IF EXISTS [UserType];
+DROP TABLE IF EXISTS [PatientIncident];
 
 
 
@@ -152,8 +153,14 @@ CREATE TABLE [Patient] (
   [Id] integer PRIMARY KEY IDENTITY,
   [PatientNumber] integer NOT NULL,
   [FirstName] nvarchar(255) NOT NULL,
-  [LastName] nvarchar(255) NOT NULL,
-  [IncidentId] integer NOT NULL
+  [LastName] nvarchar(255) NOT NULL
+)
+GO
+
+CREATE TABLE [PatientIncident] (
+  [Id] integer PRIMARY KEY IDENTITY,
+  [IncidentId] integer NOT NULL,
+  [PatientId] integer NOT NULL
 )
 GO
 
@@ -193,7 +200,10 @@ GO
 ALTER TABLE [DBRA] ADD FOREIGN KEY ([InformationId]) REFERENCES [Information] ([Id]) 
 GO
 
-ALTER TABLE [Patient] ADD FOREIGN KEY ([IncidentId]) REFERENCES [Incident] ([Id]) ON DELETE CASCADE ON UPDATE NO ACTION
+ALTER TABLE [PatientIncident] ADD FOREIGN KEY ([IncidentId]) REFERENCES [Incident] ([Id]) ON DELETE CASCADE ON UPDATE NO ACTION
+GO
+
+ALTER TABLE [PatientIncident] ADD FOREIGN KEY ([PatientId]) REFERENCES [Patient] ([Id]) ON DELETE CASCADE ON UPDATE NO ACTION
 GO
 
 ALTER TABLE [Notes] ADD FOREIGN KEY ([IncidentId]) REFERENCES [Incident] ([Id]) ON DELETE CASCADE ON UPDATE NO ACTION

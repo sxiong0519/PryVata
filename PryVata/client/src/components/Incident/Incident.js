@@ -9,7 +9,7 @@ const Incident = ({ incident }) => {
       <Card >
       <CardBody className="IncidentCard">
             
-          <Link to={`/incident/detail/${incident.id}`}>{incident.description}</Link>
+          <Link to={`/incident/detail/${incident.id}`}>{incident.title}</Link>
       
       </CardBody>   
     </Card>
