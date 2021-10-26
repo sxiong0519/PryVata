@@ -22,19 +22,21 @@ namespace PryVata.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"SELECT 
-                                        d.Id AS DBRAId, IncidentTypeId, UserCompleteId, MethodId, RecipientId, CircumstanceId,
-                                        DispositionId, InformationId, ControlsId,
+                                        d.Id AS DBRAId, UserCompleteId, MethodId, RecipientId, CircumstanceId,
+                                        DispositionId, IncidentId,
 
-                                        it.*, u.*, m.*, r.*, c.*, di.*, in.*, co.*
+                                        u.*, m.*, r.*, c.*, di.*, i.*, co.*
+                                        
                                         FROM DBRA d
-                                        LEFT JOIN IncidentType it ON d.IncidentTypeId = it.Id
-                                        LEFT JOIN User u ON d.UserCompleteId = u.Id
+                                        LEFT JOIN [User] u ON d.UserCompleteId = u.Id
                                         LEFT JOIN MethodType m ON d.MethodId = m.Id
                                         LEFT JOIN RecipientType r ON d.RecipientId = r.Id
                                         LEFT JOIN Circumstance c ON d.CircumstanceId = c.Id
                                         LEFT JOIN Disposition di ON d.DispositionId = di.Id
-                                        LEFT JOIN Information in ON d.InformationId = in.Id
-                                        LEFT JOIN Controls co ON d.ControlsId = co.Id";
+                                        LEFT JOIN DBRAInformation db ON d.Id = db.DBRAId
+                                        LEFT JOIN Information i ON i.Id = db.InformationId
+                                        LEFT JOIN DBRAControls dc ON d.Id = dc.DBRAId
+                                        LEFT JOIN Controls co ON dc.ControlsId = co.Id";
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -45,49 +47,36 @@ namespace PryVata.Repositories
                         DBRAs.Add(new DBRA
                         {
                             Id = DbUtils.GetInt(reader, "DBRAId"),
-                            IncidentTypeId = DbUtils.GetInt(reader, "IncidentTypeId"),
-                            IncidentType = new IncidentType
-                            {
-                                Id = DbUtils.GetInt(reader, "IncidentTypeId"),
-                                Type = DbUtils.GetString(reader, "Type"),
-                                IncidentValue = DbUtils.GetInt(reader, "IncidentValue")
-                            },
-                            UserCompletedId = DbUtils.GetInt(reader, "UserCompletedId"),
+                            UserCompletedId = DbUtils.GetInt(reader, "UserCompleteId"),
                             User = new User
                             {
-                                Id = DbUtils.GetInt(reader, "UserCompletedId"),
                                 FullName = DbUtils.GetString(reader, "FullName")
                             },
                             MethodId = DbUtils.GetInt(reader, "MethodId"),
                             Method = new Method
                             {
-                                Id = DbUtils.GetInt(reader, "MethodId"),
                                 MethodType = DbUtils.GetString(reader, "Method"),
                                 MethodValue = DbUtils.GetInt(reader, "MethodValue")
                             },
                             RecipientId = DbUtils.GetInt(reader, "RecipientId"),
                             Recipient = new Recipient
                             {
-                                Id = DbUtils.GetInt(reader, "RecipientId"),
                                 RecipientType = DbUtils.GetString(reader, "Recipient"),
-                                RecipientValue = DbUtils.GetInt(reader, "Recipient Value")
+                                RecipientValue = DbUtils.GetInt(reader, "RecipientValue")
                             },
                             CircumstanceId = DbUtils.GetInt(reader, "CircumstanceId"),
                             Circumstance = new Circumstance
                             {
-                                Id = DbUtils.GetInt(reader, "CircumstanceId"),
                                 Circumstances = DbUtils.GetString(reader, "Circumstance"),
                                 CircumstanceValue = DbUtils.GetInt(reader, "CircumstanceValue")
                             },
                             DispositionId = DbUtils.GetInt(reader, "DispositionId"),
                             Disposition = new Dispositions
                             {
-                                Id = DbUtils.GetInt(reader, "DispositionId"),
                                 Disposition = DbUtils.GetString(reader, "Disposition"),
                                 DispositionValue = DbUtils.GetInt(reader, "DispositionValue")
                             },
-                            InformationId = DbUtils.GetInt(reader, "InformationId"),
-                            ControlsId = DbUtils.GetInt(reader, "ControlsId")
+                            IncidentId = DbUtils.GetInt(reader, "IncidentId")
                         });
                     }
                     reader.Close();
@@ -105,19 +94,27 @@ namespace PryVata.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"SELECT 
-                                        d.Id AS DBRAId, IncidentTypeId, UserCompleteId, MethodId, RecipientId, CircumstanceId,
-                                        DispositionId, InformationId, ControlsId,
+                                        d.Id AS DBRAId, UserCompleteId, MethodId, RecipientId, CircumstanceId,
+                                        DispositionId,
 
-                                        it.*, u.*, m.*, r.*, c.*, di.*, in.*, co.*
+                                        FullName,                                        
+                                        Method,
+                                        Recipient,
+                                        Circumstance,
+                                        Disposition,
+                                        i.Id AS InformationId, InformationType,
+                                        co.Id AS ControlsId, Controls
+
                                         FROM DBRA d
-                                        LEFT JOIN IncidentType it ON d.IncidentTypeId = it.Id
-                                        LEFT JOIN User u ON d.UserCompleteId = u.Id
+                                        LEFT JOIN [User] u ON d.UserCompleteId = u.Id
                                         LEFT JOIN MethodType m ON d.MethodId = m.Id
                                         LEFT JOIN RecipientType r ON d.RecipientId = r.Id
                                         LEFT JOIN Circumstance c ON d.CircumstanceId = c.Id
                                         LEFT JOIN Disposition di ON d.DispositionId = di.Id
-                                        LEFT JOIN Information in ON d.InformationId = in.Id
-                                        LEFT JOIN Controls co ON d.ControlsId = co.Id
+                                        LEFT JOIN DBRAInformation db ON d.Id = db.DBRAId
+                                        LEFT JOIN Information i ON i.Id = db.InformationId
+                                        LEFT JOIN DBRAControls dc ON d.Id = dc.DBRAId
+                                        LEFT JOIN Controls co ON dc.ControlsId = co.Id
                                         WHERE d.Id = @id";
 
                     cmd.Parameters.AddWithValue("@id", id);
@@ -133,50 +130,36 @@ namespace PryVata.Repositories
                             DBRA = new DBRA
                             {
                                 Id = DbUtils.GetInt(reader, "DBRAId"),
-                                IncidentTypeId = DbUtils.GetInt(reader, "IncidentTypeId"),
-                                IncidentType = new IncidentType
-                                {
-                                    Id = DbUtils.GetInt(reader, "IncidentTypeId"),
-                                    Type = DbUtils.GetString(reader, "Type"),
-                                    IncidentValue = DbUtils.GetInt(reader, "IncidentValue")
-                                },
-                                UserCompletedId = DbUtils.GetInt(reader, "UserCompletedId"),
+                                UserCompletedId = DbUtils.GetInt(reader, "UserCompleteId"),
                                 User = new User
                                 {
-                                    Id = DbUtils.GetInt(reader, "UserCompletedId"),
                                     FullName = DbUtils.GetString(reader, "FullName")
                                 },
                                 MethodId = DbUtils.GetInt(reader, "MethodId"),
                                 Method = new Method
                                 {
-                                    Id = DbUtils.GetInt(reader, "MethodId"),
                                     MethodType = DbUtils.GetString(reader, "Method"),
                                     MethodValue = DbUtils.GetInt(reader, "MethodValue")
                                 },
                                 RecipientId = DbUtils.GetInt(reader, "RecipientId"),
                                 Recipient = new Recipient
                                 {
-                                    Id = DbUtils.GetInt(reader, "RecipientId"),
                                     RecipientType = DbUtils.GetString(reader, "Recipient"),
-                                    RecipientValue = DbUtils.GetInt(reader, "Recipient Value")
+                                    RecipientValue = DbUtils.GetInt(reader, "RecipientValue")
                                 },
                                 CircumstanceId = DbUtils.GetInt(reader, "CircumstanceId"),
                                 Circumstance = new Circumstance
                                 {
-                                    Id = DbUtils.GetInt(reader, "CircumstanceId"),
                                     Circumstances = DbUtils.GetString(reader, "Circumstance"),
                                     CircumstanceValue = DbUtils.GetInt(reader, "CircumstanceValue")
                                 },
                                 DispositionId = DbUtils.GetInt(reader, "DispositionId"),
                                 Disposition = new Dispositions
                                 {
-                                    Id = DbUtils.GetInt(reader, "DispositionId"),
                                     Disposition = DbUtils.GetString(reader, "Disposition"),
                                     DispositionValue = DbUtils.GetInt(reader, "DispositionValue")
                                 },
-                                InformationId = DbUtils.GetInt(reader, "InformationId"),
                                 Information = new List<Information>(),
-                                ControlsId = DbUtils.GetInt(reader, "ControlsId"),
                                 Control = new List<Controls>()
                             };
 
@@ -204,6 +187,77 @@ namespace PryVata.Repositories
                     }
                     reader.Close();
                     return DBRA;
+                }
+            }
+        }
+
+        public void AddDBRA(DBRA DBRA, int userId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO DBRA (UserCompletedId, MethodId, RecipientId, CircumstanceId, DispositionId, IncidentId)
+                                        OUTPUT INSERTED.Id 
+                                        VALUES (@user, @method, @recipient, @circumstance, @disposition, @incident)";
+
+                    cmd.Parameters.AddWithValue("@user", userId);
+                    cmd.Parameters.AddWithValue("@method", DBRA.MethodId);
+                    cmd.Parameters.AddWithValue("@recipient", DBRA.RecipientId);
+                    cmd.Parameters.AddWithValue("@circumstance", DBRA.CircumstanceId);
+                    cmd.Parameters.AddWithValue("@disposition", DBRA.DispositionId);
+                    cmd.Parameters.AddWithValue("@incident", DBRA.IncidentId);
+
+                    DBRA.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+
+        public void UpdateDBRA(DBRA DBRA, int userId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE DBRA 
+                                        SET UserCompletedId = @user, 
+                                        MethodId = @method, 
+                                        RecipientId = @recipient, 
+                                        CircumstanceId = @circumstance, 
+                                        DispositionId =  @disposition, 
+                                        IncidentId = @incident
+                                        WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("@user", userId);
+                    cmd.Parameters.AddWithValue("@method", DBRA.MethodId);
+                    cmd.Parameters.AddWithValue("@recipient", DBRA.RecipientId);
+                    cmd.Parameters.AddWithValue("@circumstance", DBRA.CircumstanceId);
+                    cmd.Parameters.AddWithValue("@disposition", DBRA.DispositionId);
+                    cmd.Parameters.AddWithValue("@incident", DBRA.IncidentId);
+                    cmd.Parameters.AddWithValue("@id", DBRA.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void DeleteDBRA(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM DBRA
+                                        WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    cmd.ExecuteNonQuery();
                 }
             }
         }

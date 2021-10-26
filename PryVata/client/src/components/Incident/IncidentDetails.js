@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useHistory, Link } from "react-router-dom";
 import { getIncidentById, deleteIncident } from "../../modules/IncidentManager";
-
+import DBRAList from "../DBRA/DBRAList";
 
 
 
@@ -12,8 +12,9 @@ const IncidentDetails = () => {
     const history = useHistory();
 
     useEffect(() => {
-    getIncidentById(id).then((i) => { setIncident(i)
-})
+    getIncidentById(id).then((i) => { 
+        setIncident(i)
+            })
 }, []);
 
 const deleteAnIncident = (event) => {
@@ -32,6 +33,7 @@ if(!incident) {
     return null;
 }
 
+
 return (
     <>
     <div className="container">
@@ -43,6 +45,8 @@ return (
         <br/>
         <Link to={`/incident/edit/${incident.id}`}>Edit</Link>
         <button onClick={deleteAnIncident}>Delete</button>
+
+        <DBRAList/>
     </div>
     </>
 )
