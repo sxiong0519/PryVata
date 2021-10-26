@@ -8,9 +8,8 @@ const DBRA = ({ db }) => {
       <>
       <Card >
       <CardBody className="DBRACard">
-            {db.id}
-          {/* <Link to={`/DBRA/detail/${DBRA.id}`}>{DBRA.title}</Link>
-       */}
+          <Link to={`/DBRA/detail/${db.id}`}>View DBRA Details</Link>
+      
       </CardBody>   
     </Card>
     </>

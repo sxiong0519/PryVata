@@ -20,7 +20,7 @@ const DBRAList = () => {
     .then((resp) => setIncident(resp))
   }, []);
 
-  const findDBRA = DBRAs.filter(d => d.incidentId == parseInt(id))
+  const findDBRA = DBRAs.filter(d => d.incidentId === parseInt(id))
 
   return (
     <div className="container">
