@@ -95,15 +95,16 @@ namespace PryVata.Repositories
                 {
                     cmd.CommandText = @"SELECT 
                                         d.Id AS DBRAId, UserCompleteId, MethodId, RecipientId, CircumstanceId,
-                                        DispositionId,
+                                        DispositionId, IncidentId,
 
                                         FullName,                                        
-                                        Method,
-                                        Recipient,
-                                        Circumstance,
-                                        Disposition,
-                                        i.Id AS InformationId, InformationType,
-                                        co.Id AS ControlsId, Controls
+                                        Method, MethodValue,
+                                        Recipient, RecipientValue,
+                                        Circumstance, CircumstanceValue,
+                                        Disposition, DispositionValue,
+                                        i.Id AS InformationId, InformationType, InformationValue,
+                                        co.Id AS ControlsId, Controls, ControlsValue,
+                                        db.Id AS DBRAInformationId
 
                                         FROM DBRA d
                                         LEFT JOIN [User] u ON d.UserCompleteId = u.Id
@@ -159,37 +160,43 @@ namespace PryVata.Repositories
                                     Disposition = DbUtils.GetString(reader, "Disposition"),
                                     DispositionValue = DbUtils.GetInt(reader, "DispositionValue")
                                 },
-                                Information = new List<Information>(),
-                                Control = new List<Controls>()
+                                Information = new List<DBRAInformation>(),
+                                Control = new List<Controls>(),
+                                IncidentId = DbUtils.GetInt(reader, "IncidentId")
                             };
+                        }
 
-                            if (DbUtils.IsNotDbNull(reader, "InformationId"))
+                            if (DbUtils.IsNotDbNull(reader, "DBRAInformationId"))
                             {
-                                DBRA.Information.Add(new Information
+                                DBRA.Information.Add(new DBRAInformation
                                 {
-                                    Id = DbUtils.GetInt(reader, "InformationId"),
-                                    InformationType = DbUtils.GetString(reader, "InformationType"),
-                                    InformationValue = DbUtils.GetInt(reader, "InformationValue")
+                                    Id = DbUtils.GetInt(reader, "DBRAInformationId"),
+                                    InformationId = DbUtils.GetInt(reader, "InformationId"),
+                                    Information = new Information
+                                    {
+                                        InformationType = DbUtils.GetString(reader, "InformationType"),
+                                        InformationValue = DbUtils.GetInt(reader, "InformationValue")
+                                    }
                                 });
                             }
 
-                            if (DbUtils.IsNotDbNull(reader, "ControlId"))
+                            if (DbUtils.IsNotDbNull(reader, "ControlsId"))
                             {
                                 DBRA.Control.Add(new Controls
                                 {
                                     Id = DbUtils.GetInt(reader, "ControlsId"),
-                                    Control = DbUtils.GetString(reader, "Control"),
-                                    ControlValue = DbUtils.GetInt(reader, "ControlValue")
+                                    Control = DbUtils.GetString(reader, "Controls"),
+                                    ControlValue = DbUtils.GetInt(reader, "ControlsValue")
                                 });
                             }
                         }
-
-                    }
                     reader.Close();
                     return DBRA;
                 }
+                    
+                }
             }
-        }
+        
 
         public void AddDBRA(DBRA DBRA, int userId)
         {
