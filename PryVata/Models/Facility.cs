@@ -13,6 +13,6 @@ namespace PryVata.Models
         public string City { get; set; }
         public string State { get; set; }
         public int ZipCode { get; set; }
-        public bool isDeleted { get; set; }
+        public bool? isDeleted { get; set; }
     }
 }

@@ -2,9 +2,9 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import { getToken } from "./authManager";
 
-const baseUrl = '/api/incident';
+const baseUrl = '/api/facility';
 
-export const getAllIncidents = () => {
+export const getAllFacilities = () => {
   return getToken().then((token) => {  
   return fetch(baseUrl, {
     method: "GET",
@@ -14,18 +14,8 @@ export const getAllIncidents = () => {
   }).then(resp => resp.json())
   });
 }
-  export const getMyIncidents = (id) => {
-    return getToken().then((token) => {
-      return fetch(`${baseUrl}/myIncident`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-    }).then(resp => resp.json())
-});
-}
 
-export const getIncidentById = (id) => {
+export const getFacilityById = (id) => {
   return getToken().then((token) => {  
     return fetch(`${baseUrl}/${id}`, {
       method: "GET",
@@ -36,7 +26,7 @@ export const getIncidentById = (id) => {
 });
 }
 
-export const addIncident = (incident) => {
+export const addFacility = (facility) => {
   return getToken().then((token) => {
     return fetch(baseUrl, {
       method: "POST",
@@ -44,27 +34,27 @@ export const addIncident = (incident) => {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(incident)
+      body: JSON.stringify(facility)
     }).then(resp => resp.json())
 });
 }
 
-export const updateIncident = (incident) => {
+export const updateFacility = (facility) => {
   return getToken().then((token) => {
-    return fetch(`${baseUrl}/edit/${incident.id}`, {
+    return fetch(`${baseUrl}/edit/${facility.id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(incident)
-    }).then(resp => getAllIncidents());
+      body: JSON.stringify(facility)
+    }).then(resp => getAllFacilities());
   })
 };
 
-export const deleteIncident = (incidentId) => {
+export const deleteFacility = (facilityId) => {
   return getToken().then((token) => {
-    return fetch(`${baseUrl}/${incidentId}`, {
+    return fetch(`${baseUrl}/delete/${facilityId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,

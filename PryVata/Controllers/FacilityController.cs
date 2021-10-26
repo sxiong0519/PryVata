@@ -23,9 +23,9 @@ namespace PryVata.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var facility = _facilityRepository.GetAllFacilities();
+            List<Facility> facilities = _facilityRepository.GetAllFacilities();
 
-            return Ok(facility);
+            return Ok(facilities);
         }
 
 

@@ -108,14 +108,14 @@ namespace PryVata.Repositories
                                 Description = DbUtils.GetString(reader, "IncidentDescription"),
                                 DateReported = DbUtils.GetDateTime(reader, "DateReported"),
                                 DateOccurred = DbUtils.GetDateTime(reader, "DateOccurred"),
-                                NotesId = DbUtils.GetInt(reader, "NotesId"),
+                                NotesId = DbUtils.GetNullableInt(reader, "NotesId"),
                                 Notes = new List<Notes>(),
                                 FacilityId = DbUtils.GetInt(reader, "Facility Id"),
                                 Facility = new Facility
                                 {
                                     FacilityName = DbUtils.GetString(reader, "FacilityName"),
                                 },
-                                PatientId = DbUtils.GetInt(reader, "PatientId"),
+                                PatientId = DbUtils.GetNullableInt(reader, "PatientId"),
                                 Patient = new List<Patient>(),
                                 Confirmed = DbUtils.GetNullableBool(reader, "Confirmed"),
                                 Reportable = DbUtils.GetNullableBool(reader, "Reportable"),
@@ -219,7 +219,7 @@ namespace PryVata.Repositories
 
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"DELETE * FROM Incident 
+                    cmd.CommandText = @"DELETE FROM Incident 
                                         WHERE Id = @id";
 
                     DbUtils.AddParameter(cmd, "@Id", id);

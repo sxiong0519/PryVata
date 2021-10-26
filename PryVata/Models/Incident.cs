@@ -14,11 +14,11 @@ namespace PryVata.Models
         public string Description { get; set; }
         public DateTime DateReported { get; set; }
         public DateTime DateOccurred { get; set; }
-        public int NotesId { get; set; }
+        public int? NotesId { get; set; }
         public List<Notes> Notes { get; set; }
         public int FacilityId { get; set; }
         public Facility Facility { get; set; }
-        public int PatientId { get; set; }
+        public int? PatientId { get; set; }
         public List<Patient> Patient { get; set; }
         public bool? Confirmed { get; set; }
         public int? DBRAId { get; set; }

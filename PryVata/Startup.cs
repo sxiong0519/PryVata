@@ -25,6 +25,16 @@ namespace PryVata
         {
        
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IFacilityRepository, FacilityRepository>();
+            services.AddTransient<ICircumstanceRepository, CircumstanceRepository>();
+            services.AddTransient<IDBRARepository, DBRARepository>();
+            services.AddTransient<IDispositionRepository, DispositionRepository>();
+            services.AddTransient<IExceptionRepository, ExceptionRepository>();
+            services.AddTransient<IInformationRepository, InformationRepository>();
+            services.AddTransient<IMethodRepository, MethodRepository>();
+            services.AddTransient<INotesRepository, NotesRepository>();
+            services.AddTransient<IPatientRepository, PatientRepository>();
+            services.AddTransient<IRecipientRepository, RecipientRepository>();
             services.AddTransient<IIncidentRepository, IncidentRepository>();
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");

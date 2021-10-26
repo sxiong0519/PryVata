@@ -81,7 +81,8 @@ CREATE TABLE [DBRA] (
   [CircumstanceId] integer NOT NULL,
   [DispositionId] integer NOT NULL,
   [InformationId] integer NOT NULL,
-  [ControlsId] integer NOT NULL
+  [ControlsId] integer NOT NULL,
+  [IncidentId] integer NOT NULL,
 )
 GO
 
@@ -162,7 +163,7 @@ GO
 ALTER TABLE [Incident] ADD FOREIGN KEY ([FacilityId]) REFERENCES [Facility] ([Id])
 GO
 
-ALTER TABLE [Incident] ADD FOREIGN KEY ([DBRAId]) REFERENCES [DBRA] ([Id]) ON DELETE CASCADE ON UPDATE NO ACTION
+ALTER TABLE [DBRA] ADD FOREIGN KEY ([IncidentId]) REFERENCES [Incident] ([Id]) ON DELETE CASCADE ON UPDATE NO ACTION
 GO
 
 ALTER TABLE [DBRA] ADD FOREIGN KEY ([UserCompleteId]) REFERENCES [User] ([Id])
@@ -189,11 +190,11 @@ GO
 ALTER TABLE [User] ADD FOREIGN KEY ([FacilityId]) REFERENCES [Facility] ([Id])
 GO
 
-ALTER TABLE [DBRA] ADD FOREIGN KEY ([InformationId]) REFERENCES [Information] ([Id])
+ALTER TABLE [DBRA] ADD FOREIGN KEY ([InformationId]) REFERENCES [Information] ([Id]) 
 GO
 
-ALTER TABLE [Patient] ADD FOREIGN KEY ([IncidentId]) REFERENCES [Incident] ([Id])
+ALTER TABLE [Patient] ADD FOREIGN KEY ([IncidentId]) REFERENCES [Incident] ([Id]) ON DELETE CASCADE ON UPDATE NO ACTION
 GO
 
-ALTER TABLE [Notes] ADD FOREIGN KEY ([IncidentId]) REFERENCES [Incident] ([Id])
+ALTER TABLE [Notes] ADD FOREIGN KEY ([IncidentId]) REFERENCES [Incident] ([Id]) ON DELETE CASCADE ON UPDATE NO ACTION
 GO
