@@ -30,6 +30,8 @@ DROP TABLE IF EXISTS [RecipientType];
 DROP TABLE IF EXISTS [User];
 DROP TABLE IF EXISTS [UserType];
 DROP TABLE IF EXISTS [PatientIncident];
+DROP TABLE IF EXISTS [DBRAInformation];
+DROP TABLE IF EXISTS [DBRAControls];
 
 
 
@@ -75,14 +77,11 @@ GO
 
 CREATE TABLE [DBRA] (
   [Id] integer PRIMARY KEY IDENTITY,
-  [IncidentTypeId] integer NOT NULL,
   [UserCompleteId] integer NOT NULL,
   [MethodId] integer NOT NULL,
   [RecipientId] integer NOT NULL,
   [CircumstanceId] integer NOT NULL,
   [DispositionId] integer NOT NULL,
-  [InformationId] integer NOT NULL,
-  [ControlsId] integer NOT NULL,
   [IncidentId] integer NOT NULL,
 )
 GO
@@ -164,6 +163,20 @@ CREATE TABLE [PatientIncident] (
 )
 GO
 
+CREATE TABLE [DBRAInformation] (
+  [Id] integer PRIMARY KEY IDENTITY,
+  [DBRAId] integer NOT NULL,
+  [InformationId] integer NOT NULL
+)
+GO
+
+CREATE TABLE [DBRAControls] (
+  [Id] integer PRIMARY KEY IDENTITY,
+  [DBRAId] integer NOT NULL,
+  [ControlsId] integer NOT NULL
+)
+GO
+
 ALTER TABLE [Incident] ADD FOREIGN KEY ([AssignedUserId]) REFERENCES [User] ([Id])
 GO
 
@@ -188,16 +201,10 @@ GO
 ALTER TABLE [DBRA] ADD FOREIGN KEY ([DispositionId]) REFERENCES [Disposition] ([Id])
 GO
 
-ALTER TABLE [DBRA] ADD FOREIGN KEY ([ControlsId]) REFERENCES [Controls] ([Id])
-GO
-
 ALTER TABLE [User] ADD FOREIGN KEY ([UserTypeId]) REFERENCES [UserType] ([Id])
 GO
 
 ALTER TABLE [User] ADD FOREIGN KEY ([FacilityId]) REFERENCES [Facility] ([Id])
-GO
-
-ALTER TABLE [DBRA] ADD FOREIGN KEY ([InformationId]) REFERENCES [Information] ([Id]) 
 GO
 
 ALTER TABLE [PatientIncident] ADD FOREIGN KEY ([IncidentId]) REFERENCES [Incident] ([Id]) ON DELETE CASCADE ON UPDATE NO ACTION
@@ -207,4 +214,16 @@ ALTER TABLE [PatientIncident] ADD FOREIGN KEY ([PatientId]) REFERENCES [Patient]
 GO
 
 ALTER TABLE [Notes] ADD FOREIGN KEY ([IncidentId]) REFERENCES [Incident] ([Id]) ON DELETE CASCADE ON UPDATE NO ACTION
+GO
+
+ALTER TABLE [DBRAInformation] ADD FOREIGN KEY ([DBRAId]) REFERENCES [DBRA] ([Id]) ON DELETE CASCADE ON UPDATE NO ACTION
+GO
+
+ALTER TABLE [DBRAInformation] ADD FOREIGN KEY ([InformationId]) REFERENCES [Information] ([Id]) 
+GO
+
+ALTER TABLE [DBRAControls] ADD FOREIGN KEY ([DBRAId]) REFERENCES [DBRA] ([Id]) ON DELETE CASCADE ON UPDATE NO ACTION
+GO
+
+ALTER TABLE [DBRAControls] ADD FOREIGN KEY ([ControlsId]) REFERENCES [Controls] ([Id]) 
 GO

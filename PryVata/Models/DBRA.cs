@@ -8,8 +8,6 @@ namespace PryVata.Models
     public class DBRA
     {
         public int Id { get; set; }
-        public int IncidentTypeId { get; set; }
-        public IncidentType IncidentType { get; set; }
         public int UserCompletedId { get; set; }
         public User User { get; set; }
         public int MethodId { get; set; }
@@ -24,5 +22,6 @@ namespace PryVata.Models
         public List<Information> Information { get; set; }
         public int ControlsId { get; set; }
         public List<Controls> Control { get; set; }
+        public int IncidentId { get; set; }
     }
 }
