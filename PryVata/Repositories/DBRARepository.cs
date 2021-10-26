@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PryVata.Repositories
 {
-    public class DBRARepository : BaseRepository
+    public class DBRARepository : BaseRepository, IDBRARepository
     {
         public DBRARepository(IConfiguration configuration) : base(configuration) { }
 

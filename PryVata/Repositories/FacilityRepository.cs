@@ -36,7 +36,8 @@ namespace PryVata.Repositories
                             Address = DbUtils.GetString(reader, "Address"),
                             City = DbUtils.GetString(reader, "City"),
                             State = DbUtils.GetString(reader, "State"),
-                            ZipCode = DbUtils.GetInt(reader, "ZipCode")
+                            ZipCode = DbUtils.GetInt(reader, "ZipCode"),
+                            isDeleted = DbUtils.GetNullableBool(reader, "isDeleted")
                         });
                     }
 

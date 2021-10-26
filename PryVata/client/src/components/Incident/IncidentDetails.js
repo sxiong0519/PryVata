@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 import { getIncidentById } from "../../modules/IncidentManager";
 
 
@@ -29,6 +29,7 @@ return (
         <br/>
         Description: {incident.description}
         <br/>
+        <Link to={`/incident/edit/${incident.id}`}>Edit</Link>
     </div>
     </>
 )

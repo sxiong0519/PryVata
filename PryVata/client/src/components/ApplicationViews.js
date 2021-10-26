@@ -20,15 +20,22 @@ export default function ApplicationViews({ isLoggedIn }) {
         </Route>
 
         <Route path="/incident" exact>
-          <IncidentList />
+        {isLoggedIn ? <IncidentList /> : <Redirect to="/login" />}
+          
         </Route>
 
         <Route path="/incident/detail/:id">
-          <IncidentDetails />
+        {isLoggedIn ? <IncidentDetails /> : <Redirect to="/login" />}
+          
         </Route>
 
         <Route path="/incident/add">
-          <IncidentForm />
+        {isLoggedIn ? <IncidentForm /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/incident/edit/:id">
+        {isLoggedIn ? <IncidentForm /> : <Redirect to="/login" />}
+          
         </Route>
 
         {/* <Route path="/register">

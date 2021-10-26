@@ -47,7 +47,7 @@ namespace PryVata.Controllers
             return CreatedAtAction("Get", new { id = incident.Id }, incident);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("edit/{id}")]
         public IActionResult Put(int id, Incident incident)
         {
             if (id != incident.Id)

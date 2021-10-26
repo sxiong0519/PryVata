@@ -1,14 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from 'react-router-dom';
+import { getAllFacilities } from "../../modules/facilityManager";
 import { addIncident, getIncidentById, updateIncident } from "../../modules/IncidentManager";
-// import { getAllUsers } from "../../modules/usersManager"
+import { getAllUsers } from "../../modules/userManager"
 
 const IncidentForm = () => {
     const [incident, setIncident] = useState({})
     const [users, setUsers] = useState([])
+    const [facilities, setFacilities] = useState([])
     const history = useHistory();
     const incidentId = useParams();
 
+    useEffect(() => {
+        if(incidentId)
+        {
+            getIncidentById(incidentId)
+            .then((i) => setIncident(i))
+        }
+        getAllUsers().then(u => {setUsers(u)})
+        getAllFacilities().then(f => {setFacilities(f)})
+    }, [])
   
 
     const handleControlledInputChange = (event) => {
@@ -17,35 +28,35 @@ const IncidentForm = () => {
           setIncident(newIncident)
         }
 
-        const handleClickSavePost = () => {
+        const handleClickSaveIncident = () => {
             if (incident.title === undefined || incident.description === undefined) {
                 window.alert("Please complete the form")
             } 
-            // else if (postId) {
-            //     updatePost({
-            //         id: postId,
-            //         title: post.title,
-            //         content: post.content,
-            //         imageLocation: post.imageLocation,
-            //         createDateTime: new Date(Date.now()).toISOString(),
-            //         publishDateTime: post.publishDateTime,
-            //         isApproved: true,
-            //         categoryId: post.categoryId
-            //     })
-            //     .then((p) => history.push("/posts"))
-            // } 
-            else {
-                const newIncident = {
-                    assignedUserId: 1,
+            else if (incidentId) {
+                updateIncident({
+                    id: incidentId,
                     title: incident.title,
                     description: incident.description,
                     // dateCreated: new Date(Date.now()).toISOString(),
                     dateReported: incident.dateReported,
                     dateOccurred: incident.dateOccurred,
-                    facilityId: 2,
+                    facilityId: incident.facilityId,
                     confirmed: null,
-                    reportable: null,
-                    DBRAId: null
+                    reportable: null
+                })
+                .then((p) => history.push(`/incident/details/${incidentId}`))
+            } 
+            else {
+                const newIncident = {
+                    assignedUserId: incident.assignedUserId,
+                    title: incident.title,
+                    description: incident.description,
+                    // dateCreated: new Date(Date.now()).toISOString(),
+                    dateReported: incident.dateReported,
+                    dateOccurred: incident.dateOccurred,
+                    facilityId: incident.facilityId,
+                    confirmed: null,
+                    reportable: null
               }
               addIncident(newIncident)
               .then((i) => history.push("/incident"))
@@ -56,7 +67,7 @@ const IncidentForm = () => {
                 <>
                 <center>
                 <form className="IncidentForm">
-                    <h2 className="IncidentForm__title post_header">Create a New Post</h2>
+                    <h2 className="IncidentForm__title post_header">{!incidentId ? "Create a New Incident" : "Update Incident" }</h2>
                     <fieldset>
                         <div className="form-group">
                             <label htmlFor="title">Title</label>
@@ -69,19 +80,32 @@ const IncidentForm = () => {
                             <input type="text" id="description" required autoFocus className="form-control" placeholder="Required" value={incident.description} onChange={handleControlledInputChange} />
                         </div>
                     </fieldset>
-                    {/* <fieldset>
+                    <fieldset>
                   <div className="form-group">
-                    <label htmlFor="category">Category</label>
-                    <select value={post.categoryId} name="categoryId" id="categoryId" className="form-control" onChange={handleControlledInputChange}>
-                      <option value="0">Select a Category</option>
-                      {category.map(c => (
-                        <option key={c.id} value={c.id}>
-                          {c.name}
+                    <label htmlFor="assignedUserId">Investigator</label>
+                    <select value={incident.assignedUserId} name="assignedUserId" id="assignedUserId" className="form-control" onChange={handleControlledInputChange}>
+                      <option value="0">Select an Investigator</option>
+                      {users.map(u => (
+                        <option key={u.id} value={u.id}>
+                          {u.fullName}
                         </option>
                       ))}
                     </select>
                   </div>
-                  </fieldset> */}
+                  </fieldset>
+                  <fieldset>
+                  <div className="form-group">
+                    <label htmlFor="facilityId">Facility</label>
+                    <select value={incident.facilityId} name="facilityId" id="facilityId" className="form-control" onChange={handleControlledInputChange}>
+                      <option value="0">Select a Facility</option>
+                      {facilities.map(f => (
+                        <option key={f.id} value={f.id}>
+                          {f.facilityName}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  </fieldset>
                   <fieldset>
                         <div className="form-group">
                             <label htmlFor="dateReported">Date Reported</label>
@@ -109,7 +133,7 @@ const IncidentForm = () => {
                     <div className="buttons"><button className="pfbtns" onClick={
                         (event) => {
                             event.preventDefault()
-                            handleClickSavePost()
+                            handleClickSaveIncident()
                         }
                     }>
                     Save Incident
