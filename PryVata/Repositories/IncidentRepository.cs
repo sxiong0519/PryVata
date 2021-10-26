@@ -79,13 +79,14 @@ namespace PryVata.Repositories
                                 
                                         FacilityName,
                     
-                                        p.Id AS PatientId, PatientNumber, FirstName, LastName
+                                        p.Id AS 'Patient Id', PatientNumber, FirstName, LastName
 
                                         FROM Incident i 
                                         LEFT JOIN Notes n ON i.Id = n.IncidentId
                                         LEFT JOIN Facility f ON i.FacilityId = f.Id
                                         LEFT JOIN [User] u ON i.AssignedUserId = u.Id
-                                        LEFT JOIN Patient p ON i.Id = p.IncidentId
+                                        LEFT JOIN PatientIncident pi ON i.Id = pi.IncidentId
+                                        LEFT JOIN Patient p ON p.id = pi.PatientId
                                         WHERE i.Id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
 
@@ -115,7 +116,7 @@ namespace PryVata.Repositories
                                 {
                                     FacilityName = DbUtils.GetString(reader, "FacilityName"),
                                 },
-                                PatientId = DbUtils.GetNullableInt(reader, "PatientId"),
+                                PatientId = DbUtils.GetNullableInt(reader, "Patient Id"),
                                 Patient = new List<Patient>(),
                                 Confirmed = DbUtils.GetNullableBool(reader, "Confirmed"),
                                 Reportable = DbUtils.GetNullableBool(reader, "Reportable"),
@@ -131,7 +132,7 @@ namespace PryVata.Repositories
                             });
                         }
 
-                        if (DbUtils.IsNotDbNull(reader, "PatientId"))
+                        if (DbUtils.IsNotDbNull(reader, "Patient Id"))
                         {
                             incident.Patient.Add(new Patient
                             {

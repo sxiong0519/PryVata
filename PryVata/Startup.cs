@@ -43,7 +43,7 @@ namespace PryVata
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                    /*options.Authority = googleTokenUrl;*/
+                    options.Authority = googleTokenUrl;
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,

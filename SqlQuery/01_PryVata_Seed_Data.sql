@@ -94,6 +94,11 @@ set identity_insert [Notes] off
 
 --Patient
 set identity_insert [Patient] on
-insert into [Patient] (Id, PatientNumber, FirstName, LastName, IncidentId) VALUES (1, 12345678, 'Harry', 'Potter', 1);
+insert into [Patient] (Id, PatientNumber, FirstName, LastName) VALUES (1, 12345678, 'Harry', 'Potter');
 set identity_insert [Patient] off
 
+--PatientIncident
+
+set identity_insert [PatientIncident] on
+insert into [PatientIncident] (Id, IncidentId, PatientId) VALUES (1, 1, 1);
+set identity_insert [PatientIncident] off
