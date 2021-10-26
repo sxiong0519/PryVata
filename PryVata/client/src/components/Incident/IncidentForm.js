@@ -9,8 +9,7 @@ const IncidentForm = () => {
     const history = useHistory();
     const incidentId = useParams();
 
-    useEffect(() =>
-    get)
+  
 
     const handleControlledInputChange = (event) => {
         const newIncident = { ...incident }
@@ -37,15 +36,16 @@ const IncidentForm = () => {
             // } 
             else {
                 const newIncident = {
-                    assignedUserId: incident,
-                    title: post.title,
-                    description: post.content,
-                    dateCreated: new Date(Date.now()).toISOString(),
-                    dateReported: post.publishDateTime,
-                    dateOccurred: post.publishDateTime,
-                    facilityId: incident,
-                    confirmed: incident,
-                    reportable: incident
+                    assignedUserId: 1,
+                    title: incident.title,
+                    description: incident.description,
+                    // dateCreated: new Date(Date.now()).toISOString(),
+                    dateReported: incident.dateReported,
+                    dateOccurred: incident.dateOccurred,
+                    facilityId: 2,
+                    confirmed: null,
+                    reportable: null,
+                    DBRAId: null
               }
               addIncident(newIncident)
               .then((i) => history.push("/incident"))
@@ -66,7 +66,7 @@ const IncidentForm = () => {
                     <fieldset>
                         <div className="form-group">
                             <label htmlFor="description">Description</label>
-                            <input type="text" id="description" required autoFocus className="form-control" placeholder="Required" value={incident.title} onChange={handleControlledInputChange} />
+                            <input type="text" id="description" required autoFocus className="form-control" placeholder="Required" value={incident.description} onChange={handleControlledInputChange} />
                         </div>
                     </fieldset>
                     {/* <fieldset>
@@ -94,7 +94,7 @@ const IncidentForm = () => {
                             <input type="date" id="dateOccurred" required autoFocus className="form-control" placeholder="Enter a date" value={incident.dateOccurred} onChange={handleControlledInputChange} />
                         </div>
                  </fieldset>
-                    <fieldset>
+                    {/* <fieldset>
                         <div className="form-group">
                             <label htmlFor="imageLocation">Image Location</label>
                             <input type="text" id="imageLocation" autoFocus className="form-control" placeholder="" value={post.imageLocation} onChange={handleControlledInputChange} />
@@ -105,15 +105,15 @@ const IncidentForm = () => {
                             <label htmlFor="content">Body</label>
                             <textarea type="text" id="content" required autoFocus className="form-control" placeholder="Required" rows="10" columns="5" value={post.content} onChange={handleControlledInputChange} />
                         </div>
-                    </fieldset>
+                    </fieldset> */}
                     <div className="buttons"><button className="pfbtns" onClick={
                         (event) => {
                             event.preventDefault()
                             handleClickSavePost()
                         }
                     }>
-                    {postId ? "Update Post" : "Save post"}
-                    </button> {postId ? <button className="pfbtns" onClick={() => history.goBack()}>Cancel</button> : ""}</div> 
+                    Save Incident
+                    </button> {incidentId ? <button className="pfbtns" onClick={() => history.goBack()}>Cancel</button> : ""}</div> 
                 </form>
                 </center>
                 </>

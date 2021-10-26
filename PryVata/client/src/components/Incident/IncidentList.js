@@ -17,6 +17,9 @@ const IncidentList = () => {
 
   return (
     <div className="container">
+      <div>
+        <Link to="/incident/add">New Incident</Link>
+      </div>
       {incidents.map((incident) => (
           <Incident incident={incident} key={incident.id} />
         ))}

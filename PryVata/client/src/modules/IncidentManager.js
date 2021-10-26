@@ -39,7 +39,7 @@ export const getIncidentById = (id) => {
 export const addIncident = (incident) => {
   return getToken().then((token) => {
     return fetch(baseUrl, {
-      method: "Incident",
+      method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json"

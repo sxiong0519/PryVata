@@ -4,6 +4,7 @@ import Login from "./Authorization/Login";
 import Hello from "./Hello";
 import IncidentList from "./Incident/IncidentList";
 import IncidentDetails from "./Incident/IncidentDetails";
+import IncidentForm from "./Incident/IncidentForm";
 
 export default function ApplicationViews({ isLoggedIn }) {
 
@@ -24,6 +25,10 @@ export default function ApplicationViews({ isLoggedIn }) {
 
         <Route path="/incident/detail/:id">
           <IncidentDetails />
+        </Route>
+
+        <Route path="/incident/add">
+          <IncidentForm />
         </Route>
 
         {/* <Route path="/register">
