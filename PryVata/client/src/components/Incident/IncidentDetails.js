@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useHistory, Link } from "react-router-dom";
-import { getIncidentById } from "../../modules/IncidentManager";
+import { getIncidentById, deleteIncident } from "../../modules/IncidentManager";
 
 
 
@@ -16,6 +16,18 @@ const IncidentDetails = () => {
 })
 }, []);
 
+const deleteAnIncident = (event) => {
+    event.preventDefault();
+    const confirmDelete = window.confirm(
+      "Are you sure you would like to delete the incident?"
+    );
+    if (confirmDelete) {
+      deleteIncident(incident.id).then(() => {
+        history.push("/incident");
+      });
+    }
+  };
+
 if(!incident) {
     return null;
 }
@@ -30,6 +42,7 @@ return (
         Description: {incident.description}
         <br/>
         <Link to={`/incident/edit/${incident.id}`}>Edit</Link>
+        <button onClick={deleteAnIncident}>Delete</button>
     </div>
     </>
 )

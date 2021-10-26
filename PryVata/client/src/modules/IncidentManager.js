@@ -64,7 +64,7 @@ export const updateIncident = (incident) => {
 
 export const deleteIncident = (incidentId) => {
   return getToken().then((token) => {
-    return fetch(`${baseUrl}/delete/${incidentId}`, {
+    return fetch(`${baseUrl}/${incidentId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,

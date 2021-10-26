@@ -219,7 +219,7 @@ namespace PryVata.Repositories
 
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"DELETE * FROM Incident 
+                    cmd.CommandText = @"DELETE FROM Incident 
                                         WHERE Id = @id";
 
                     DbUtils.AddParameter(cmd, "@Id", id);

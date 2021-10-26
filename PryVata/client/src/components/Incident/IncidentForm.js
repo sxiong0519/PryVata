@@ -9,13 +9,13 @@ const IncidentForm = () => {
     const [users, setUsers] = useState([])
     const [facilities, setFacilities] = useState([])
     const history = useHistory();
-    const incidentId = useParams();
+    const { incidentId } = useParams();
 
     useEffect(() => {
         if(incidentId)
         {
             getIncidentById(incidentId)
-            .then((i) => setIncident(i))
+            .then((i) => {setIncident(i)})
         }
         getAllUsers().then(u => {setUsers(u)})
         getAllFacilities().then(f => {setFacilities(f)})
