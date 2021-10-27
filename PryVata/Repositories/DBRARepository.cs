@@ -160,28 +160,26 @@ namespace PryVata.Repositories
                                     Disposition = DbUtils.GetString(reader, "Disposition"),
                                     DispositionValue = DbUtils.GetInt(reader, "DispositionValue")
                                 },
-                                Information = new List<DBRAInformation>(),
+                                Information = new List<Information>(),
                                 Control = new List<Controls>(),
                                 IncidentId = DbUtils.GetInt(reader, "IncidentId")
                             };
                         }
 
-                            if (DbUtils.IsNotDbNull(reader, "DBRAInformationId"))
+                            if (DbUtils.IsNotDbNull(reader, "InformationId"))
                             {
-                                DBRA.Information.Add(new DBRAInformation
+                                if(!DBRA.Information.Any(i => i.Id == DbUtils.GetInt(reader, "InformationId")))
+                                DBRA.Information.Add(new Information
                                 {
-                                    Id = DbUtils.GetInt(reader, "DBRAInformationId"),
-                                    InformationId = DbUtils.GetInt(reader, "InformationId"),
-                                    Information = new Information
-                                    {
+                                        Id = DbUtils.GetInt(reader, "InformationId"),
                                         InformationType = DbUtils.GetString(reader, "InformationType"),
-                                        InformationValue = DbUtils.GetInt(reader, "InformationValue")
-                                    }
+                                        InformationValue = DbUtils.GetInt(reader, "InformationValue")                                
                                 });
                             }
 
                             if (DbUtils.IsNotDbNull(reader, "ControlsId"))
                             {
+                                if(!DBRA.Control.Any(c => c.Id == DbUtils.GetInt(reader, "ControlsId")))
                                 DBRA.Control.Add(new Controls
                                 {
                                     Id = DbUtils.GetInt(reader, "ControlsId"),

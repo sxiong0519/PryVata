@@ -48,7 +48,7 @@ return (
         <br/>
         <ListGroup>
         Information: {DBRA.information.map(i => 
-            <ListGroupItem>{i.information.informationType}</ListGroupItem>)}
+            <ListGroupItem>{i.informationType}</ListGroupItem>)}
         </ListGroup>
         <ListGroup>
         Controls: {DBRA.control.map(c =>
