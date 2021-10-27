@@ -211,7 +211,7 @@ const IncidentForm = () => {
             </div>
           </div>
           </fieldset>
-          {(id && incident.confirmed == true) || confirmed == true ? <> <fieldset>
+          {(id && incident.confirmed === true) || confirmed === true ? <> <fieldset>
           <div>
             <link
               href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css"
