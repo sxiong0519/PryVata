@@ -76,14 +76,15 @@ set identity_insert [Information] off
 
 set identity_insert [Exception] on
 insert into [Exception] (Id, Exception) VALUES (1, 'Good faith, unintentional acquisition, access or use of PHI by employee/workforce'),
-(2, 'Inadvertent disclosure to another authorized person within the entity or OHCA'), (3, 'Recipient could not reasonably have retained the data'), (4, 'Data is limited to limited data set that does not include dates of birth or zip codes');
+(2, 'Inadvertent disclosure to another authorized person within the entity or OHCA'), (3, 'Recipient could not reasonably have retained the data'), (4, 'Data is limited to limited data set that does not include dates of birth or zip codes'),
+(5, 'No exceptions met');
 set identity_insert [Exception] off
 
 --Controls
 
 set identity_insert [Controls] on
 insert into [Controls] (Id, Controls, ControlsValue) VALUES (1, 'Data Wiped', 1), (2, 'Encrypted/Destroyed – Non-NIST compliant', 1), (3, 'Physical/Policy Controls', 1),
-(4, 'Password Compliant (not compromised)', 2), (5, 'Password Protected (compromised)', 3), (6, 'No Controls/Unencrypted', 3);
+(4, 'Password Compliant (not compromised)', 2), (5, 'Password Protected (compromised)', 3), (6, 'No Controls/Unencrypted', 3), (7, 'Other - Provide explanation in the Notes portion', 3);
 set identity_insert [Controls] off
 
 --Incident
@@ -113,8 +114,8 @@ set identity_insert [PatientIncident] off
 --DBRATest 
 
 set identity_insert [DBRA] on
-insert into [DBRA] (Id, UserCompleteId, MethodId, RecipientId, CircumstanceId, DispositionId, IncidentId) VALUES
-(1, 2, 1, 3, 4, 3, 1);
+insert into [DBRA] (Id, ExceptionId, UserCompleteId, MethodId, RecipientId, CircumstanceId, DispositionId, IncidentId) VALUES
+(1, 5, 2, 1, 3, 4, 3, 1);
 set identity_insert [DBRA] off
 
 --DBRAInformation

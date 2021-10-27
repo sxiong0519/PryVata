@@ -77,12 +77,13 @@ GO
 
 CREATE TABLE [DBRA] (
   [Id] integer PRIMARY KEY IDENTITY,
-  [UserCompleteId] integer NOT NULL,
-  [MethodId] integer NOT NULL,
-  [RecipientId] integer NOT NULL,
-  [CircumstanceId] integer NOT NULL,
-  [DispositionId] integer NOT NULL,
-  [IncidentId] integer NOT NULL,
+  [ExceptionId] integer NOT NULL,
+  [UserCompleteId] integer,
+  [MethodId] integer,
+  [RecipientId] integer,
+  [CircumstanceId] integer,
+  [DispositionId] integer,
+  [IncidentId] integer 
 )
 GO
 

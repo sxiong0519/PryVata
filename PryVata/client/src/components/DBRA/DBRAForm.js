@@ -21,13 +21,13 @@ const DBRAForm = ({incident}) => {
     const [ dispositions, setDispositions ] = useState([]);
 
     //setting DBRA to fill out the new instance
-    const [ dbraMethod, setDbraMethod ] = useState({})
-    const [ dbraRecipient, setDbraRecipient ] = useState({})
-    const [ dbraCircumstance, setDbraCircumstance ] = useState({})
-    const [ dbraControl, setDbraControl ] = useState({})
+    const [ dbraMethod, setDbraMethod ] = useState(null)
+    const [ dbraRecipient, setDbraRecipient ] = useState(null)
+    const [ dbraCircumstance, setDbraCircumstance ] = useState(null)
+    const [ dbraControl, setDbraControl ] = useState(null)
     const [ dbraException, setDbraException ] = useState({})
-    const [ dbraInformation, setDbraInformation ] = useState({})
-    const [ dbraDisposition, setDbraDisposition ] = useState({})
+    const [ dbraInformation, setDbraInformation ] = useState(null)
+    const [ dbraDisposition, setDbraDisposition ] = useState(null)
 
     //method to call set to set data
     
@@ -78,13 +78,14 @@ console.log(dbraMethod, dbraRecipient)
         //   }).then((p) => history.push(`/incident/detail/${id}`));
         // } else {
           const newDBRA = {
+            exceptionId: dbraException,
             methodId: dbraMethod,
             recipientId: dbraRecipient,
             circumstanceId: dbraCircumstance,
             dispositionId: dbraDisposition,
             incidentId: incident.id
           };
-          addDBRA(newDBRA).then((d) => history.push("/incident"));
+          addDBRA(newDBRA).then((d) => history.goBack());
         }
     //   };
 
@@ -106,6 +107,7 @@ console.log(dbraMethod, dbraRecipient)
             </div>
           </fieldset>
           </form>
+          {dbraException === 5 ? <>
         <form className="DBRAForm">
           <fieldset>
             <div className="form-group">
@@ -183,7 +185,9 @@ console.log(dbraMethod, dbraRecipient)
                 ))}
             </div>
           </fieldset>
-          </form> */}
+          </form> */} </>
+          : "No other information needed... Continue to submit form"
+        }
           <form>
           <div className="buttons">
             <button
@@ -193,7 +197,7 @@ console.log(dbraMethod, dbraRecipient)
                 handleClickSaveDBRA();
               }}
             >
-              Save Incident
+              Submit
             </button>{" "}
             {/* {id ? (
               <button className="pfbtns" onClick={() => history.goBack()}>

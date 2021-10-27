@@ -209,11 +209,11 @@ namespace PryVata.Repositories
                                         VALUES (@user, @method, @recipient, @circumstance, @disposition, @incident)";
 
                     cmd.Parameters.AddWithValue("@user", userId);
-                    cmd.Parameters.AddWithValue("@method", DBRA.MethodId);
-                    cmd.Parameters.AddWithValue("@recipient", DBRA.RecipientId);
-                    cmd.Parameters.AddWithValue("@circumstance", DBRA.CircumstanceId);
-                    cmd.Parameters.AddWithValue("@disposition", DBRA.DispositionId);
-                    cmd.Parameters.AddWithValue("@incident", DBRA.IncidentId);
+                    cmd.Parameters.AddWithValue("@method", DbUtils.ValueOrDBNull(DBRA.MethodId));
+                    cmd.Parameters.AddWithValue("@recipient", DbUtils.ValueOrDBNull(DBRA.RecipientId));
+                    cmd.Parameters.AddWithValue("@circumstance", DbUtils.ValueOrDBNull(DBRA.CircumstanceId));
+                    cmd.Parameters.AddWithValue("@disposition", DbUtils.ValueOrDBNull(DBRA.DispositionId));
+                    cmd.Parameters.AddWithValue("@incident", DbUtils.ValueOrDBNull(DBRA.IncidentId));
 
                     DBRA.Id = (int)cmd.ExecuteScalar();
                 }
