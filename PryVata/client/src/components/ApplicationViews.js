@@ -48,6 +48,10 @@ export default function ApplicationViews({ isLoggedIn }) {
         {isLoggedIn ? <DBRAForm /> : <Redirect to="/login" />}          
         </Route>
 
+        <Route path="/DBRA/edit/:dbraId">
+        {isLoggedIn ? <DBRAForm /> : <Redirect to="/login" />}          
+        </Route>
+
         {/* <Route path="/register">
           <Register />
         </Route> */}

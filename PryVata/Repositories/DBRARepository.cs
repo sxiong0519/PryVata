@@ -251,6 +251,46 @@ namespace PryVata.Repositories
             }
         }
 
+        public void AddDBRAInformation(int infoId, int DBRAId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO DBRAInformation (DBRAId, InformationId)
+                                        OUTPUT INSERTED.Id 
+                                        VALUES (@dbraId, @informationId)";
+
+                    cmd.Parameters.AddWithValue("@dbraId", DbUtils.ValueOrDBNull(DBRAId));
+                    cmd.Parameters.AddWithValue("@informationId", DbUtils.ValueOrDBNull(infoId));
+
+                   cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void AddDBRAControls(int controlId, int DBRAId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO DBRAControls (DBRAId, ControlsId)
+                                        OUTPUT INSERTED.Id 
+                                        VALUES (@dbraId, @controlsId)";
+
+                    cmd.Parameters.AddWithValue("@dbraId", DbUtils.ValueOrDBNull(DBRAId));
+                    cmd.Parameters.AddWithValue("@controlsId", DbUtils.ValueOrDBNull(controlId));
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         public void UpdateDBRA(DBRA DBRA, int userId)
         {
             using (SqlConnection conn = Connection)

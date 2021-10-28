@@ -22,8 +22,10 @@ namespace PryVata.Models
         public Dispositions Disposition { get; set; }
         public int? InformationId { get; set; }
         public List<Information> Information { get; set; }
+        public List<int> InformationIds { get; set; }
         public int? ControlsId { get; set; }
         public List<Controls> Control { get; set; }
+        public List<int> ControlIds { get; set; }
         public int? IncidentId { get; set; }
     }
 }
