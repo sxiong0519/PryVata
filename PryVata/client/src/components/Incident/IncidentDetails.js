@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useHistory, Link } from "react-router-dom";
 import { getIncidentById, deleteIncident } from "../../modules/IncidentManager";
+import DBRAForm from "../DBRA/DBRAForm";
 import DBRAList from "../DBRA/DBRAList";
 
 
@@ -45,7 +46,7 @@ return (
         <br/>
         <Link to={`/incident/edit/${incident.id}`}>Edit</Link>
         <button onClick={deleteAnIncident}>Delete</button>
-
+        <DBRAForm incident={incident}/>
         <DBRAList/>
     </div>
     </>

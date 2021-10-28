@@ -44,11 +44,24 @@ namespace PryVata.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(DBRA dbra)
+        public IActionResult Post(DBRA DBRA)
         {
+            
             var currentUserProfile = GetCurrentUserProfile();
-            _dbraRepository.AddDBRA(dbra, currentUserProfile.Id);
-            return CreatedAtAction("Get", new { id = dbra.Id }, dbra);
+            _dbraRepository.AddDBRA(DBRA, currentUserProfile.Id);
+            if (DBRA.ExceptionId == 5)
+            {
+                foreach(int infoId in DBRA.InformationIds)
+                {
+                    _dbraRepository.AddDBRAInformation(infoId, DBRA.Id);
+                }
+
+                foreach(int controlId in DBRA.ControlIds)
+                {
+                    _dbraRepository.AddDBRAControls(controlId, DBRA.Id);
+                }
+            }
+            return CreatedAtAction("Get", new { id = DBRA.Id }, DBRA);
         }
 
         [HttpPut("edit/{id}")]

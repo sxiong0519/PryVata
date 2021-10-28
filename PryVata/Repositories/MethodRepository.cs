@@ -21,7 +21,7 @@ namespace PryVata.Repositories
 
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT * FROM Method";
+                    cmd.CommandText = @"SELECT * FROM MethodType";
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -32,7 +32,7 @@ namespace PryVata.Repositories
                         methods.Add(new Method
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
-                            MethodType = DbUtils.GetString(reader, "MethodType"),
+                            MethodType = DbUtils.GetString(reader, "Method"),
                             MethodValue = DbUtils.GetInt(reader, "MethodValue")
                         });
                     }
@@ -50,7 +50,7 @@ namespace PryVata.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT * FROM Method
+                    cmd.CommandText = @"SELECT * FROM MethodType
                                         WHERE Id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
 
@@ -65,7 +65,7 @@ namespace PryVata.Repositories
                             method = new Method
                             {
                                 Id = DbUtils.GetInt(reader, "Id"),
-                                MethodType = DbUtils.GetString(reader, "MethodType"),
+                                MethodType = DbUtils.GetString(reader, "Method"),
                                 MethodValue = DbUtils.GetInt(reader, "MethodValue")
                             };
                         }
@@ -84,7 +84,7 @@ namespace PryVata.Repositories
 
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Method (MethodType, MethodValue)
+                    cmd.CommandText = @"INSERT INTO MethodType (Method, MethodValue)
                                         OUTPUT INSERTED.Id
                                         VALUES (@methodType, @methodValue)";
                     cmd.Parameters.AddWithValue("@methodType", method.MethodType);
@@ -103,8 +103,8 @@ namespace PryVata.Repositories
 
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"UPDATE Method
-                                        SET MethodType = @methodType, 
+                    cmd.CommandText = @"UPDATE MethodType
+                                        SET Method = @methodType, 
                                         MethodValue = @methodValue
                                         WHERE Id = @id";
                     cmd.Parameters.AddWithValue("@methodType", method.MethodType);
@@ -123,7 +123,7 @@ namespace PryVata.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "DELETE FROM Method WHERE Id = @Id";
+                    cmd.CommandText = "DELETE FROM MethodType WHERE Id = @Id";
                     DbUtils.AddParameter(cmd, "@Id", id);
                     cmd.ExecuteNonQuery();
                 }

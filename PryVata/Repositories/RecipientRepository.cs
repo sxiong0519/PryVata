@@ -32,7 +32,7 @@ namespace PryVata.Repositories
                         recipients.Add(new Recipient
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
-                            RecipientType = DbUtils.GetString(reader, "RecipientType"),
+                            RecipientType = DbUtils.GetString(reader, "Recipient"),
                             RecipientValue = DbUtils.GetInt(reader, "RecipientValue")
                         });
                     }
@@ -65,7 +65,7 @@ namespace PryVata.Repositories
                             recipient = new Recipient
                             {
                                 Id = DbUtils.GetInt(reader, "Id"),
-                                RecipientType = DbUtils.GetString(reader, "RecipientType"),
+                                RecipientType = DbUtils.GetString(reader, "Recipient"),
                                 RecipientValue = DbUtils.GetInt(reader, "RecipientValue")
                             };
                         }
@@ -84,7 +84,7 @@ namespace PryVata.Repositories
 
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Recipient (Recipient, RecipientValue)
+                    cmd.CommandText = @"INSERT INTO RecipientType (Recipient, RecipientValue)
                                         OUTPUT INSERTED.Id
                                         VALUES (@recipientType, @recipientValue)";
                     cmd.Parameters.AddWithValue("@recipientType", recipient.RecipientType);

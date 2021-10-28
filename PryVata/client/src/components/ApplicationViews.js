@@ -6,6 +6,7 @@ import IncidentList from "./Incident/IncidentList";
 import IncidentDetails from "./Incident/IncidentDetails";
 import IncidentForm from "./Incident/IncidentForm";
 import DBRADetails from "./DBRA/DBRADetails";
+import DBRAForm from "./DBRA/DBRAForm";
 
 export default function ApplicationViews({ isLoggedIn }) {
 
@@ -41,6 +42,14 @@ export default function ApplicationViews({ isLoggedIn }) {
         
         <Route path="/DBRA/detail/:dbraId">
         {isLoggedIn ? <DBRADetails /> : <Redirect to="/login" />}          
+        </Route>
+
+        <Route path="/DBRA/add">
+        {isLoggedIn ? <DBRAForm /> : <Redirect to="/login" />}          
+        </Route>
+
+        <Route path="/DBRA/edit/:dbraId">
+        {isLoggedIn ? <DBRAForm /> : <Redirect to="/login" />}          
         </Route>
 
         {/* <Route path="/register">

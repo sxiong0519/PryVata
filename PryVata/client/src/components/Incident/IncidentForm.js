@@ -7,6 +7,7 @@ import {
   updateIncident,
 } from "../../modules/IncidentManager";
 import { getAllUsers } from "../../modules/userManager";
+import DBRAForm from "../DBRA/DBRAForm";
 import "./Incident.css";
 
 const IncidentForm = () => {
@@ -56,7 +57,6 @@ const IncidentForm = () => {
         assignedUserId: incident.assignedUserId,
         title: incident.title,
         description: incident.description,
-        // dateCreated: new Date(Date.now()).toISOString(),
         dateReported: incident.dateReported,
         dateOccurred: incident.dateOccurred,
         facilityId: incident.facilityId,
@@ -68,14 +68,13 @@ const IncidentForm = () => {
         assignedUserId: incident.assignedUserId,
         title: incident.title,
         description: incident.description,
-        // dateCreated: new Date(Date.now()).toISOString(),
         dateReported: incident.dateReported,
         dateOccurred: incident.dateOccurred,
         facilityId: incident.facilityId,
         confirmed: confirmed,
         reportable: reportable,
       };
-      addIncident(newIncident).then((i) => history.push("/incident"));
+      addIncident(newIncident).then((i) => history.push(`/incident`));
     }
   };
 
@@ -211,7 +210,10 @@ const IncidentForm = () => {
             </div>
           </div>
           </fieldset>
-          {(id && incident.confirmed == true) || confirmed == true ? <> <fieldset>
+          {confirmed === true && !incident.id ? "Create the incident before completing the assessment" : ""}
+          {(incident.id && incident.confirmed === true) ? <> 
+          <DBRAForm incident={incident} />
+          <fieldset>
           <div>
             <link
               href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css"
@@ -219,20 +221,20 @@ const IncidentForm = () => {
             />
             <label>Reportable?</label>
             <div className="switch-toggle switch-3 switch-candy">
-              <input id="on" name="state-d" type="radio" onClick={ShowT} />
-              <label htmlFor="on">YES</label>
+              <input id="Ron" name="state-d" type="radio" onClick={ShowT} />
+              <label htmlFor="Ron">YES</label>
 
               <input
-                id="na"
+                id="Rna"
                 name="state-d"
                 type="radio"
                 onClick={ShowN}
                 checked="checked"
               />
-              <label htmlFor="na">N/A</label>
+              <label htmlFor="Rna">N/A</label>
 
-              <input id="off" name="state-d" type="radio" onClick={ShowF} />
-              <label htmlFor="off">NO</label>
+              <input id="Roff" name="state-d" type="radio" onClick={ShowF} />
+              <label htmlFor="Roff">NO</label>
 
               <a></a>
             </div>

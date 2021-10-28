@@ -10,5 +10,7 @@ namespace PryVata.Repositories
         List<DBRA> GetAllDBRAs();
         DBRA GetDBRAById(int id);
         void UpdateDBRA(DBRA DBRA, int userId);
+        void AddDBRAInformation(int infoId, int DBRAId);
+        void AddDBRAControls(int controlId, int DBRAId);
     }
 }

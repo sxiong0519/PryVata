@@ -38,22 +38,32 @@ return (
     <div className="container">
         Completed by: {DBRA.user.fullName}
         <br/>
-        Method of Disclosure: {DBRA.method.methodType}
+        {DBRA.exceptionId !== 5 ? <>DBRA meets this exception: {DBRA.exception.exception} </>: <>DBRA did not meet any exception</>}
         <br/>
-        Recipient Type: {DBRA.recipient.recipientType}
+        {DBRA.method ? <>Method of Disclosure: {DBRA.method.methodType} </>: "" }
         <br/>
-        Circumstance: {DBRA.circumstance.circumstances}
+        {DBRA.recipient ? <>Recipient Type: {DBRA.recipient.recipientType} </> : ""}
         <br/>
-        Disposition: {DBRA.disposition.disposition}
+        {DBRA.circumstance ? <> Circumstance: {DBRA.circumstance.circumstances} </> : "" }
         <br/>
+        {DBRA.disposition ? <> Disposition: {DBRA.disposition.disposition} </> : ""}
+        <br/>
+        {DBRA.information ? 
+        <>
+        Information: 
         <ListGroup>
-        Information: {DBRA.information.map(i => 
-            <ListGroupItem>{i.information.informationType}</ListGroupItem>)}
+        {DBRA.information.map(i => 
+            <ListGroupItem>{i.informationType}</ListGroupItem>)}
         </ListGroup>
+        </> : ""}
+        {DBRA.control ?
+        <>
+        Controls: 
         <ListGroup>
-        Controls: {DBRA.control.map(c =>
+        {DBRA.control.map(c =>
             <ListGroupItem>{c.control} </ListGroupItem>)}
         </ListGroup>
+        </> : ""}
         <Link to={`/DBRA/edit/${DBRA.id}`}>Edit</Link>
         <button onClick={deleteADBRA}>Delete</button>
     </div>
