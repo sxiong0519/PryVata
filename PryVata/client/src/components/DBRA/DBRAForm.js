@@ -45,7 +45,7 @@ console.log(dbraMethod, dbraRecipient)
     //getting all the data to create the options for forms
     useEffect(() => {
         getAllCircumstances().then(c => {setCircumstances(c)});
-        // getAllControls().then(co => {setControls(co)})
+        getAllControls().then(co => {setControls(co)})
         getAllDispositions().then(d => setDispositions(d))
         getAllExceptions().then(e => {setExceptions(e)})
         getAllInformation().then(i => {setInformation(i)})
@@ -55,7 +55,7 @@ console.log(dbraMethod, dbraRecipient)
 
     const handleControlledInputChange = (event) => {
         const newDBRA = { ...dbra };
-        newDBRA[event.target.id] = event.target.value;
+        newDBRA[event.target.id] = event.target.value;  
         setDBRA(newDBRA);
       };
 
@@ -85,7 +85,7 @@ console.log(dbraMethod, dbraRecipient)
             dispositionId: dbraDisposition,
             incidentId: incident.id
           };
-          addDBRA(newDBRA).then((d) => history.goBack());
+          addDBRA(newDBRA).then((d) => history.push(`incident/detail/${incident.id}`));
         }
     //   };
 
@@ -107,7 +107,10 @@ console.log(dbraMethod, dbraRecipient)
             </div>
           </fieldset>
           </form>
-          {dbraException === 5 ? <>
+          {dbraException === 1 || dbraException === 2 || dbraException === 3 || dbraException === 4 ? "Meets exception... submit form. "
+          : ""
+        }
+        {dbraException === 5 ? <>
         <form className="DBRAForm">
           <fieldset>
             <div className="form-group">
@@ -185,9 +188,7 @@ console.log(dbraMethod, dbraRecipient)
                 ))}
             </div>
           </fieldset>
-          </form> */} </>
-          : "No other information needed... Continue to submit form"
-        }
+          </form> */} </> : ""}
           <form>
           <div className="buttons">
             <button

@@ -202,6 +202,9 @@ GO
 ALTER TABLE [DBRA] ADD FOREIGN KEY ([DispositionId]) REFERENCES [Disposition] ([Id])
 GO
 
+ALTER TABLE [DBRA] ADD FOREIGN KEY ([ExceptionId]) REFERENCES [Exception] ([Id])
+GO
+
 ALTER TABLE [User] ADD FOREIGN KEY ([UserTypeId]) REFERENCES [UserType] ([Id])
 GO
 

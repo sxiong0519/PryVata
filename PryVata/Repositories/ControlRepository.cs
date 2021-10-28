@@ -21,7 +21,7 @@ namespace PryVata.Repositories
 
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT * FROM Control";
+                    cmd.CommandText = @"SELECT * FROM Controls";
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -32,8 +32,8 @@ namespace PryVata.Repositories
                         controls.Add(new Controls
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
-                            Control = DbUtils.GetString(reader, "Control"),
-                            ControlValue = DbUtils.GetInt(reader, "ControlValue")
+                            Control = DbUtils.GetString(reader, "Controls"),
+                            ControlValue = DbUtils.GetInt(reader, "ControlsValue")
                         });
                     }
 
@@ -50,7 +50,7 @@ namespace PryVata.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT * FROM Control
+                    cmd.CommandText = @"SELECT * FROM Controls
                                         WHERE Id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
 
@@ -65,8 +65,8 @@ namespace PryVata.Repositories
                             control = new Controls
                             {
                                 Id = DbUtils.GetInt(reader, "Id"),
-                                Control = DbUtils.GetString(reader, "Control"),
-                                ControlValue = DbUtils.GetInt(reader, "ControlValue")
+                                Control = DbUtils.GetString(reader, "Controls"),
+                                ControlValue = DbUtils.GetInt(reader, "ControlsValue")
                             };
                         }
                     }
@@ -84,7 +84,7 @@ namespace PryVata.Repositories
 
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Control (Control, ControlValue)
+                    cmd.CommandText = @"INSERT INTO Controls (Controls, ControlsValue)
                                         OUTPUT INSERTED.Id
                                         VALUES (@control, @controlValue";
                     cmd.Parameters.AddWithValue("@control", control.Control);
@@ -103,9 +103,9 @@ namespace PryVata.Repositories
 
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"UPDATE Control
-                                        SET Control = @control, 
-                                        ControlValue = @controlValue
+                    cmd.CommandText = @"UPDATE Controls
+                                        SET Controls = @control, 
+                                        ControlsValue = @controlValue
                                         WHERE Id = @id";
                     cmd.Parameters.AddWithValue("@control", control.Control);
                     cmd.Parameters.AddWithValue("@controlValue", control.ControlValue);
@@ -123,7 +123,7 @@ namespace PryVata.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "DELETE FROM Control WHERE Id = @Id";
+                    cmd.CommandText = "DELETE FROM Controls WHERE Id = @Id";
                     DbUtils.AddParameter(cmd, "@Id", id);
                     cmd.ExecuteNonQuery();
                 }

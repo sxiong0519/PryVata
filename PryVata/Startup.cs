@@ -36,6 +36,7 @@ namespace PryVata
             services.AddTransient<IPatientRepository, PatientRepository>();
             services.AddTransient<IRecipientRepository, RecipientRepository>();
             services.AddTransient<IIncidentRepository, IncidentRepository>();
+            services.AddTransient<IControlRepository, ControlRepository>();
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";
