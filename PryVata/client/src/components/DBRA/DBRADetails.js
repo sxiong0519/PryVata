@@ -23,7 +23,7 @@ const deleteADBRA = (event) => {
     );
     if (confirmDelete) {
       deleteDBRA(DBRA.id).then(() => {
-        history.push(`/incident/${DBRA.incidentId}`);
+        history.goBack();
       });
     }
   };
@@ -38,32 +38,28 @@ return (
     <div className="container">
         Completed by: {DBRA.user.fullName}
         <br/>
-        {DBRA.exceptionId !== 5 ? <>DBRA meets this exception: {DBRA.exception.exception} </>: <>DBRA did not meet any exception</>}
+        {DBRA.exceptionId !== 5 ? <>DBRA meets this exception: {DBRA.exception.exception} </>: <>DBRA did not meet any exception
         <br/>
-        {DBRA.method ? <>Method of Disclosure: {DBRA.method.methodType} </>: "" }
+        Method of Disclosure: {DBRA.method.methodType} 
         <br/>
-        {DBRA.recipient ? <>Recipient Type: {DBRA.recipient.recipientType} </> : ""}
+        Recipient Type: {DBRA.recipient.recipientType} 
         <br/>
-        {DBRA.circumstance ? <> Circumstance: {DBRA.circumstance.circumstances} </> : "" }
+        Circumstance: {DBRA.circumstance.circumstances}
         <br/>
-        {DBRA.disposition ? <> Disposition: {DBRA.disposition.disposition} </> : ""}
+        Disposition: {DBRA.disposition.disposition}
         <br/>
-        {DBRA.information ? 
-        <>
-        Information: 
+        <label>Information: </label>
         <ListGroup>
         {DBRA.information.map(i => 
             <ListGroupItem>{i.informationType}</ListGroupItem>)}
         </ListGroup>
-        </> : ""}
-        {DBRA.control ?
-        <>
         Controls: 
         <ListGroup>
         {DBRA.control.map(c =>
             <ListGroupItem>{c.control} </ListGroupItem>)}
         </ListGroup>
-        </> : ""}
+        </> }
+        <br/>
         <Link to={`/DBRA/edit/${DBRA.id}`}>Edit</Link>
         <button onClick={deleteADBRA}>Delete</button>
     </div>

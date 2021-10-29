@@ -300,21 +300,57 @@ namespace PryVata.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"UPDATE DBRA 
-                                        SET UserCompletedId = @user, 
+                                        SET UserCompleteId = @user, 
+                                        ExceptionId = @exceptionId,
                                         MethodId = @method, 
                                         RecipientId = @recipient, 
                                         CircumstanceId = @circumstance, 
-                                        DispositionId =  @disposition, 
-                                        IncidentId = @incident
+                                        DispositionId =  @disposition
                                         WHERE Id = @id";
 
                     cmd.Parameters.AddWithValue("@user", userId);
-                    cmd.Parameters.AddWithValue("@method", DBRA.MethodId);
-                    cmd.Parameters.AddWithValue("@recipient", DBRA.RecipientId);
-                    cmd.Parameters.AddWithValue("@circumstance", DBRA.CircumstanceId);
-                    cmd.Parameters.AddWithValue("@disposition", DBRA.DispositionId);
-                    cmd.Parameters.AddWithValue("@incident", DBRA.IncidentId);
+                    cmd.Parameters.AddWithValue("@exceptionId", DbUtils.ValueOrDBNull(DBRA.ExceptionId));
+                    cmd.Parameters.AddWithValue("@method", DbUtils.ValueOrDBNull(DBRA.MethodId));
+                    cmd.Parameters.AddWithValue("@recipient", DbUtils.ValueOrDBNull(DBRA.RecipientId));
+                    cmd.Parameters.AddWithValue("@circumstance", DbUtils.ValueOrDBNull(DBRA.CircumstanceId));
+                    cmd.Parameters.AddWithValue("@disposition", DbUtils.ValueOrDBNull(DBRA.DispositionId));
                     cmd.Parameters.AddWithValue("@id", DBRA.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void DeleteDBRAInformation(int DBRAId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM DBRAInformation
+                                        WHERE DBRAId = @id";
+
+                    cmd.Parameters.AddWithValue("@id", DBRAId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void DeleteDBRAControls(int DBRAId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM DBRAControls
+                                        WHERE DBRAId = @id";
+
+                    cmd.Parameters.AddWithValue("@id", DBRAId);
 
                     cmd.ExecuteNonQuery();
                 }

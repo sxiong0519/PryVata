@@ -11,7 +11,6 @@ import { getAllDispositions } from "../../modules/dispositionManager";
 
 const DBRAForm = ({ incident }) => {
   const [dbra, setDBRA] = useState({});
-  const [informationObject, setInformationObject] = useState({});
   const [circumstances, setCircumstances] = useState([]);
   const [controls, setControls] = useState([]);
   const [exceptions, setExceptions] = useState([]);
@@ -73,7 +72,7 @@ const DBRAForm = ({ incident }) => {
   };
 
   const handleClickSaveDBRA = () => {
-    if (dbra.exception === undefined) {
+    if (dbra.exception === null) {
       window.alert("Please complete the form");
     } else if (dbraId) {
       const update = {
@@ -83,7 +82,6 @@ const DBRAForm = ({ incident }) => {
         recipientId: dbraRecipient,
         circumstanceId: dbraCircumstance,
         dispositionId: dbraDisposition,
-        incidentId: incident.id,
         informationIds: [],
         controlIds: [],
       };
@@ -94,7 +92,7 @@ const DBRAForm = ({ incident }) => {
         update.controlIds.push(dc);
       }
       updateDBRA(update).then((p) =>
-        history.push(`/incident/detail/${incident.id}`)
+        history.goBack()
       );
     } else {
       const newDBRA = {
@@ -302,6 +300,7 @@ const DBRAForm = ({ incident }) => {
       <form>
         <div className="buttons">
           <button
+            id="dbraSubmit"
             className="pfbtns"
             onClick={(event) => {
               event.preventDefault();
@@ -310,13 +309,13 @@ const DBRAForm = ({ incident }) => {
           >
             Submit
           </button>{" "}
-          {/* {id ? (
+          {dbraId ? (
               <button className="pfbtns" onClick={() => history.goBack()}>
                 Cancel
               </button>
             ) : (
               ""
-            )} */}
+            )}
         </div>
       </form>
     </>

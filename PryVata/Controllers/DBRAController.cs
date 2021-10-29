@@ -75,6 +75,21 @@ namespace PryVata.Controllers
             }
 
             _dbraRepository.UpdateDBRA(dbra, currentUserProfile.Id);
+            _dbraRepository.DeleteDBRAControls(dbra.Id);
+            _dbraRepository.DeleteDBRAInformation(dbra.Id);
+            if (dbra.ExceptionId == 5)
+            {
+                foreach (int infoId in dbra.InformationIds)
+                {
+                    _dbraRepository.AddDBRAInformation(infoId, dbra.Id);
+                }
+
+                foreach (int controlId in dbra.ControlIds)
+                {
+                    _dbraRepository.AddDBRAControls(controlId, dbra.Id);
+                }
+            }
+
             return NoContent();
         }
 

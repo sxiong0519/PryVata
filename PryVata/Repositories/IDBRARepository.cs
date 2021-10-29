@@ -12,5 +12,7 @@ namespace PryVata.Repositories
         void UpdateDBRA(DBRA DBRA, int userId);
         void AddDBRAInformation(int infoId, int DBRAId);
         void AddDBRAControls(int controlId, int DBRAId);
+        void DeleteDBRAInformation(int DBRAId);
+        void DeleteDBRAControls(int DBRAId);
     }
 }
