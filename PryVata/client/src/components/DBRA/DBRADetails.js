@@ -61,6 +61,7 @@ return (
         </> }
         <br/>
         <Link to={`/DBRA/edit/${DBRA.id}`}>Edit</Link>
+        <Link to={`/incident/detail/${DBRA.incidentId}`}> Return to Incident</Link>
         <button onClick={deleteADBRA}>Delete</button>
     </div>
     </>

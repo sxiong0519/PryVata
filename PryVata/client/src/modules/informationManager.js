@@ -54,7 +54,7 @@ export const updateInformation = (information) => {
 
 export const deleteInformation = (informationId) => {
   return getToken().then((token) => {
-    return fetch(`${baseUrl}/delete/${informationId}`, {
+    return fetch(`${baseUrl}/${informationId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,

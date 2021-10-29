@@ -39,7 +39,7 @@ export const addNotes = (notes) => {
 });
 }
 
-export const updatenotes = (notes) => {
+export const updateNotes = (notes) => {
   return getToken().then((token) => {
     return fetch(`${baseUrl}/edit/${notes.id}`, {
       method: "PUT",
@@ -52,9 +52,9 @@ export const updatenotes = (notes) => {
   })
 };
 
-export const deleteNotes = (notesId) => {
+export const deleteNotes = (id) => {
   return getToken().then((token) => {
-    return fetch(`${baseUrl}/delete/${notesId}`, {
+    return fetch(`${baseUrl}/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,

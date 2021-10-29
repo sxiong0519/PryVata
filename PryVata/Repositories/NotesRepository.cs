@@ -66,6 +66,7 @@ namespace PryVata.Repositories
                             note = new Notes
                             {
                                 Id = DbUtils.GetInt(reader, "Id"),
+                                CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
                                 Description = DbUtils.GetString(reader, "Description"),
                                 ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
                                 IncidentId = DbUtils.GetInt(reader, "IncidentId")
@@ -86,11 +87,13 @@ namespace PryVata.Repositories
 
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Notes (Description, ImageUrl)
+                    cmd.CommandText = @"INSERT INTO Notes (CreateDateTime, Description, ImageUrl, IncidentId)
                                         OUTPUT INSERTED.Id
-                                        VALUES (@description, @imageUrl)";
+                                        VALUES (@date, @description, @imageUrl, @incidentId)";
                     cmd.Parameters.AddWithValue("@description", note.Description);
-                    cmd.Parameters.AddWithValue("@imageUrl", note.ImageUrl);
+                    cmd.Parameters.AddWithValue("@imageUrl", DbUtils.ValueOrDBNull(note.ImageUrl));
+                    cmd.Parameters.AddWithValue("@incidentId", note.IncidentId);
+                    cmd.Parameters.AddWithValue("@date", note.CreateDateTime);
 
                     note.Id = (int)cmd.ExecuteScalar();
                 }

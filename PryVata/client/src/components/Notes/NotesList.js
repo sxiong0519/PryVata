@@ -24,10 +24,7 @@ const NotesList = () => {
 
   return (
     <div className="container">
-      <div>
-        {/* <Link to="/note/add">New note</Link> */}
-      </div>
-      {findNote ? findNote.slice(0,1).map((fn) => (
+      {findNote ? findNote.map((fn) => (
           <Notes fn={fn} key={fn.id} />
         )) : ""}
       

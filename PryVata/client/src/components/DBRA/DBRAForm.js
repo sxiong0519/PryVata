@@ -19,6 +19,11 @@ const DBRAForm = ({ incident }) => {
   const [recipients, setRecipients] = useState([]);
   const [dispositions, setDispositions] = useState([]);
 
+  //eventlistener to show dbraform
+  const [dbraForm, setDbraForm] = useState(true);
+  const style = dbraForm ? {display: 'block'} : {display: 'none'}
+  const hideDbraForm = () => setDbraForm(false)
+
   //to edit:
   const history = useHistory();
   const { dbraId } = useParams();
@@ -117,6 +122,7 @@ const DBRAForm = ({ incident }) => {
 
   return (
     <>
+    <div style={style}>
       <form className="DBRAForm">
         <h2 className="DBRAForm__title post_header">Complete DBRA</h2>
         <fieldset>
@@ -305,6 +311,7 @@ const DBRAForm = ({ incident }) => {
             onClick={(event) => {
               event.preventDefault();
               handleClickSaveDBRA();
+              hideDbraForm();
             }}
           >
             Submit
@@ -318,6 +325,7 @@ const DBRAForm = ({ incident }) => {
             )}
         </div>
       </form>
+      </div>
     </>
   );
 };

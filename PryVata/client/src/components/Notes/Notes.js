@@ -2,8 +2,10 @@ import React from "react";
 import { Card, CardBody } from "reactstrap";
 import { Link } from "react-router-dom";
 import { deleteNotes } from "../../modules/notesManager";
+import { useHistory } from "react-router-dom";
 
 const Notes = ({ fn }) => {
+    const history = useHistory();
     
     const deleteANote = (event) => {
         event.preventDefault();
@@ -12,6 +14,7 @@ const Notes = ({ fn }) => {
         );
         if (confirmDelete) {
           deleteNotes(fn.id)
+          .then(() => history.go(0))
         }
       };
 

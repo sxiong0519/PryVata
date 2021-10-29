@@ -130,6 +130,7 @@ GO
 
 CREATE TABLE [Notes] (
   [Id] integer PRIMARY KEY IDENTITY,
+  [CreateDateTime] datetime NOT NULL,
   [Description] nvarchar(255) NOT NULL,
   [ImageUrl] nvarchar(255),
   [IncidentId] integer NOT NULL
