@@ -10,5 +10,6 @@ namespace PryVata.Repositories
         List<Incident> GetAllIncidents();
         Incident GetIncidentById(int id);
         void UpdateIncident(Incident incident);
+        List<Incident> GetAllIncidentsByUser(int userId);
     }
 }

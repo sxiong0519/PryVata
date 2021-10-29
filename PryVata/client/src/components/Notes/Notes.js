@@ -3,6 +3,7 @@ import { Card, CardBody } from "reactstrap";
 import { Link } from "react-router-dom";
 import { deleteNotes } from "../../modules/notesManager";
 import { useHistory } from "react-router-dom";
+import './Notes.css'
 
 const Notes = ({ fn }) => {
     const history = useHistory();
@@ -24,7 +25,7 @@ const Notes = ({ fn }) => {
       <CardBody className="NotesCard">
           {fn.description}
           <br/>
-          {fn.imageUrl ? <><img src={fn.imageUrl} alt={fn.notes}/></> : ""}
+          {fn.imageUrl ? <><img class="notesImg" src={fn.imageUrl} alt={fn.notes}/></> : ""}
           <br/>
           <Link to={`/notes/edit/${fn.id}`}>Edit</Link>
         <button onClick={deleteANote}>Delete</button>

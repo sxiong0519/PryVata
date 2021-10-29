@@ -62,7 +62,7 @@ const NotesForm = ({incident}) => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="imageUrl">Image</label>
-                    <input type="text" id="imageUrl" required autoFocus className="form-control" placeholder="Required" value={note.imageUrl} onChange={handleControlledInputChange} />
+                    <input type="text" id="imageUrl" required autoFocus className="form-control" placeholder="Add URL" value={note.imageUrl} onChange={handleControlledInputChange} />
                 </div>
             </fieldset>
             <div className="buttons"><button className="pfbtns" onClick={

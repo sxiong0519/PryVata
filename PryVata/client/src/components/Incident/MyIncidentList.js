@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { getAllIncidents } from "../../modules/IncidentManager.js";
+import { getMyIncidents } from "../../modules/IncidentManager.js";
 import Incident from './Incident.js'
 import { Link } from "react-router-dom";
 
 
-const IncidentList = () => {
+const MyIncidentList = () => {
   const [ incidents, setIncidents] = useState([]);
 
   const getIncidents = () => {
-    getAllIncidents().then(incidents => setIncidents(incidents));
+    getMyIncidents().then(incidents => setIncidents(incidents));
   };
 
   useEffect(() => {
@@ -28,4 +28,4 @@ const IncidentList = () => {
   );
 };
 
-export default IncidentList;
+export default MyIncidentList;

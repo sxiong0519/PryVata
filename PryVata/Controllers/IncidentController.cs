@@ -6,6 +6,7 @@ using PryVata.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace PryVata.Controllers
@@ -16,10 +17,12 @@ namespace PryVata.Controllers
     public class IncidentController : ControllerBase
     {
         private readonly IIncidentRepository _incidentRepository;
+        private readonly IUserRepository _userRepository;
 
-        public IncidentController(IIncidentRepository incidentRepository)
+        public IncidentController(IIncidentRepository incidentRepository, IUserRepository userRepository)
         {
             _incidentRepository = incidentRepository;
+            _userRepository = userRepository;
         }
 
         [HttpGet]
@@ -40,6 +43,16 @@ namespace PryVata.Controllers
                 return NotFound();
             }
             return Ok(incident);
+        }
+
+        [HttpGet("myIncidents")]
+        public IActionResult MyIndex()
+        {
+            var currentUserProfile = GetCurrentUserProfile();
+
+            var myIncidents = _incidentRepository.GetAllIncidentsByUser(currentUserProfile.Id);
+
+            return Ok(myIncidents);
         }
 
         [HttpPost]
@@ -66,6 +79,19 @@ namespace PryVata.Controllers
         {
             _incidentRepository.DeleteIncident(id);
             return NoContent();
+        }
+
+        private User GetCurrentUserProfile()
+        {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if (firebaseUserId != null)
+            {
+                return _userRepository.GetByFirebaseUserId(firebaseUserId);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
