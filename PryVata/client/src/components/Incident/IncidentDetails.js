@@ -46,7 +46,6 @@ return (
         <br/>
         <Link to={`/incident/edit/${incident.id}`}>Edit</Link>
         <button onClick={deleteAnIncident}>Delete</button>
-        <DBRAForm incident={incident}/>
         <DBRAList/>
     </div>
     </>

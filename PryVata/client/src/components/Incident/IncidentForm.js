@@ -20,13 +20,13 @@ const IncidentForm = () => {
   const [confirmed, setConfirmed] = useState(null);
   const [reportable, setReportable] = useState(null);
 
-  const ShowA = () => setConfirmed(true);
+  const ShowA = () => {setConfirmed(true); setDbraForm(true)}
   const ShowB = () => setConfirmed(false);
   const ShowC = () => setConfirmed(null);
 
-  const ShowT = () => setReportable(true);
-  const ShowF = () => setReportable(false);
-  const ShowN = () => setReportable(null);
+  const ShowT = () => {setReportable(true); setDbraForm(false)}
+  const ShowF = () => {setReportable(false); setDbraForm(false)}
+  const ShowN = () => {setReportable(null); setDbraForm(false)}
 
   useEffect(() => {
     if (id) {
@@ -78,6 +78,9 @@ const IncidentForm = () => {
     }
   };
 
+  //eventlistener to show dbraform
+  const [dbraForm, setDbraForm] = useState(false);
+  const style = dbraForm ? {display: 'block'} : {display: 'none'}
   return (
     <>
       <center>
@@ -211,8 +214,10 @@ const IncidentForm = () => {
           </div>
           </fieldset>
           {confirmed === true && !incident.id ? "Create the incident before completing the assessment" : ""}
-          {(incident.id && incident.confirmed === true) ? <> 
+          {incident.id && incident.confirmed === true || incident.id && confirmed === true ? <> 
+          <div style={style}>
           <DBRAForm incident={incident} />
+          </div>
           <fieldset>
           <div>
             <link
@@ -241,6 +246,21 @@ const IncidentForm = () => {
           </div>
           </fieldset></> : ""}
           <div className="buttons">
+            {id ? <>
+              <button
+              className="pfbtns"
+              onClick={(event) => {
+                event.preventDefault();
+                handleClickSaveIncident();
+              }}
+            >
+              Update Incident
+            </button>
+              <button className="pfbtns" onClick={() => history.goBack()}>
+                Cancel
+              </button>
+            </> : 
+            <>
             <button
               className="pfbtns"
               onClick={(event) => {
@@ -249,14 +269,8 @@ const IncidentForm = () => {
               }}
             >
               Save Incident
-            </button>{" "}
-            {id ? (
-              <button className="pfbtns" onClick={() => history.goBack()}>
-                Cancel
-              </button>
-            ) : (
-              ""
-            )}
+            </button>
+            </>}
           </div>
         </form>
       </center>
