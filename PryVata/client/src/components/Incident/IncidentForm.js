@@ -21,8 +21,8 @@ const IncidentForm = () => {
   const [reportable, setReportable] = useState(null);
 
   const ShowA = () => {setConfirmed(true); setDbraForm(true)}
-  const ShowB = () => setConfirmed(false);
-  const ShowC = () => setConfirmed(null);
+  const ShowB = () => {setConfirmed(false); setDbraForm(false)}
+  const ShowC = () => {setConfirmed(null); setDbraForm(false)}
 
   const ShowT = () => {setReportable(true); setDbraForm(false)}
   const ShowF = () => {setReportable(false); setDbraForm(false)}
@@ -81,6 +81,8 @@ const IncidentForm = () => {
   //eventlistener to show dbraform
   const [dbraForm, setDbraForm] = useState(false);
   const style = dbraForm ? {display: 'block'} : {display: 'none'}
+
+
   return (
     <>
       <center>

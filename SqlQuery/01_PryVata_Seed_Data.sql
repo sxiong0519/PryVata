@@ -97,7 +97,7 @@ set identity_insert [Incident] off
 --Notes
 
 set identity_insert [Notes] on
-insert into [Notes] (Id, [Description], ImageUrl, IncidentId) VALUES (1, 'Did she do it? Interviews are coming up', NULL, 1), (2, 'Accesses being taken', NULL, 1);
+insert into [Notes] (Id, CreateDateTime, [Description], ImageUrl, IncidentId) VALUES (1, '09/01/2021', 'Did she do it? Interviews are coming up', NULL, 1), (2, '09/01/2021', 'Accesses being taken', NULL, 1);
 set identity_insert [Notes] off
 
 --Patient

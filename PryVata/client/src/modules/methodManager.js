@@ -54,7 +54,7 @@ export const updateMethod = (method) => {
 
 export const deleteMethod = (methodId) => {
   return getToken().then((token) => {
-    return fetch(`${baseUrl}/delete/${methodId}`, {
+    return fetch(`${baseUrl}/${methodId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
