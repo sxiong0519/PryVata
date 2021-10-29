@@ -317,7 +317,7 @@ const DBRAForm = ({ incident }) => {
             Submit
           </button>{" "}
           {dbraId ? (
-              <button className="pfbtns" onClick={() => history.goBack()}>
+              <button className="pfbtns" onClick={() => history.push(`/DBRA/detail/${dbraId}`)}>
                 Cancel
               </button>
             ) : (

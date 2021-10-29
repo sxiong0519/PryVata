@@ -16,7 +16,7 @@ export const getAllIncidents = () => {
 }
   export const getMyIncidents = (id) => {
     return getToken().then((token) => {
-      return fetch(`${baseUrl}/myIncident`, {
+      return fetch(`${baseUrl}/myIncidents`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`

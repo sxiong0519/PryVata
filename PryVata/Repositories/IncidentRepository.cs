@@ -62,6 +62,58 @@ namespace PryVata.Repositories
             }
         }
 
+        public List<Incident> GetAllIncidentsByUser(int userId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT i.Id AS 'Incident Id', AssignedUserId, Title, i.Description AS IncidentDescription, DateReported,
+                                        DateOccurred, i.FacilityId AS 'Facility Id', Confirmed, Reportable, DBRAId,
+
+                                        FullName,
+
+                                        FacilityName
+
+                                        FROM Incident i
+                                        LEFT JOIN Facility f ON i.FacilityId = f.Id
+                                        LEFT JOIN [User] u ON i.AssignedUserId = u.Id
+                                        WHERE AssignedUserId = @userId";
+
+                    cmd.Parameters.AddWithValue("@userId", userId);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    List<Incident> incidents = new List<Incident>();
+
+                    while (reader.Read())
+                    {
+                        incidents.Add(new Incident
+                        {
+                            Id = DbUtils.GetInt(reader, "Incident Id"),
+                            AssignedUserId = DbUtils.GetInt(reader, "AssignedUserId"),
+                            User = new User
+                            {
+                                FullName = DbUtils.GetString(reader, "FullName")
+                            },
+                            Title = DbUtils.GetString(reader, "Title"),
+                            Description = DbUtils.GetString(reader, "IncidentDescription"),
+                            DateReported = DbUtils.GetDateTime(reader, "DateReported"),
+                            DateOccurred = DbUtils.GetDateTime(reader, "DateOccurred"),
+                            FacilityId = DbUtils.GetInt(reader, "Facility Id"),
+                            Confirmed = DbUtils.GetNullableBool(reader, "Confirmed"),
+                            Reportable = DbUtils.GetNullableBool(reader, "Reportable"),
+                            DBRAId = DbUtils.GetNullableInt(reader, "DBRAId")
+                        });
+                    }
+                    reader.Close();
+                    return incidents;
+                }
+            }
+        }
+
         public Incident GetIncidentById(int id)
         {
             using (SqlConnection conn = Connection)
