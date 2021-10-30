@@ -85,7 +85,6 @@ const IncidentForm = () => {
 
   return (
     <>
-      <center>
         <form className="IncidentForm">
           <h2 className="IncidentForm__title post_header">
             {!id ? "Create a New Incident" : "Update Incident"}
@@ -258,7 +257,7 @@ const IncidentForm = () => {
             >
               Update Incident
             </button>
-              <button className="pfbtns" onClick={() => history.goBack()}>
+              <button className="pfbtns" onClick={() => history.push(`/incident/detail/${id}`)}>
                 Cancel
               </button>
             </> : 
@@ -275,7 +274,6 @@ const IncidentForm = () => {
             </>}
           </div>
         </form>
-      </center>
     </>
   );
 };
