@@ -8,6 +8,8 @@ import { getAllInformation } from "../../modules/informationManager";
 import { getAllMethods } from "../../modules/methodManager";
 import { getAllRecipients } from "../../modules/recipientManager";
 import { getAllDispositions } from "../../modules/dispositionManager";
+import { addNotes } from "../../modules/notesManager";
+import "./DBRA.css";
 
 const DBRAForm = ({ incident }) => {
   const [dbra, setDBRA] = useState({});
@@ -18,11 +20,21 @@ const DBRAForm = ({ incident }) => {
   const [methods, setMethods] = useState([]);
   const [recipients, setRecipients] = useState([]);
   const [dispositions, setDispositions] = useState([]);
+  const [ riskValue, setRiskValue ] = useState([])
+  var values = 0
 
   //eventlistener to show dbraform
   const [dbraForm, setDbraForm] = useState(true);
   const style = dbraForm ? {display: 'block'} : {display: 'none'}
   const hideDbraForm = () => setDbraForm(false)
+
+  //calculate risk value
+  const addRiskValue = (value) => {
+      let addRisk = riskValue
+      addRisk.push(value)
+      setRiskValue(addRisk)
+      
+  }
 
   //to edit:
   const history = useHistory();
@@ -120,12 +132,21 @@ const DBRAForm = ({ incident }) => {
     }
   };
 
+
+  for (var i=riskValue.length; i--;) {
+    values += riskValue[i];
+  }
+
+  console.log(riskValue, values, "risk")
+  
+
   return (
     <>
-    <div style={style}>
+    <progress id="file" max="25" value={values}/>
+    <div className="dbraForm" style={style}>
       <form className="DBRAForm">
         <h2 className="DBRAForm__title post_header">Complete DBRA</h2>
-        <fieldset>
+        <fieldset>  
           <div className="form-group">
             <label htmlFor="exceptionId">Exception</label>
             {exceptions.map((ex) => (
@@ -161,6 +182,7 @@ const DBRAForm = ({ incident }) => {
                       value={dbra.methodId}
                       onChange={(event) => {
                         DBRAMethods(me.id);
+                        addRiskValue(me.methodValue)
                       }}
                     />
                     <label htmlFor={me.id}>{me.methodType}</label>
@@ -182,6 +204,7 @@ const DBRAForm = ({ incident }) => {
                       value={dbra.recipientId}
                       onChange={(event) => {
                         DBRARecipients(re.id);
+                        addRiskValue(re.recipientValue)
                       }}
                     />
                     <label htmlFor={re.id}>{re.recipientType}</label>
@@ -203,6 +226,7 @@ const DBRAForm = ({ incident }) => {
                       value={dbra.circumstanceId}
                       onChange={(event) => {
                         DBRACircumstances(ci.id);
+                        addRiskValue(ci.circumstanceValue)
                       }}
                     />
                     <label htmlFor={ci.id}>{ci.circumstances}</label>
@@ -226,6 +250,7 @@ const DBRAForm = ({ incident }) => {
                       value={dbra.dispositionId}
                       onChange={(event) => {
                         DBRADispositions(di.id);
+                        addRiskValue(di.dispositionValue)
                       }}
                     />
                     <label htmlFor={di.id}>{di.disposition}</label>
@@ -246,14 +271,15 @@ const DBRAForm = ({ incident }) => {
                       name="drone"
                       value={dbra.informationIds}
                       onChange={(e) => {
-                        !dbraInformation.includes(e.target.id) ? (
+                        !dbraInformation.includes(e.target.id) ? 
                           <>
                             {setDbraInformation([
                               ...dbraInformation,
-                              e.target.id,
+                              e.target.id
                             ])}
+                            {addRiskValue(inf.informationValue)}
                           </>
-                        ) : (
+                         : (
                           <>
                             {dbraInformation.splice(
                               dbraInformation.indexOf(e.target.id),
@@ -281,9 +307,10 @@ const DBRAForm = ({ incident }) => {
                       name="drone"
                       value={dbra.controlsId}
                       onChange={(e) => {
-                        !dbraControl.includes(e.target.id) ? (
-                          <>{setDbraControl([...dbraControl, e.target.id])}</>
-                        ) : (
+                        !dbraControl.includes(e.target.id) ? 
+                          <>{setDbraControl([...dbraControl, e.target.id])}
+                          {addRiskValue(con.controlValue)}</>
+                         : (
                           <>
                             {dbraControl.splice(
                               dbraControl.indexOf(e.target.id),
@@ -326,6 +353,8 @@ const DBRAForm = ({ incident }) => {
         </div>
       </form>
       </div>
+      <br/>
+      {values >= 15 ? "HIGH RISK: REPORTABLE REQUIRED" : "MEDIUM - LOW RISK: INVESTIGATOR DISCRETION"}
     </>
   );
 };
