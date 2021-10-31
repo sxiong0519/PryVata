@@ -5,6 +5,10 @@ namespace PryVata.Repositories
 {
     public interface IPatientRepository
     {
-        List<Patient> GetPatientsByIncident(int id);
+        void AddPatient(Patient patient);
+        void AddPatientIncident(int patientId, int incidentId);
+        void DeletePatient(int id);
+        List<Patient> GetAllPatients();
+        Patient GetPatientById(int id);
     }
 }

@@ -23,7 +23,7 @@ const NotesList = () => {
   const findNote = notes.filter(n => n.incidentId === parseInt(id))
 
   return (
-    <div className="container">
+    <div className="container notesList">
       {findNote ? findNote.map((fn) => (
           <Notes fn={fn} key={fn.id} />
         )) : ""}

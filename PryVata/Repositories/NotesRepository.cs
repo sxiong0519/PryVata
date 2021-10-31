@@ -33,6 +33,7 @@ namespace PryVata.Repositories
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
                             Description = DbUtils.GetString(reader, "Description"),
+                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
                             ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
                             IncidentId = DbUtils.GetInt(reader, "IncidentId")
                         });
