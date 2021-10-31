@@ -123,7 +123,7 @@ namespace PryVata.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "DELETE FROM Controls WHERE Id = @Id";
+                    cmd.CommandText = "DELETE FROM Controls  WHERE Id = @Id";
                     DbUtils.AddParameter(cmd, "@Id", id);
                     cmd.ExecuteNonQuery();
                 }

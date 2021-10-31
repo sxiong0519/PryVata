@@ -373,6 +373,23 @@ namespace PryVata.Repositories
                 }
             }
         }
+
+        public void DeleteDBRAByIncident(int? id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM DBRA
+                                        WHERE IncidentId = @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
 

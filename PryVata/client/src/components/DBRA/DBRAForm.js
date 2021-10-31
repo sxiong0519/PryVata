@@ -354,7 +354,8 @@ const DBRAForm = ({ incident }) => {
       </form>
       </div>
       <br/>
-      {values >= 15 ? "HIGH RISK: REPORTABLE REQUIRED" : "MEDIUM - LOW RISK: INVESTIGATOR DISCRETION"}
+      {dbraException !== 5 ? "Exception met - 0 to Low Risk, No report necessary" : <>{values >= 15 ? "HIGH RISK: REPORTABLE REQUIRED" : "MEDIUM - LOW RISK: INVESTIGATOR DISCRETION"}</>}
+      
     </>
   );
 };

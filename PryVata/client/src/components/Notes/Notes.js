@@ -27,6 +27,8 @@ const Notes = ({ fn }) => {
           <br/>
           {fn.imageUrl ? <><img class="notesImg" src={fn.imageUrl} alt={fn.notes}/></> : ""}
           <br/>
+          {new Date(fn.createDateTime).toLocaleDateString()} 
+          <br/>
           <Link to={`/notes/edit/${fn.id}`}>Edit</Link>
         <button onClick={deleteANote}>Delete</button>
       </CardBody>   

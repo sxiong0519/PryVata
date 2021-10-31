@@ -38,7 +38,7 @@ return (
     <div className="container">
         Completed by: {DBRA.user.fullName}
         <br/>
-        {DBRA.exceptionId !== 5 ? <>DBRA meets this exception: {DBRA.exception.exception} </>: <>DBRA did not meet any exception
+        {DBRA.exceptionId !== 5 ? <>DBRA meets this exception: <br/> {DBRA.exception.exception} </>: <>DBRA did not meet any exception
         <br/>
         Method of Disclosure: {DBRA.method.methodType} 
         <br/>

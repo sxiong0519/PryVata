@@ -48,6 +48,12 @@ namespace PryVata.Controllers
         {
             
             var currentUserProfile = GetCurrentUserProfile();
+            var allDbra = _dbraRepository.GetAllDBRAs();
+
+            if (allDbra.Any(d => d.IncidentId == DBRA.IncidentId))
+            {
+                _dbraRepository.DeleteDBRAByIncident(DBRA.IncidentId);
+            }
             _dbraRepository.AddDBRA(DBRA, currentUserProfile.Id);
             if (DBRA.ExceptionId == 5)
             {
@@ -68,6 +74,7 @@ namespace PryVata.Controllers
         public IActionResult Put(int id, DBRA dbra)
         {
             var currentUserProfile = GetCurrentUserProfile();
+            
 
             if (id != dbra.Id)
             {

@@ -2,3 +2,9 @@
     height:auto;
     width: 25em;
 }
+
+.notesList{
+    height: 35em;
+    width: 45em;
+    overflow-y: scroll;
+}

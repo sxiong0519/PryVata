@@ -107,13 +107,14 @@ const IncidentForm = () => {
           <fieldset>
             <div className="form-group">
               <label htmlFor="description">Description</label>
-              <input
+              <textarea
                 type="text"
                 id="description"
                 required
                 autoFocus
                 className="form-control"
                 placeholder="Required"
+                rows="10" columns="5"
                 value={incident.description}
                 onChange={handleControlledInputChange}
               />

@@ -26,7 +26,7 @@ namespace PryVata.Repositories
 
                                         FullName,
 
-                                        FacilityName
+                                        FacilityName                                   
 
                                         FROM Incident i
                                         LEFT JOIN Facility f ON i.FacilityId = f.Id
@@ -168,7 +168,6 @@ namespace PryVata.Repositories
                                 {
                                     FacilityName = DbUtils.GetString(reader, "FacilityName"),
                                 },
-                                PatientId = DbUtils.GetNullableInt(reader, "Patient Id"),
                                 Patient = new List<Patient>(),
                                 Confirmed = DbUtils.GetNullableBool(reader, "Confirmed"),
                                 Reportable = DbUtils.GetNullableBool(reader, "Reportable"),
@@ -186,12 +185,16 @@ namespace PryVata.Repositories
 
                         if (DbUtils.IsNotDbNull(reader, "Patient Id"))
                         {
-                            incident.Patient.Add(new Patient
+                            if (!incident.Patient.Any(p => p.Id == DbUtils.GetInt(reader, "Patient Id")))
                             {
-                                PatientNumber = DbUtils.GetInt(reader, "PatientNumber"),
-                                FirstName = DbUtils.GetString(reader, "FirstName"),
-                                LastName = DbUtils.GetString(reader, "LastName")
-                            });
+                                incident.Patient.Add(new Patient
+                                {
+                                    Id = DbUtils.GetInt(reader, "Patient Id"),
+                                    PatientNumber = DbUtils.GetInt(reader, "PatientNumber"),
+                                    FirstName = DbUtils.GetString(reader, "FirstName"),
+                                    LastName = DbUtils.GetString(reader, "LastName")
+                                }) ; 
+                            }
                         }
 
                     }

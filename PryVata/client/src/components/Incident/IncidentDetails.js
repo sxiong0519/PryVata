@@ -4,12 +4,16 @@ import { getIncidentById, deleteIncident } from "../../modules/IncidentManager";
 import DBRAList from "../DBRA/DBRAList";
 import NotesForm from "../Notes/NotesForm";
 import NotesList from "../Notes/NotesList";
+import { ListGroup, ListGroupItem } from "reactstrap";
+import PatientForm from "../Patient/PatientForm";
+import { deletePatient } from "../../modules/patientManager";
 
 
 
 const IncidentDetails = () => {
     const [incident, setIncident] = useState();
     const [noteForm, setNoteForm] = useState(false);
+    const [patientForm, setPatientForm] = useState(false);
     const { id } = useParams();
 
     const history = useHistory();
@@ -32,6 +36,18 @@ const deleteAnIncident = (event) => {
     }
   };
 
+  const deleteAPatient = (event) => {
+    event.preventDefault();
+    const confirmDelete = window.confirm(
+      "Are you sure you would like to delete the patient information?"
+    );
+    if (confirmDelete) {
+      deletePatient(incident.patient.id).then(() => {
+        history.push("/incident");
+      });
+    }
+  };
+
 if(!incident) {
     return null;
 }
@@ -39,6 +55,8 @@ if(!incident) {
 //where to show form
 const showNoteForm = () => setNoteForm(true)
 const style = noteForm ? {display: 'block'} : {display: 'none'}
+const showPatientForm = () => setPatientForm(true)
+const patientStyle = patientForm ? {display: 'block'} : {display: 'none'}
 
 
 return (
@@ -50,6 +68,36 @@ return (
         <br/>
         Description: {incident.description}
         <br/>
+        Date Occurred: {new Date(incident.dateOccurred).toLocaleDateString()} 
+        <br/>
+        Date Reported/Received: {new Date(incident.dateReported).toLocaleDateString()} 
+        <br/>
+        Facility: {incident.facility.facilityName}
+        <br/>
+        <Link onClick={showPatientForm}>Add Patient</Link>
+        <br/>
+        <div style={patientStyle}>
+        <PatientForm incident={incident}/>
+        </div>
+        Patient Involved: 
+        <ListGroup>
+        {incident.patient.map(pt => 
+            <ListGroupItem>{pt.firstName} {pt.lastName} <button onClick={(event) => {
+              event.preventDefault();
+              const confirmDelete = window.confirm(
+                "Are you sure you would like to delete the patient information?"
+              );
+              if (confirmDelete) {
+                deletePatient(pt.id).then(() => {
+                  window.location.reload();
+                });
+              }
+            }}>Delete Patient</button></ListGroupItem>)}
+        </ListGroup>
+        Confirmed? {incident.confirmed === null ? "Undetermined" : <>{incident.confirmed === true ? "Yes" : "No"}</>}
+        <br/>
+        Reportable? {incident.reportable === null ? "Undetermined" : <>{incident.reportable === true ? "Yes" : "No"}</>}
+        <br/>
         <Link to={`/incident/edit/${incident.id}`}>Edit</Link>
         <button onClick={deleteAnIncident}>Delete</button>
         <DBRAList/>
@@ -59,7 +107,9 @@ return (
       <div style={style}>
         <NotesForm incident={incident} />
       </div>
+      <div>
         <NotesList/>
+        </div>
     </div>
     </>
 )
