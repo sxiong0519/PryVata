@@ -5,7 +5,7 @@ namespace PryVata.Repositories
 {
     public interface IDBRARepository
     {
-        void AddDBRA(DBRA DBRA, int userId);
+        void AddDBRA(DBRA DBRA, int total, int userId);
         void DeleteDBRA(int id);
         List<DBRA> GetAllDBRAs();
         DBRA GetDBRAById(int id);

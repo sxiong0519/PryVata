@@ -49,24 +49,31 @@ namespace PryVata.Controllers
             
             var currentUserProfile = GetCurrentUserProfile();
             var allDbra = _dbraRepository.GetAllDBRAs();
+            var total = 0;
 
             if (allDbra.Any(d => d.IncidentId == DBRA.IncidentId))
             {
                 _dbraRepository.DeleteDBRAByIncident(DBRA.IncidentId);
             }
-            _dbraRepository.AddDBRA(DBRA, currentUserProfile.Id);
+            
             if (DBRA.ExceptionId == 5)
             {
-                foreach(int infoId in DBRA.InformationIds)
+                var dbra = _dbraRepository.GetDBRAById(DBRA.Id);
+                foreach (int infoId in DBRA.InformationIds)
                 {
                     _dbraRepository.AddDBRAInformation(infoId, DBRA.Id);
+
                 }
 
                 foreach(int controlId in DBRA.ControlIds)
                 {
                     _dbraRepository.AddDBRAControls(controlId, DBRA.Id);
                 }
+                {
+                    total += (dbra.Method.MethodValue + dbra.Recipient.RecipientValue);
+                }
             }
+            _dbraRepository.AddDBRA(DBRA, total, currentUserProfile.Id);
             return CreatedAtAction("Get", new { id = DBRA.Id }, DBRA);
         }
 
@@ -119,6 +126,18 @@ namespace PryVata.Controllers
             {
                 return null;
             }
+        }
+
+        private void FindRiskValue(int id)
+        {
+            var dbra = _dbraRepository.GetDBRAById(id);
+            var total = 0;
+            if(dbra.ExceptionId == 5)
+            {
+                total += (dbra.Method.MethodValue + dbra.Recipient.RecipientValue);
+            }
+
+
         }
     }
 }

@@ -23,7 +23,7 @@ namespace PryVata.Repositories
                 {
                     cmd.CommandText = @"SELECT 
                                         d.Id AS DBRAId, ExceptionId, UserCompleteId, MethodId, RecipientId, CircumstanceId,
-                                        DispositionId, IncidentId,
+                                        DispositionId, IncidentId, RiskValue,
 
                                         u.*, m.*, r.*, c.*, di.*, i.*, co.*
                                         
@@ -49,12 +49,13 @@ namespace PryVata.Repositories
                         {
                             Id = DbUtils.GetInt(reader, "DBRAId"),
                             UserCompletedId = DbUtils.GetInt(reader, "UserCompleteId"),
-                            ExceptionId = DbUtils.GetInt(reader, "ExceptionId"),                  
+                            ExceptionId = DbUtils.GetInt(reader, "ExceptionId"),
                             MethodId = DbUtils.GetNullableInt(reader, "MethodId"),
                             RecipientId = DbUtils.GetNullableInt(reader, "RecipientId"),
                             CircumstanceId = DbUtils.GetNullableInt(reader, "CircumstanceId"),
                             DispositionId = DbUtils.GetNullableInt(reader, "DispositionId"),
-                            IncidentId = DbUtils.GetInt(reader, "IncidentId")
+                            IncidentId = DbUtils.GetInt(reader, "IncidentId"),
+                            RiskValue = DbUtils.GetNullableInt(reader, "RiskValue")
                         };
                     
                     if (DbUtils.IsNotDbNull(reader, "MethodId"))
@@ -107,7 +108,7 @@ namespace PryVata.Repositories
                 {
                     cmd.CommandText = @"SELECT 
                                         d.Id AS DBRAId, ExceptionId, UserCompleteId, MethodId, RecipientId, CircumstanceId,
-                                        DispositionId, IncidentId,
+                                        DispositionId, IncidentId, RiskValue,
 
                                         FullName,
                                         Exception,
@@ -161,7 +162,8 @@ namespace PryVata.Repositories
                                 DispositionId = DbUtils.GetNullableInt(reader, "DispositionId"),                                
                                 Information = new List<Information>(),
                                 Control = new List<Controls>(),
-                                IncidentId = DbUtils.GetInt(reader, "IncidentId")
+                                IncidentId = DbUtils.GetInt(reader, "IncidentId"),
+                                RiskValue = DbUtils.GetNullableInt(reader, "RiskValue")
                             };
                         }
                             if (DbUtils.IsNotDbNull(reader,"MethodId"))
@@ -226,7 +228,7 @@ namespace PryVata.Repositories
             }
         
 
-        public void AddDBRA(DBRA DBRA, int userId)
+        public void AddDBRA(DBRA DBRA, int total, int userId)
         {
             using (SqlConnection conn = Connection)
             {
@@ -234,9 +236,9 @@ namespace PryVata.Repositories
 
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO DBRA (UserCompleteId, ExceptionId, MethodId, RecipientId, CircumstanceId, DispositionId, IncidentId)
+                    cmd.CommandText = @"INSERT INTO DBRA (UserCompleteId, ExceptionId, MethodId, RecipientId, CircumstanceId, DispositionId, IncidentId, RiskValue)
                                         OUTPUT INSERTED.Id 
-                                        VALUES (@user, @exception, @method, @recipient, @circumstance, @disposition, @incident)";
+                                        VALUES (@user, @exception, @method, @recipient, @circumstance, @disposition, @incident, @total)";
 
                     cmd.Parameters.AddWithValue("@user", userId);
                     cmd.Parameters.AddWithValue("@exception", DbUtils.ValueOrDBNull(DBRA.ExceptionId));
@@ -245,6 +247,7 @@ namespace PryVata.Repositories
                     cmd.Parameters.AddWithValue("@circumstance", DbUtils.ValueOrDBNull(DBRA.CircumstanceId));
                     cmd.Parameters.AddWithValue("@disposition", DbUtils.ValueOrDBNull(DBRA.DispositionId));
                     cmd.Parameters.AddWithValue("@incident", DbUtils.ValueOrDBNull(DBRA.IncidentId));
+                    cmd.Parameters.AddWithValue("@total", DbUtils.ValueOrDBNull(total));
 
                     DBRA.Id = (int)cmd.ExecuteScalar();
                 }
@@ -390,6 +393,24 @@ namespace PryVata.Repositories
                 }
             }
         }
+
+       /* public void UpdateRiskValue(int id, int total)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE";
+
+                    cmd.Parameters.AddWithValue("@dbraId", DbUtils.ValueOrDBNull(DBRAId));
+                    cmd.Parameters.AddWithValue("@controlsId", DbUtils.ValueOrDBNull(controlId));
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }*/
     }
 }
 

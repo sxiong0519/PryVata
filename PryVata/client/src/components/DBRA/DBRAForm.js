@@ -100,7 +100,7 @@ const DBRAForm = ({ incident }) => {
         circumstanceId: dbraCircumstance,
         dispositionId: dbraDisposition,
         informationIds: [],
-        controlIds: [],
+        controlIds: []
       };
       for (const di of dbraInformation) {
         update.informationIds.push(di);
@@ -120,7 +120,7 @@ const DBRAForm = ({ incident }) => {
         dispositionId: dbraDisposition,
         incidentId: incident.id,
         informationIds: [],
-        controlIds: [],
+        controlIds: []
       };
       for (const di of dbraInformation) {
         newDBRA.informationIds.push(di);

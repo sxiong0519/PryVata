@@ -27,5 +27,6 @@ namespace PryVata.Models
         public List<Controls> Control { get; set; }
         public List<int> ControlIds { get; set; }
         public int? IncidentId { get; set; }
+        public int? RiskValue { get; set; }
     }
 }
