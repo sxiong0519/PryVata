@@ -58,6 +58,15 @@ const style = noteForm ? {display: 'block'} : {display: 'none'}
 const showPatientForm = () => setPatientForm(true)
 const patientStyle = patientForm ? {display: 'block'} : {display: 'none'}
 
+// 30day date
+
+
+const addThirty = (days) => {
+  const date = new Date(incident.dateReported)
+  date.setDate(date.getDate() + days);
+  return date.toLocaleDateString();
+};
+
 
 return (
     <>
@@ -71,6 +80,8 @@ return (
         Date Occurred: {new Date(incident.dateOccurred).toLocaleDateString()} 
         <br/>
         Date Reported/Received: {new Date(incident.dateReported).toLocaleDateString()} 
+        <br/>
+        Due Date: {addThirty(30)}
         <br/>
         Facility: {incident.facility.facilityName}
         <br/>

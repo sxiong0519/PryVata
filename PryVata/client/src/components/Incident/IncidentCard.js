@@ -3,7 +3,7 @@ import { Card, CardBody } from "reactstrap";
 import { Link } from "react-router-dom";
 import './Incident.css'
 
-const Incident = ({ incident }) => {
+const IncidentCard = ({ incident }) => {
     
   return (
       <>
@@ -12,7 +12,7 @@ const Incident = ({ incident }) => {
             
           <Link to={`/incident/detail/${incident.id}`}>{incident.title}</Link> 
           <div>
-          {new Date(incident.dateReported).toLocaleDateString()} 
+          {new Date(incident.dueDate).toLocaleDateString()} 
           </div>
       
       </CardBody>   
@@ -21,4 +21,4 @@ const Incident = ({ incident }) => {
   );
 };
 
-export default Incident;
+export default IncidentCard;
