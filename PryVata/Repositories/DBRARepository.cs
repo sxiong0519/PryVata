@@ -228,7 +228,7 @@ namespace PryVata.Repositories
             }
         
 
-        public void AddDBRA(DBRA DBRA, int total, int userId)
+        public void AddDBRA(DBRA DBRA, int userId)
         {
             using (SqlConnection conn = Connection)
             {
@@ -236,9 +236,9 @@ namespace PryVata.Repositories
 
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO DBRA (UserCompleteId, ExceptionId, MethodId, RecipientId, CircumstanceId, DispositionId, IncidentId, RiskValue)
+                    cmd.CommandText = @"INSERT INTO DBRA (UserCompleteId, ExceptionId, MethodId, RecipientId, CircumstanceId, DispositionId, IncidentId)
                                         OUTPUT INSERTED.Id 
-                                        VALUES (@user, @exception, @method, @recipient, @circumstance, @disposition, @incident, @total)";
+                                        VALUES (@user, @exception, @method, @recipient, @circumstance, @disposition, @incident)";
 
                     cmd.Parameters.AddWithValue("@user", userId);
                     cmd.Parameters.AddWithValue("@exception", DbUtils.ValueOrDBNull(DBRA.ExceptionId));
@@ -247,7 +247,7 @@ namespace PryVata.Repositories
                     cmd.Parameters.AddWithValue("@circumstance", DbUtils.ValueOrDBNull(DBRA.CircumstanceId));
                     cmd.Parameters.AddWithValue("@disposition", DbUtils.ValueOrDBNull(DBRA.DispositionId));
                     cmd.Parameters.AddWithValue("@incident", DbUtils.ValueOrDBNull(DBRA.IncidentId));
-                    cmd.Parameters.AddWithValue("@total", DbUtils.ValueOrDBNull(total));
+                    
 
                     DBRA.Id = (int)cmd.ExecuteScalar();
                 }
@@ -394,7 +394,7 @@ namespace PryVata.Repositories
             }
         }
 
-       /* public void UpdateRiskValue(int id, int total)
+        public void UpdateRiskValue(int id, int total)
         {
             using (SqlConnection conn = Connection)
             {
@@ -402,15 +402,17 @@ namespace PryVata.Repositories
 
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"UPDATE";
+                    cmd.CommandText = @"UPDATE DBRA
+                                        SET RiskValue = @value
+                                        WHERE Id = @dbraId";
 
-                    cmd.Parameters.AddWithValue("@dbraId", DbUtils.ValueOrDBNull(DBRAId));
-                    cmd.Parameters.AddWithValue("@controlsId", DbUtils.ValueOrDBNull(controlId));
+                    cmd.Parameters.AddWithValue("@dbraId", id);
+                    cmd.Parameters.AddWithValue("@value", total);
 
                     cmd.ExecuteNonQuery();
                 }
             }
-        }*/
+        }
     }
 }
 

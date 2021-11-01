@@ -54,11 +54,13 @@ return (
             <ListGroupItem>{i.informationType}</ListGroupItem>)}
         </ListGroup>
         Controls: 
-        <ListGroup>
-        {DBRA.control.map(c =>
+        { DBRA.control.length > 0 ? <ListGroup>
+        { DBRA.control.map(c =>
             <ListGroupItem>{c.control} </ListGroupItem>)}
-        </ListGroup>
+        </ListGroup> : " No controls"}
         </> }
+        <br/>
+        Risk: {DBRA.riskValue}
         <br/>
         <Link to={`/DBRA/edit/${DBRA.id}`}>Edit</Link>
         <Link to={`/incident/detail/${DBRA.incidentId}`}> Return to Incident</Link>
