@@ -91,7 +91,7 @@ set identity_insert [Controls] off
 
 set identity_insert [Incident] on
 insert into [Incident] (Id, AssignedUserId, Title, [Description], DateReported, DateOccurred, FacilityId, Confirmed, Reportable, DBRAId) VALUES
-(1, 4, 'Testing this incident stuff out', 'Will it work? Will it not work? Who knows', '09/01/2021', '10/25/2021', 1, NULL, NULL, NULL);
+(1, 4, 'Testing this incident stuff out', 'Will it work? Will it not work? Who knows', '09/01/2021', '10/25/2021', 1, 1, 1, 1);
 set identity_insert [Incident] off
 
 --Notes
@@ -114,8 +114,8 @@ set identity_insert [PatientIncident] off
 --DBRATest 
 
 set identity_insert [DBRA] on
-insert into [DBRA] (Id, ExceptionId, UserCompleteId, MethodId, RecipientId, CircumstanceId, DispositionId, IncidentId) VALUES
-(1, 5, 2, 1, 3, 4, 3, 1);
+insert into [DBRA] (Id, ExceptionId, UserCompleteId, MethodId, RecipientId, CircumstanceId, DispositionId, IncidentId, RiskValue) VALUES
+(1, 5, 2, 1, 3, 4, 3, 1, 15);
 set identity_insert [DBRA] off
 
 --DBRAInformation

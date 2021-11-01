@@ -15,5 +15,6 @@ namespace PryVata.Repositories
         void DeleteDBRAInformation(int DBRAId);
         void DeleteDBRAControls(int DBRAId);
         void DeleteDBRAByIncident(int? id);
+        void UpdateRiskValue(int id, int total);
     }
 }

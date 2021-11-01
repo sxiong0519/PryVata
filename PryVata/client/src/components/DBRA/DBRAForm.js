@@ -23,6 +23,7 @@ const DBRAForm = ({ incident }) => {
   const [ riskValue, setRiskValue ] = useState([])
   var values = 0
 
+
   //eventlistener to show dbraform
   const [dbraForm, setDbraForm] = useState(true);
   const style = dbraForm ? {display: 'block'} : {display: 'none'}
@@ -41,7 +42,7 @@ const DBRAForm = ({ incident }) => {
   const { dbraId } = useParams();
 
   //setting DBRA to fill out the new instance
-  const [dbraMethod, setDbraMethod] = useState(null);
+  let [dbraMethod, setDbraMethod] = useState(null);
   const [dbraRecipient, setDbraRecipient] = useState(null);
   const [dbraCircumstance, setDbraCircumstance] = useState(null);
   const [dbraControl, setDbraControl] = useState([]);
@@ -82,6 +83,8 @@ const DBRAForm = ({ incident }) => {
     getAllRecipients().then((r) => setRecipients(r));
   }, []);
 
+  console.log(dbra)
+
   const handleControlledInputChange = (event) => {
     const newDBRA = { ...dbra };
     newDBRA[event.target.id] = event.target.value;
@@ -100,14 +103,15 @@ const DBRAForm = ({ incident }) => {
         circumstanceId: dbraCircumstance,
         dispositionId: dbraDisposition,
         informationIds: [],
-        controlIds: [],
+        controlIds: []
       };
       for (const di of dbraInformation) {
         update.informationIds.push(di);
       }
       for (const dc of dbraControl) {
         update.controlIds.push(dc);
-      }
+      }      
+      console.log(update, "update")
       updateDBRA(update).then((p) =>
         history.goBack()
       );
@@ -120,7 +124,7 @@ const DBRAForm = ({ incident }) => {
         dispositionId: dbraDisposition,
         incidentId: incident.id,
         informationIds: [],
-        controlIds: [],
+        controlIds: []
       };
       for (const di of dbraInformation) {
         newDBRA.informationIds.push(di);
@@ -181,6 +185,7 @@ const DBRAForm = ({ incident }) => {
                       name="drone"
                       value={dbra.methodId}
                       onChange={(event) => {
+                          event.preventDefault()
                         DBRAMethods(me.id);
                         addRiskValue(me.methodValue)
                       }}

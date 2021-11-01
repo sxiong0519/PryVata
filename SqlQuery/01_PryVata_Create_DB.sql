@@ -83,7 +83,8 @@ CREATE TABLE [DBRA] (
   [RecipientId] integer,
   [CircumstanceId] integer,
   [DispositionId] integer,
-  [IncidentId] integer 
+  [IncidentId] integer,
+  [RiskValue] integer
 )
 GO
 
