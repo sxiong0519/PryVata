@@ -7,6 +7,7 @@ const Incident = ({ incident }) => {
     
   return (
       <>
+      <div className="i">
       <Card >
       <CardBody className="IncidentCard">
             
@@ -17,6 +18,8 @@ const Incident = ({ incident }) => {
       
       </CardBody>   
     </Card>
+ 
+    </div>
     </>
   );
 };

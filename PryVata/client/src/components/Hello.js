@@ -3,7 +3,8 @@ import Incident from "./Incident/Incident";
 import { getAllIncidents } from "../modules/IncidentManager";
 import IncidentCard from "./Incident/IncidentCard";
 import './HomePage.css'
-
+import { PieChart, Pie} from 'recharts';
+import { Link } from "react-router-dom";
 
 export default function Hello() {
   const [ incidents, setIncidents] = useState([]);
@@ -59,47 +60,48 @@ export default function Hello() {
 
 //pie chart data
 
-const totalConfirmedReportable = sortedIncidentsByDueDate.filter(i => i.pieValue === 1).length;
+const totalConfirmedReportable = sortedIncidentsByDueDate.filter(i => i.pieValue === 1);
 const totalUndetermined = sortedIncidentsByDueDate.filter(i => i.pieValue === 2);
 const totalConfirmedNotReportable = sortedIncidentsByDueDate.filter(i => i.pieValue === 3);
 const totalNotConfirmed = sortedIncidentsByDueDate.filter(i => i.pieValue === 4);
 
-// anychart.onDocumentReady(function() {
-// var data = [
-//   {x: "Confirmed and Reportable", value: totalConfirmedReportable},
-//   {x: "Undetermined", value: totalUndetermined},
-//   {x: "Confirmed, Not Reportable", value: totalConfirmedNotReportable},
-//   {x: "Determined, no evidence to support allegation", value: totalNotConfirmed},
-// ];
 
-//  // create the chart
-//  var chart = anychart.pie();
+var data = [
+  {name: 'Confirmed and Reportable', value: totalConfirmedReportable.length},
+  {name: "Undetermined", value: totalUndetermined.length},
+  {name: "Confirmed, Not Reportable", value: totalConfirmedNotReportable.length},
+  {name: "Not confirmed", value: totalNotConfirmed.length},
+];
 
-//  // set the chart title
-//  chart.title("Population by Race for the United States: 2010 Census");
-
-//  // add the data
-//  chart.data(data);
-
-//  // display the chart in the container
-//  chart.container('container');
-//  chart.draw();
-// })
 
 console.log(mapSortedIncident, 'map')
 console.log(sortedIncidentsByDueDate, totalConfirmedReportable.length, totalUndetermined, totalConfirmedNotReportable, totalNotConfirmed)
     return (
     <>
+      <div>
+        <Link to="/incident/add">New Incident</Link>
+      </div>
     <div className="homePage">
     <div className="mostRecent">
     <h3>Most Recent Allegations Received</h3>
-      <div className="otherLP">{incidentMap.slice(0,3)}</div>
+      <div className="recent">{incidentMap.slice(0,3)}</div>
       </div>
       <div className="dueDate">
       <h3>Due soon</h3>
       <div className="due">{mapSortedIncident.length > 0 ? <> {mapSortedIncident.slice(0,3)} </> : 'All incidents confirmed'}</div>
       </div>
-      <div className="container"></div>
+      </div>
+      <div className="container">
+      <div className="data">
+         Confirmed and Reportable: {totalConfirmedReportable.length} <br/>
+         Undetermined: {totalUndetermined.length} <br/>
+         Confirmed, Not Reportable: {totalConfirmedNotReportable.length} <br/>
+         Not confirmed: {totalNotConfirmed.length} <br/>
+        </div>
+      <PieChart width={850} height={600}>
+          <Pie data={data} dataKey="value" outerRadius={200} label={(entry) => entry.name} fill="red" />
+        </PieChart>
+        
       </div>
      
     </>

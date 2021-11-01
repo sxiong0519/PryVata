@@ -20,3 +20,11 @@
     justify-content: space-between;
     width: 75%;
   }
+
+  .incident {
+    margin-bottom: 100em;
+  }
+
+  .i {
+    margin-bottom: 5px;
+  }
