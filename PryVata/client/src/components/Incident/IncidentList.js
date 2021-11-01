@@ -16,14 +16,15 @@ const IncidentList = () => {
   }, []);
 
   return (
-    <div className="container">
+    <div className="incidentCard">
       <div>
         <Link to="/incident/add">New Incident</Link>
       </div>
+      <div className="incident">
       {incidents.map((incident) => (
           <Incident incident={incident} key={incident.id} />
         ))}
-      
+      </div>
     </div>
   );
 };

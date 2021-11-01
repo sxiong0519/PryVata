@@ -30,7 +30,8 @@ namespace PryVata.Repositories
 
                                         FROM Incident i
                                         LEFT JOIN Facility f ON i.FacilityId = f.Id
-                                        LEFT JOIN [User] u ON i.AssignedUserId = u.Id";
+                                        LEFT JOIN [User] u ON i.AssignedUserId = u.Id
+                                        ORDER BY DateReported DESC";
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -80,7 +81,8 @@ namespace PryVata.Repositories
                                         FROM Incident i
                                         LEFT JOIN Facility f ON i.FacilityId = f.Id
                                         LEFT JOIN [User] u ON i.AssignedUserId = u.Id
-                                        WHERE AssignedUserId = @userId";
+                                        WHERE AssignedUserId = @userId
+                                        ORDER BY DateReported DESC";
 
                     cmd.Parameters.AddWithValue("@userId", userId);
 

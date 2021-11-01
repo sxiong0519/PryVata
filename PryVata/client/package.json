@@ -15,7 +15,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
     "react-triple-toggle-switch": "^1.0.3",
-    "reactstrap": "^8.9.0"
+    "reactstrap": "^8.9.0",
+    "recharts": "^2.1.6"
   },
   "scripts": {
     "start": "react-scripts start",
