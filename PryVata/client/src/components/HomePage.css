@@ -1,20 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Pangolin&family=Staatliches&display=swap');
+
 .homePage {
     display: flex;
     justify-content: space-evenly;
 }
 
-.container {
+.pieContainer {
     display: flex;
     flex-wrap: nowrap;
-    justify-content: space-between;
-    width: 100%
+    justify-content: space-evenly;
+    width: 100%;
+    margin-left: 15em;
+    font-family: 'Pangolin', cursive;
 }
 
 .data {
-    width: 400em;
+    width: 50em;
     padding-top: 12em;
+    flex-grow: 4;
+    font-family: 'Pangolin', cursive;
 }
 
 .recent {
     margin-bottom: 5px;
+    font-family: 'Pangolin', cursive;
 }
+
+.due {
+    width: 15em;
+    font-family: 'Pangolin', cursive;
+}
+

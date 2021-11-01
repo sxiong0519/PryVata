@@ -71,7 +71,7 @@ const addThirty = (days) => {
 return (
     <>
     <div className="container">
-        Title: {incident.title}
+        <h1>{incident.title}</h1>
         <br/>
         Assigned: {incident.user.fullName}
         <br/>
@@ -85,7 +85,7 @@ return (
         <br/>
         Facility: {incident.facility.facilityName}
         <br/>
-        <Link onClick={showPatientForm}>Add Patient</Link>
+        <Link className="Link" onClick={showPatientForm}>Add Patient</Link>
         <br/>
         <div style={patientStyle}>
         <PatientForm incident={incident}/>
@@ -93,7 +93,7 @@ return (
         Patient Involved: 
         <ListGroup>
         {incident.patient.map(pt => 
-            <ListGroupItem>{pt.firstName} {pt.lastName} <button onClick={(event) => {
+            <ListGroupItem className="ListGroupItem">{pt.firstName} {pt.lastName} <button className="Link" onClick={(event) => {
               event.preventDefault();
               const confirmDelete = window.confirm(
                 "Are you sure you would like to delete the patient information?"
@@ -109,11 +109,13 @@ return (
         <br/>
         Reportable? {incident.reportable === null ? "Undetermined" : <>{incident.reportable === true ? "Yes" : "No"}</>}
         <br/>
-        <Link to={`/incident/edit/${incident.id}`}>Edit</Link>
-        <button onClick={deleteAnIncident}>Delete</button>
+        <Link className="Link" to={`/incident/edit/${incident.id}`}>Edit</Link> || {" "}
+        <Link className="Link" onClick={deleteAnIncident}>Delete</Link>
+        <div className="dbList">
         <DBRAList/>
+        </div>
         <div>
-        <Link onClick={showNoteForm}>New note</Link>
+        <Link className="Link" onClick={showNoteForm}>New note</Link>
       </div>
       <div style={style}>
         <NotesForm incident={incident} />

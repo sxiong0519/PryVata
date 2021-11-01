@@ -8,7 +8,7 @@ const DBRA = ({ db }) => {
       <>
       <Card >
       <CardBody className="DBRACard">
-          <Link to={`/DBRA/detail/${db.id}`}>View DBRA Details</Link>
+          <Link className="Link" to={`/DBRA/detail/${db.id}`}>View DBRA Details</Link>
       
       </CardBody>   
     </Card>

@@ -339,7 +339,7 @@ const DBRAForm = ({ incident }) => {
         <div className="buttons">
           <button
             id="dbraSubmit"
-            className="pfbtns"
+            className="Link"
             onClick={(event) => {
               event.preventDefault();
               handleClickSaveDBRA();
@@ -349,7 +349,7 @@ const DBRAForm = ({ incident }) => {
             Submit
           </button>{" "}
           {dbraId ? (
-              <button className="pfbtns" onClick={() => history.push(`/DBRA/detail/${dbraId}`)}>
+              <button className="Link" onClick={() => history.push(`/DBRA/detail/${dbraId}`)}>
                 Cancel
               </button>
             ) : (

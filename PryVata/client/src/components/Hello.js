@@ -78,9 +78,7 @@ console.log(mapSortedIncident, 'map')
 console.log(sortedIncidentsByDueDate, totalConfirmedReportable.length, totalUndetermined, totalConfirmedNotReportable, totalNotConfirmed)
     return (
     <>
-      <div>
-        <Link to="/incident/add">New Incident</Link>
-      </div>
+
     <div className="homePage">
     <div className="mostRecent">
     <h3>Most Recent Allegations Received</h3>
@@ -91,17 +89,17 @@ console.log(sortedIncidentsByDueDate, totalConfirmedReportable.length, totalUnde
       <div className="due">{mapSortedIncident.length > 0 ? <> {mapSortedIncident.slice(0,3)} </> : 'All incidents confirmed'}</div>
       </div>
       </div>
-      <div className="container">
-      <div className="data">
+      <div className="pieContainer">
+      
+      <PieChart width={850} height={600}>
+          <Pie data={data} dataKey="value" outerRadius={200} label={(entry) => entry.name} fill="#3b4e50" />
+        </PieChart>
+        <div className="data">
          Confirmed and Reportable: {totalConfirmedReportable.length} <br/>
          Undetermined: {totalUndetermined.length} <br/>
          Confirmed, Not Reportable: {totalConfirmedNotReportable.length} <br/>
          Not confirmed: {totalNotConfirmed.length} <br/>
         </div>
-      <PieChart width={850} height={600}>
-          <Pie data={data} dataKey="value" outerRadius={200} label={(entry) => entry.name} fill="red" />
-        </PieChart>
-        
       </div>
      
     </>

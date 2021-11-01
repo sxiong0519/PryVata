@@ -17,7 +17,7 @@ export default function Header({ isLoggedIn }) {
 
   return (
     <div>
-      <Navbar color="light" light expand="md">
+      <Navbar color="#f9faf4" light expand="md">
         <NavbarBrand tag={RRNavLink} to="/">PryVata</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
@@ -35,6 +35,10 @@ export default function Header({ isLoggedIn }) {
           {isLoggedIn &&
             <NavItem>
             <NavLink tag={RRNavLink} to="/myIncidents">My Incident</NavLink>
+          </NavItem>}
+          {isLoggedIn &&
+            <NavItem>
+            <NavLink tag={RRNavLink} to="/incident/add">New Incident</NavLink>
           </NavItem>}
           </Nav>
           <Nav navbar>

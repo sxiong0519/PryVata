@@ -85,7 +85,7 @@ const IncidentForm = () => {
 
   return (
     <>
-        <form className="IncidentForm">
+        <form className="IncidentForm container">
           <h2 className="IncidentForm__title post_header">
             {!id ? "Create a New Incident" : "Update Incident"}
           </h2>
@@ -195,7 +195,7 @@ const IncidentForm = () => {
               rel="stylesheet"
             />
             <label>Confirmed?</label>
-            <div className="switch-toggle switch-3 switch-candy">
+            <div className="switch-toggle switch-3 switch-candy Link">
               <input id="on" name="state-d" type="radio" onClick={ShowA} />
               <label htmlFor="on">YES</label>
 
@@ -250,7 +250,7 @@ const IncidentForm = () => {
           <div className="buttons">
             {id ? <>
               <button
-              className="pfbtns"
+              className="Link"
               onClick={(event) => {
                 event.preventDefault();
                 handleClickSaveIncident();
@@ -258,13 +258,13 @@ const IncidentForm = () => {
             >
               Update Incident
             </button>
-              <button className="pfbtns" onClick={() => history.push(`/incident/detail/${id}`)}>
+              <button className="Link" onClick={() => history.push(`/incident/detail/${id}`)}>
                 Cancel
               </button>
             </> : 
             <>
             <button
-              className="pfbtns"
+              className="Link"
               onClick={(event) => {
                 event.preventDefault();
                 handleClickSaveIncident();

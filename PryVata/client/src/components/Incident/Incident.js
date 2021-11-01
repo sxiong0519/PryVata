@@ -11,7 +11,7 @@ const Incident = ({ incident }) => {
       <Card >
       <CardBody className="IncidentCard">
             
-          <Link to={`/incident/detail/${incident.id}`}>{incident.title}</Link> 
+          <Link className="Link" to={`/incident/detail/${incident.id}`}>{incident.title}</Link> 
           <div>
           {new Date(incident.dateReported).toLocaleDateString()} 
           </div>

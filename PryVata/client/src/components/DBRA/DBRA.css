@@ -36,3 +36,8 @@ progress {
     overflow-x:hidden;
 }
 
+.ListGroupItem {
+    width: 20em;
+    margin-bottom: 5px
+}
+
