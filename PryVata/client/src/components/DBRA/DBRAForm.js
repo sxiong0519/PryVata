@@ -151,7 +151,7 @@ const DBRAForm = ({ incident }) => {
     values += riskValue[i];
   }
 
-  console.log(riskValue, values, "risk")
+  console.log(dbraInformation, "risk")
   
 
   return (
@@ -220,6 +220,7 @@ const DBRAForm = ({ incident }) => {
                       id={re.id}
                       name="drone"
                       value={dbra.recipientId}
+                      defaultChecked={dbraRecipient === re.id ? true : false}
                       onChange={(event) => {
                         DBRARecipients(re.id);
                         addRiskValue(re.recipientValue)
@@ -242,6 +243,7 @@ const DBRAForm = ({ incident }) => {
                       id={ci.id}
                       name="drone"
                       value={dbra.circumstanceId}
+                      defaultChecked={dbraCircumstance === ci.id ? true : false}
                       onChange={(event) => {
                         DBRACircumstances(ci.id);
                         addRiskValue(ci.circumstanceValue)
@@ -266,6 +268,7 @@ const DBRAForm = ({ incident }) => {
                       id={di.id}
                       name="drone"
                       value={dbra.dispositionId}
+                      defaultChecked={dbraDisposition === di.id ? true : false}
                       onChange={(event) => {
                         DBRADispositions(di.id);
                         addRiskValue(di.dispositionValue)
@@ -288,6 +291,7 @@ const DBRAForm = ({ incident }) => {
                       id={inf.id}
                       name="drone"
                       value={dbra.informationIds}
+                      defaultChecked={dbraInformation === inf.id ? true : false}
                       onChange={(e) => {
                         !dbraInformation.includes(e.target.id) ? 
                           <>

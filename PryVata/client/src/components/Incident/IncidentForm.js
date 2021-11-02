@@ -85,9 +85,11 @@ const IncidentForm = ({user}) => {
   const [dbraForm, setDbraForm] = useState(false);
   const style = dbraForm ? {display: 'block'} : {display: 'none'}
 
+  //filter facility
+  const filterFacility = facilities.filter(ff => ff.id === user.facilityId)
 
   // let filterUser = users.filter(us => us.id === user.id)
-  console.log(confirmed, reportable, 'con')
+  console.log(filterFacility,facilities, 'con')
 
   return (
     <>
@@ -154,6 +156,7 @@ const IncidentForm = ({user}) => {
             : 
             ""}
           </fieldset>
+          {user.userTypeId === 1 ? <>       
           <fieldset>
             <div className="form-group">
               <label htmlFor="facilityId">Facility</label>
@@ -173,6 +176,27 @@ const IncidentForm = ({user}) => {
               </select>
             </div>
           </fieldset>
+          </> : <>       
+          <fieldset>
+            <div className="form-group">
+              <label htmlFor="facilityId">Facility</label>
+              <select
+                value={incident.facilityId}
+                name="facilityId"
+                id="facilityId"
+                className="form-control"
+                onChange={handleControlledInputChange}
+              >
+                <option value="0">Select a Facility</option>
+                {filterFacility.map((f) => (
+                  <option key={f.id} value={f.id}>
+                    {f.facilityName}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </fieldset>
+          </>}
           <fieldset>
             <div className="form-group">
               <label htmlFor="dateReported">Date Reported</label>
@@ -205,7 +229,7 @@ const IncidentForm = ({user}) => {
           </fieldset>
             <label>Confirmed?</label>
             <div className="switch-toggle switch-3 switch-candy Link">
-              <input id="on" name="state-d" type="radio" value="true" onClick={ShowA} checked={confirmed === true ? true : false}/>
+              <input id="on" name="state-d" type="radio" value="true" onClick={ShowA} defaultChecked={confirmed === true ? true : false}/>
               <label htmlFor="on">YES</label>
 
               <input
@@ -234,7 +258,7 @@ const IncidentForm = ({user}) => {
 
             <label>Reportable?</label>
             <div className="switch-toggle switch-3 switch-candy Link">
-              <input id="Ron" name="state-dd" type="radio" onClick={ShowT} checked={reportable === true ? "checked" : false}/>
+              <input id="Ron" name="state-dd" type="radio" onClick={ShowT} checked={reportable === true ? true : false}/>
               <label htmlFor="Ron">YES</label>
 
               <input
@@ -243,11 +267,11 @@ const IncidentForm = ({user}) => {
                 type="radio"
                 onClick={ShowN}
         
-                checked={reportable === null ? "checked" : false}
+                checked={reportable === null ? true : false}
               />
               <label htmlFor="Rna">Undetermined</label>
 
-              <input id="Roff" name="state-dd" type="radio" onClick={ShowF} checked={reportable === false ? "checked" : false}/>
+              <input id="Roff" name="state-dd" type="radio" onClick={ShowF} checked={reportable === false ? true : false}/>
               <label htmlFor="Roff">NO</label>
 
               <a></a>

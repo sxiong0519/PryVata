@@ -126,6 +126,7 @@ console.log(sortedIncidentsByDueDate, totalConfirmedReportable.length, totalUnde
      
       </>}
       <center>
+        <h3>Incident per Reportable state </h3>
       <div className="pieContainer">
         
       <BarChart width={850} height={500} data={data} >
