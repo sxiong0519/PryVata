@@ -6,6 +6,7 @@ using PryVata.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace PryVata.Controllers
@@ -44,6 +45,26 @@ namespace PryVata.Controllers
                 return NotFound();
             }
             return Ok();
+        }
+        [HttpGet("CurrentUser")]
+        public IActionResult GetCurrentUser()
+        {
+            var user = GetCurrentUserProfile();
+            return Ok(user);
+        }
+
+
+        private User GetCurrentUserProfile()
+        {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if (firebaseUserId != null)
+            {
+                return _userRepository.GetByFirebaseUserId(firebaseUserId);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

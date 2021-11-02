@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "./Authorization/Login";
 import Hello from "./Hello";
@@ -8,14 +8,24 @@ import IncidentForm from "./Incident/IncidentForm";
 import DBRADetails from "./DBRA/DBRADetails";
 import DBRAForm from "./DBRA/DBRAForm";
 import MyIncidentList from "./Incident/MyIncidentList";
+import { getCurrentUser } from '../modules/userManager';
 
-export default function ApplicationViews({ isLoggedIn }) {
+export default function ApplicationViews({ isLoggedIn}) {
+  const [ user, setUser] = useState({})
 
+  useEffect(() => {
+    if(isLoggedIn){
+      getCurrentUser().then((user) => setUser(user))
+    }
+  }, []);
+
+  console.log(user, 'us')
   return (
     <main>
       <Switch>
+        
         <Route path="/" exact>
-          {isLoggedIn ? <Hello /> : <Redirect to="/login" />}
+          {isLoggedIn ? <Hello user={user} /> : <Redirect to="/login" />}
         </Route>
 
         <Route path="/login">
@@ -31,20 +41,18 @@ export default function ApplicationViews({ isLoggedIn }) {
         {isLoggedIn ? <IncidentDetails /> : <Redirect to="/login" />}
           
         </Route>
-
+       
         <Route path="/incident/add">
-        {isLoggedIn ? <IncidentForm /> : <Redirect to="/login" />}
-        </Route>
+        {isLoggedIn ? <IncidentForm user={user} /> : <Redirect to="/login" />}
+        </Route> 
 
         <Route path="/incident/edit/:id">
-        {isLoggedIn ? <IncidentForm /> : <Redirect to="/login" />}          
-        </Route>
+        {isLoggedIn ? <IncidentForm user={user}/> : <Redirect to="/login" />}          
+        </Route> 
 
         <Route path="/myIncidents">
         {isLoggedIn ? <MyIncidentList /> : <Redirect to="/login" />}          
         </Route>
-
-
         
         <Route path="/DBRA/detail/:dbraId">
         {isLoggedIn ? <DBRADetails /> : <Redirect to="/login" />}          

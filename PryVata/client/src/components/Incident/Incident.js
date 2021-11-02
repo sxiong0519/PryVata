@@ -10,10 +10,14 @@ const Incident = ({ incident }) => {
       <div className="i">
       <Card >
       <CardBody className="IncidentCard">
-            
+            <div className="incidentLink">
           <Link className="Link" to={`/incident/detail/${incident.id}`}>{incident.title}</Link> 
-          <div>
+          </div>
+          <div width="15px">
           {new Date(incident.dateReported).toLocaleDateString()} 
+          </div>
+          <div>
+            {incident.user.fullName}
           </div>
       
       </CardBody>   

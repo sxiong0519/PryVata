@@ -21,15 +21,16 @@
   .IncidentCard {
     display: flex;
     justify-content: space-between;
-    width: 75%;
+
   }
 
-  .incident {
-    margin-bottom: 100em;
-  }
+.incidentLink {
+  width: 10em;
+}
 
   .i {
     margin-bottom: 5px;
+     
   }
 
   .dbList {
@@ -52,4 +53,8 @@
 
   h1, h2, h3, h4 {
     font-family: 'Pangolin', cursive;
+}
+
+.titleLink {
+  margin-right: 5px;
 }

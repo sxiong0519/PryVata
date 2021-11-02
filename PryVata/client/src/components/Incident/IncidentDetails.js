@@ -85,8 +85,13 @@ return (
         <br/>
         Facility: {incident.facility.facilityName}
         <br/>
+        Confirmed? {incident.confirmed === null ? "Undetermined" : <>{incident.confirmed === true ? "Yes" : "No"}</>}
+        <br/>
+        Reportable? {incident.reportable === null ? "Undetermined" : <>{incident.reportable === true ? "Yes" : "No"}</>}
+        <br/>
         <Link className="Link" onClick={showPatientForm}>Add Patient</Link>
         <br/>
+        
         <div style={patientStyle}>
         <PatientForm incident={incident}/>
         </div>
@@ -105,9 +110,6 @@ return (
               }
             }}>Delete Patient</button></ListGroupItem>)}
         </ListGroup>
-        Confirmed? {incident.confirmed === null ? "Undetermined" : <>{incident.confirmed === true ? "Yes" : "No"}</>}
-        <br/>
-        Reportable? {incident.reportable === null ? "Undetermined" : <>{incident.reportable === true ? "Yes" : "No"}</>}
         <br/>
         <Link className="Link" to={`/incident/edit/${incident.id}`}>Edit</Link> || {" "}
         <Link className="Link" onClick={deleteAnIncident}>Delete</Link>

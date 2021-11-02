@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Pangolin&family=Staatliches&display=swap');
+
+
 progress {
     border: none;
     width: 20em;
@@ -41,3 +44,7 @@ progress {
     margin-bottom: 5px
 }
 
+option {
+    font-family: 'Pangolin', cursive;
+    font-size: 18px;
+}

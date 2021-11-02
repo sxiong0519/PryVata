@@ -10,15 +10,16 @@ import { getAllUsers } from "../../modules/userManager";
 import DBRAForm from "../DBRA/DBRAForm";
 import "./Incident.css";
 
-const IncidentForm = () => {
+
+const IncidentForm = ({user}) => {
   const [incident, setIncident] = useState({});
   const [users, setUsers] = useState([]);
   const [facilities, setFacilities] = useState([]);
   const history = useHistory();
   const { id } = useParams();
 
-  const [confirmed, setConfirmed] = useState(null);
-  const [reportable, setReportable] = useState(null);
+  const [confirmed, setConfirmed] = useState({});
+  const [reportable, setReportable] = useState({});
 
   const ShowA = () => {setConfirmed(true); setDbraForm(true)}
   const ShowB = () => {setConfirmed(false); setDbraForm(false)}
@@ -32,6 +33,8 @@ const IncidentForm = () => {
     if (id) {
       getIncidentById(id).then((i) => {
         setIncident(i);
+        setConfirmed(i.confirmed);
+        setReportable(i.reportable);
       });
     }
     getAllUsers().then((u) => {
@@ -65,7 +68,7 @@ const IncidentForm = () => {
       }).then((p) => history.push(`/incident/detail/${id}`));
     } else {
       const newIncident = {
-        assignedUserId: incident.assignedUserId,
+        assignedUserId: user.id,
         title: incident.title,
         description: incident.description,
         dateReported: incident.dateReported,
@@ -83,8 +86,15 @@ const IncidentForm = () => {
   const style = dbraForm ? {display: 'block'} : {display: 'none'}
 
 
+  // let filterUser = users.filter(us => us.id === user.id)
+  console.log(confirmed, reportable, 'con')
+
   return (
     <>
+    <link
+              href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css"
+              rel="stylesheet"
+            />
         <form className="IncidentForm container">
           <h2 className="IncidentForm__title post_header">
             {!id ? "Create a New Incident" : "Update Incident"}
@@ -120,9 +130,12 @@ const IncidentForm = () => {
               />
             </div>
           </fieldset>
-          <fieldset>
+          <fieldset>     
+          {user.userTypeId === 1 && id ? <>       
             <div className="form-group">
-              <label htmlFor="assignedUserId">Investigator</label>
+              
+             
+                <label htmlFor="assignedUserId">Investigator</label>
               <select
                 value={incident.assignedUserId}
                 name="assignedUserId"
@@ -137,7 +150,9 @@ const IncidentForm = () => {
                   </option>
                 ))}
               </select>
-            </div>
+            </div></> 
+            : 
+            ""}
           </fieldset>
           <fieldset>
             <div className="form-group">
@@ -188,65 +203,57 @@ const IncidentForm = () => {
               />
             </div>
           </fieldset>
-          <fieldset>
-          <div>
-            <link
-              href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css"
-              rel="stylesheet"
-            />
             <label>Confirmed?</label>
             <div className="switch-toggle switch-3 switch-candy Link">
-              <input id="on" name="state-d" type="radio" onClick={ShowA} />
+              <input id="on" name="state-d" type="radio" value="true" onClick={ShowA} checked={confirmed === true ? true : false}/>
               <label htmlFor="on">YES</label>
 
               <input
                 id="na"
                 name="state-d"
                 type="radio"
+                value="null"
                 onClick={ShowC}
-                checked="checked"
-              />
-              <label htmlFor="na">N/A</label>
+                checked={confirmed === null ? true : false}/>
 
-              <input id="off" name="state-d" type="radio" onClick={ShowB} />
+              <label htmlFor="na">Undetermined</label>
+
+              <input id="off" name="state-d" type="radio" value="false" onClick={ShowB} checked={confirmed === false ? true : false}/>
               <label htmlFor="off">NO</label>
 
               <a></a>
             </div>
-          </div>
-          </fieldset>
           {confirmed === true && !incident.id ? "Create the incident before completing the assessment" : ""}
           {incident.id && incident.confirmed === true || incident.id && confirmed === true ? <> 
           <div style={style}>
           <DBRAForm incident={incident} />
           </div>
+          </> : ""}
           <fieldset>
           <div>
-            <link
-              href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css"
-              rel="stylesheet"
-            />
+
             <label>Reportable?</label>
-            <div className="switch-toggle switch-3 switch-candy">
-              <input id="Ron" name="state-d" type="radio" onClick={ShowT} />
+            <div className="switch-toggle switch-3 switch-candy Link">
+              <input id="Ron" name="state-dd" type="radio" onClick={ShowT} checked={reportable === true ? "checked" : false}/>
               <label htmlFor="Ron">YES</label>
 
               <input
                 id="Rna"
-                name="state-d"
+                name="state-dd"
                 type="radio"
                 onClick={ShowN}
-                checked="checked"
+        
+                checked={reportable === null ? "checked" : false}
               />
-              <label htmlFor="Rna">N/A</label>
+              <label htmlFor="Rna">Undetermined</label>
 
-              <input id="Roff" name="state-d" type="radio" onClick={ShowF} />
+              <input id="Roff" name="state-dd" type="radio" onClick={ShowF} checked={reportable === false ? "checked" : false}/>
               <label htmlFor="Roff">NO</label>
 
               <a></a>
             </div>
           </div>
-          </fieldset></> : ""}
+          </fieldset>
           <div className="buttons">
             {id ? <>
               <button

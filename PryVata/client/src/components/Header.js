@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink as RRNavLink } from "react-router-dom";
 import {
   Collapse,
@@ -10,10 +10,21 @@ import {
   NavLink
 } from 'reactstrap';
 import { logout } from '../modules/authManager';
+import { getCurrentUser } from '../modules/userManager';
 
-export default function Header({ isLoggedIn }) {
+export default function Header({ isLoggedIn}) {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+
+  const [ user, setUser] = useState({})
+
+  useEffect(() => {
+    if(isLoggedIn){
+      getCurrentUser().then((user) => setUser(user))
+    }
+  }, [isLoggedIn]);
+
+  console.log(user, "us")
 
   return (
     <div>
@@ -28,6 +39,8 @@ export default function Header({ isLoggedIn }) {
                 <NavLink tag={RRNavLink} to="/">Home</NavLink>
               </NavItem>              
             }
+            
+            {user.userTypeId === 1 ? <>
             {isLoggedIn &&
             <NavItem>
             <NavLink tag={RRNavLink} to="/incident">Incident</NavLink>
@@ -35,12 +48,17 @@ export default function Header({ isLoggedIn }) {
           {isLoggedIn &&
             <NavItem>
             <NavLink tag={RRNavLink} to="/myIncidents">My Incident</NavLink>
-          </NavItem>}
+          </NavItem>} </> : <> {isLoggedIn && <>
+            <NavItem>
+            <NavLink tag={RRNavLink} to="/myIncidents">My Incident</NavLink>
+          </NavItem></>}</>}
           {isLoggedIn &&
             <NavItem>
             <NavLink tag={RRNavLink} to="/incident/add">New Incident</NavLink>
           </NavItem>}
           </Nav>
+
+
           <Nav navbar>
             {isLoggedIn &&
               <>

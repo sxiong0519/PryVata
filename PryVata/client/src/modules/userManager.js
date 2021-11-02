@@ -63,3 +63,13 @@ export const deleteUser = (userId) => {
     });
   });
 };
+
+export const getCurrentUser = () => {
+  return getToken().then((token) =>
+  fetch(`${baseUrl}/CurrentUser`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    }
+  }).then(res => res.json()))
+}

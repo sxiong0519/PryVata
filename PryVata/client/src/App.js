@@ -5,12 +5,15 @@ import Header from "./components/Header";
 import ApplicationViews from "./components/ApplicationViews";
 import { onLoginStatusChange } from "./modules/authManager";
 
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
 
   useEffect(() => {
     onLoginStatusChange(setIsLoggedIn);
   }, []);
+  
+  
 
   if (isLoggedIn === null) {
     return <Spinner className="app-spinner dark" />;
@@ -18,8 +21,8 @@ function App() {
 
   return (
     <Router>
-      <Header isLoggedIn={isLoggedIn}/>
-      <ApplicationViews isLoggedIn={isLoggedIn}/>
+      <Header isLoggedIn={isLoggedIn} />
+      <ApplicationViews isLoggedIn={isLoggedIn} />
     </Router>
   );
 }
