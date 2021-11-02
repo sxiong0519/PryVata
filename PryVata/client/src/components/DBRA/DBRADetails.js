@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useHistory, Link } from "react-router-dom";
 import { getDBRAById, deleteDBRA } from "../../modules/dbraManager";
 import { ListGroup, ListGroupItem } from "reactstrap";
+import './DBRA.css'
 
 
 const DBRADetails = () => {
@@ -38,7 +39,7 @@ return (
     <div className="container">
         Completed by: {DBRA.user.fullName}
         <br/>
-        {DBRA.exceptionId !== 5 ? <>DBRA meets this exception: <br/> {DBRA.exception.exception} </>: <>DBRA did not meet any exception
+        {DBRA.exceptionId !== 5 ? <><b>DBRA meets this exception: </b><br/> {DBRA.exception.exception} </>: <><b>DBRA did not meet any exception</b>
         <br/>
         Method of Disclosure: {DBRA.method.methodType} 
         <br/>
@@ -51,20 +52,19 @@ return (
         <label>Information: </label>
         <ListGroup>
         {DBRA.information.map(i => 
-            <ListGroupItem>{i.informationType}</ListGroupItem>)}
+            <ListGroupItem className="ListGroupItem">{i.informationType}</ListGroupItem>)}
         </ListGroup>
         Controls: 
         { DBRA.control.length > 0 ? <ListGroup>
         { DBRA.control.map(c =>
-            <ListGroupItem>{c.control} </ListGroupItem>)}
-        </ListGroup> : " No controls"}
-        </> }
+            <ListGroupItem className="ListGroupItem">{c.control} </ListGroupItem>)}
+        </ListGroup> : " No controls"}</>}
         <br/>
-        Risk: {DBRA.riskValue}
+        Risk Level: {DBRA.riskValue}
         <br/>
-        <Link to={`/DBRA/edit/${DBRA.id}`}>Edit</Link>
-        <Link to={`/incident/detail/${DBRA.incidentId}`}> Return to Incident</Link>
-        <button onClick={deleteADBRA}>Delete</button>
+        <Link className="Link" to={`/incident/detail/${DBRA.incidentId}`}> Return to Incident</Link> || {" "}
+        <Link className="Link" to={`/DBRA/edit/${DBRA.id}`}>Edit</Link> ||  {" "}
+        <Link className="Link" onClick={deleteADBRA}>Delete</Link>
     </div>
     </>
 )

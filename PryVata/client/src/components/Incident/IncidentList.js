@@ -16,9 +16,9 @@ const IncidentList = () => {
   }, []);
 
   return (
-    <div className="incidentCard">
+    <div className="incidentCard container">
       <div>
-        <Link to="/incident/add">New Incident</Link>
+        <Link className="Link" to="/incident/add">New Incident</Link>
       </div>
       <div className="incident">
       {incidents.map((incident) => (

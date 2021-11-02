@@ -42,7 +42,7 @@ const DBRAForm = ({ incident }) => {
   const { dbraId } = useParams();
 
   //setting DBRA to fill out the new instance
-  let [dbraMethod, setDbraMethod] = useState(null);
+  const [dbraMethod, setDbraMethod] = useState(null);
   const [dbraRecipient, setDbraRecipient] = useState(null);
   const [dbraCircumstance, setDbraCircumstance] = useState(null);
   const [dbraControl, setDbraControl] = useState([]);
@@ -60,12 +60,22 @@ const DBRAForm = ({ incident }) => {
   const DBRAInformations = (informationId) => setDbraInformation(informationId);
   const DBRADispositions = (dispositionId) => setDbraDisposition(dispositionId);
 
-  console.log(dbraMethod, dbraRecipient, dbraInformation);
+  console.log(dbra, dbraException, dbraMethod, dbraRecipient, dbraInformation, "sos");
 
   //getting all the data to create the options for forms
   useEffect(() => {
     if(dbraId)
-    {getDBRAById(dbraId).then((res) => setDBRA(res))}
+    {getDBRAById(dbraId).then((res) => { 
+        setDBRA(res)
+        DBRAExceptions(res.exceptionId)
+        if(res.exceptionId === 5)
+        {
+            DBRARecipients(res.recipientId);
+            DBRACircumstances(res.circumstanceId);
+            DBRAMethods(res.methodId);
+            DBRADispositions(res.dispositionId);
+        }
+    })}
     getAllCircumstances().then((c) => {
       setCircumstances(c);
     });
@@ -141,11 +151,12 @@ const DBRAForm = ({ incident }) => {
     values += riskValue[i];
   }
 
-  console.log(riskValue, values, "risk")
+  console.log(dbraInformation, "risk")
   
 
   return (
     <>
+    <div className="container">
     <progress id="file" max="25" value={values}/>
     <div className="dbraForm" style={style}>
       <form className="DBRAForm">
@@ -157,9 +168,10 @@ const DBRAForm = ({ incident }) => {
               <div>
                 <input
                   type="radio"
-                  id={ex.id}
-                  name="drone"
+                  id="exId"
+                  name="hello"
                   value={dbra.exceptionId}
+                  defaultChecked={dbraException === ex.id ? true : false}
                   onChange={(event) => {
                     DBRAExceptions(ex.id);
                   }}
@@ -184,6 +196,7 @@ const DBRAForm = ({ incident }) => {
                       id={me.id}
                       name="drone"
                       value={dbra.methodId}
+                      defaultChecked={dbraMethod === me.id ? true : false}
                       onChange={(event) => {
                           event.preventDefault()
                         DBRAMethods(me.id);
@@ -207,6 +220,7 @@ const DBRAForm = ({ incident }) => {
                       id={re.id}
                       name="drone"
                       value={dbra.recipientId}
+                      defaultChecked={dbraRecipient === re.id ? true : false}
                       onChange={(event) => {
                         DBRARecipients(re.id);
                         addRiskValue(re.recipientValue)
@@ -229,6 +243,7 @@ const DBRAForm = ({ incident }) => {
                       id={ci.id}
                       name="drone"
                       value={dbra.circumstanceId}
+                      defaultChecked={dbraCircumstance === ci.id ? true : false}
                       onChange={(event) => {
                         DBRACircumstances(ci.id);
                         addRiskValue(ci.circumstanceValue)
@@ -253,6 +268,7 @@ const DBRAForm = ({ incident }) => {
                       id={di.id}
                       name="drone"
                       value={dbra.dispositionId}
+                      defaultChecked={dbraDisposition === di.id ? true : false}
                       onChange={(event) => {
                         DBRADispositions(di.id);
                         addRiskValue(di.dispositionValue)
@@ -275,6 +291,7 @@ const DBRAForm = ({ incident }) => {
                       id={inf.id}
                       name="drone"
                       value={dbra.informationIds}
+                      defaultChecked={dbraInformation === inf.id ? true : false}
                       onChange={(e) => {
                         !dbraInformation.includes(e.target.id) ? 
                           <>
@@ -339,7 +356,7 @@ const DBRAForm = ({ incident }) => {
         <div className="buttons">
           <button
             id="dbraSubmit"
-            className="pfbtns"
+            className="Link"
             onClick={(event) => {
               event.preventDefault();
               handleClickSaveDBRA();
@@ -349,7 +366,7 @@ const DBRAForm = ({ incident }) => {
             Submit
           </button>{" "}
           {dbraId ? (
-              <button className="pfbtns" onClick={() => history.push(`/DBRA/detail/${dbraId}`)}>
+              <button className="Link" onClick={() => history.push(`/DBRA/detail/${dbraId}`)}>
                 Cancel
               </button>
             ) : (
@@ -359,8 +376,8 @@ const DBRAForm = ({ incident }) => {
       </form>
       </div>
       <br/>
-      {dbraException !== 5 ? "Exception met - 0 to Low Risk, No report necessary" : <>{values >= 15 ? "HIGH RISK: REPORTABLE REQUIRED" : "MEDIUM - LOW RISK: INVESTIGATOR DISCRETION"}</>}
-      
+      {dbraException !== 5 ? <h3>Exception met - 0 to Low Risk, No report necessary</h3> : <>{values >= 15 ? <h3>HIGH RISK: REPORTABLE REQUIRED</h3> : <h3>LOW - MEDIUM RISK: INVESTIGATOR DISCRETION</h3>}</>}
+      </div>
     </>
   );
 };

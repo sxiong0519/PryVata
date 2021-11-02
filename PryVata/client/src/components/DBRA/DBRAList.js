@@ -24,9 +24,6 @@ const DBRAList = () => {
 
   return (
     <div className="container">
-      <div>
-        {/* <Link to="/DBRA/add">New DBRA</Link> */}
-      </div>
       {findDBRA ? findDBRA.slice(0,1).map((db) => (
           <DBRA db={db} key={db.id} />
         )) : "No DBRA assigned"}

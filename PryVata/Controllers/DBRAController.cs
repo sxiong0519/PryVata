@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PryVata.Models;
 using PryVata.Repositories;
@@ -12,6 +13,7 @@ namespace PryVata.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class DBRAController : ControllerBase
     {
         private readonly IDBRARepository _dbraRepository;

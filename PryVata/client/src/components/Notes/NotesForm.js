@@ -65,7 +65,7 @@ const NotesForm = ({incident}) => {
                     <input type="text" id="imageUrl" required autoFocus className="form-control" placeholder="Add URL" value={note.imageUrl} onChange={handleControlledInputChange} />
                 </div>
             </fieldset>
-            <div className="buttons"><button className="pfbtns" onClick={
+            <div className="buttons"><button className="Link"  onClick={
                 (event) => {
                     event.preventDefault()
                     handleClickSaveNotes()
@@ -73,7 +73,7 @@ const NotesForm = ({incident}) => {
                 }
             }>
             {notesId ? "Update" : "Save"}
-            </button> {notesId ? <button className="pfbtns" onClick={() => history.goBack()}>Cancel</button> : ""}</div> 
+            </button> {notesId ? <button className="Link"  onClick={() => history.goBack()}>Cancel</button> : ""}</div> 
         </form>
         </>
     )

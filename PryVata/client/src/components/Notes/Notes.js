@@ -29,8 +29,8 @@ const Notes = ({ fn }) => {
           <br/>
           {new Date(fn.createDateTime).toLocaleDateString()} 
           <br/>
-          <Link to={`/notes/edit/${fn.id}`}>Edit</Link>
-        <button onClick={deleteANote}>Delete</button>
+          <Link className="Link" to={`/notes/edit/${fn.id}`}>Edit</Link> || {" "}
+        <Link className="Link"  onClick={deleteANote}>Delete</Link>
       </CardBody>   
     </Card>
     </>
