@@ -8,7 +8,7 @@ namespace PryVata.Models
     public class Patient
     {
         public int Id { get; set; }
-        public int PatientNumber { get; set; }
+        public string PatientNumber { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int IncidentId { get; set; }
