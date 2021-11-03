@@ -4,6 +4,17 @@ import { getToken } from "./authManager";
 
 const baseUrl = '/api/patient';
 
+export const getAllPatients = () => {
+    return getToken().then((token) => {  
+    return fetch(baseUrl, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(resp => resp.json())
+    });
+  }
+
 export const addPatient = (patient) => {
     return getToken().then((token) => {
       return fetch(baseUrl, {

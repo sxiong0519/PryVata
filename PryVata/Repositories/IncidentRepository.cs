@@ -192,7 +192,7 @@ namespace PryVata.Repositories
                                 incident.Patient.Add(new Patient
                                 {
                                     Id = DbUtils.GetInt(reader, "Patient Id"),
-                                    PatientNumber = DbUtils.GetInt(reader, "PatientNumber"),
+                                    PatientNumber = DbUtils.GetString(reader, "PatientNumber"),
                                     FirstName = DbUtils.GetString(reader, "FirstName"),
                                     LastName = DbUtils.GetString(reader, "LastName")
                                 }) ; 

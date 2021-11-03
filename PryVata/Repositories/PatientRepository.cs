@@ -21,7 +21,10 @@ namespace PryVata.Repositories
 
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT * FROM Patient 
+                    cmd.CommandText = @"SELECT p.*, i.Id AS 'Incident Id'
+                                        FROM Patient p
+                                        LEFT JOIN PatientIncident pi ON p.Id = pi.PatientId
+                                        JOIN Incident i ON i.Id = pi.IncidentId
                                         ";
 
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -33,9 +36,10 @@ namespace PryVata.Repositories
                         patients.Add(new Patient
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
-                            PatientNumber = DbUtils.GetInt(reader, "PatientNumber"),
+                            PatientNumber = DbUtils.GetString(reader, "PatientNumber"),
                             FirstName = DbUtils.GetString(reader, "FirstName"),
-                            LastName = DbUtils.GetString(reader, "LastName")
+                            LastName = DbUtils.GetString(reader, "LastName"),
+                            IncidentId = DbUtils.GetInt(reader,"Incident Id")
                         });
                     }
 
@@ -69,7 +73,7 @@ namespace PryVata.Repositories
                         {
 
                             Id = DbUtils.GetInt(reader, "Id"),
-                            PatientNumber = DbUtils.GetInt(reader, "PatientNumber"),
+                            PatientNumber = DbUtils.GetString(reader, "PatientNumber"),
                             FirstName = DbUtils.GetString(reader, "FirstName"),
                             LastName = DbUtils.GetString(reader, "LastName")
                         };

@@ -6,7 +6,7 @@ import NotesForm from "../Notes/NotesForm";
 import NotesList from "../Notes/NotesList";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import PatientForm from "../Patient/PatientForm";
-import { deletePatient } from "../../modules/patientManager";
+import { deletePatient, getAllPatients } from "../../modules/patientManager";
 
 
 
@@ -14,6 +14,7 @@ const IncidentDetails = () => {
     const [incident, setIncident] = useState();
     const [noteForm, setNoteForm] = useState(false);
     const [patientForm, setPatientForm] = useState(false);
+    const [ patients, setPatients ] = useState([]);
     const { id } = useParams();
 
     const history = useHistory();
@@ -22,6 +23,7 @@ const IncidentDetails = () => {
     getIncidentById(id).then((i) => { 
         setIncident(i)
             })
+    getAllPatients().then((p) => setPatients(p))
 }, []);
 
 const deleteAnIncident = (event) => {
@@ -36,21 +38,12 @@ const deleteAnIncident = (event) => {
     }
   };
 
-  const deleteAPatient = (event) => {
-    event.preventDefault();
-    const confirmDelete = window.confirm(
-      "Are you sure you would like to delete the patient information?"
-    );
-    if (confirmDelete) {
-      deletePatient(incident.patient.id).then(() => {
-        history.push("/incident");
-      });
-    }
-  };
-
 if(!incident) {
     return null;
 }
+
+
+console.log(patients, "patient")
 
 //where to show form
 const showNoteForm = () => setNoteForm(true)
@@ -60,13 +53,14 @@ const patientStyle = patientForm ? {display: 'block'} : {display: 'none'}
 
 // 30day date
 
-
 const addThirty = (days) => {
   const date = new Date(incident.dateReported)
   date.setDate(date.getDate() + days);
   return date.toLocaleDateString();
 };
 
+const filteredPatients = patients.filter(p => p.incidentId === incident.id);
+console.log(filteredPatients, "PATIENTS")
 
 return (
     <>

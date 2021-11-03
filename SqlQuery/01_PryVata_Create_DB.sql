@@ -153,7 +153,7 @@ GO
 
 CREATE TABLE [Patient] (
   [Id] integer PRIMARY KEY IDENTITY,
-  [PatientNumber] integer NOT NULL,
+  [PatientNumber] nvarchar(255) NOT NULL,
   [FirstName] nvarchar(255) NOT NULL,
   [LastName] nvarchar(255) NOT NULL
 )
