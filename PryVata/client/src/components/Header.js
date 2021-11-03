@@ -11,6 +11,7 @@ import {
 } from 'reactstrap';
 import { logout } from '../modules/authManager';
 import { getCurrentUser } from '../modules/userManager';
+import pryvataLogo from "./image/pryvataLogo.png"
 
 export default function Header({ isLoggedIn}) {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,7 +30,8 @@ export default function Header({ isLoggedIn}) {
   return (
     <div>
       <Navbar color="#f9faf4" light expand="md">
-        <NavbarBrand tag={RRNavLink} to="/">PryVata</NavbarBrand>
+        <NavbarBrand tag={RRNavLink} to="/">
+      <img  className="logo" src={pryvataLogo} alt="Pryvata"/></NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
@@ -43,14 +45,14 @@ export default function Header({ isLoggedIn}) {
             {user.userTypeId === 1 ? <>
             {isLoggedIn &&
             <NavItem>
-            <NavLink tag={RRNavLink} to="/incident">Incident</NavLink>
+            <NavLink tag={RRNavLink} to="/incident">Incident List</NavLink>
           </NavItem>}
           {isLoggedIn &&
             <NavItem>
-            <NavLink tag={RRNavLink} to="/myIncidents">My Incident</NavLink>
+            <NavLink tag={RRNavLink} to="/myIncidents">My Incidents</NavLink>
           </NavItem>} </> : <> {isLoggedIn && <>
             <NavItem>
-            <NavLink tag={RRNavLink} to="/myIncidents">My Incident</NavLink>
+            <NavLink tag={RRNavLink} to="/myIncidents">My Incidents</NavLink>
           </NavItem></>}</>}
           {isLoggedIn &&
             <NavItem>

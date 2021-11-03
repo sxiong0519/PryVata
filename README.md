@@ -1,8 +1,12 @@
-<p align="center"><img src="src/components/nav/navlogo.png" height="300" width="auto" /></p>
+<p align="center"><img src="PryVata/client/src/components/image/pryvataLogo.png" height="300" width="auto" /></p>
 
 # Pry-Vata
 
-A healthcare privacy allegation tracking mechanism providing CRUD functionality for its users. What sets this application apart from other B2B SaaS healthcare privacy product is that it incorporates a data breach risk assessment, which allows the user to determine if the confirmed allegation is high risk, low risk, or meets an exception. Depending on the risk determined, the investigator may be required to report it to their respective state's Health and Human Services Agency and/or the Office of Civil Rights. This application can allow almost anyone, with basic knowledge of HIPAA, to review and determine the risk of their incident.   
+A healthcare privacy allegation tracking mechanism providing CRUD functionality for its users. What sets this application apart from other B2B SaaS healthcare privacy product is that it incorporates a data breach risk assessment, which allows the user to determine if the confirmed allegation is high risk, low risk, or meets an exception. Depending on the risk determined, the investigator may be required to report it to their respective state's Health and Human Services Agency and/or the Office of Civil Rights. This application can allow almost anyone, with basic knowledge of HIPAA, to review and determine the risk of their incident. 
+
+### Data Breach Risk Assessment Reference: 
+[Blake Bundham Handout](https://assets.hcca-info.org/Portals/0/PDFs/Resources/Conference_Handouts/Regional_Conference/2016/Orlando/BlakeBudmanhandout.pdf)
+[NCHICA HITECH Act Breach Notification Risk Assessment Tool](https://assets.hcca-info.org/Portals/0/PDFs/Resources/Conference_Handouts/Compliance_Institute/2010/410handout2.pdf)
 
 ### Built With 
 * ReactJS
@@ -48,33 +52,28 @@ To get a local copy up and running follow these simple steps.
   "FirebaseProjectId": "FIREBASE_PROJECT_ID_HERE"
  }`
 
- 2. Add the <b>Microsoft.AspNetCore.Authentication.JwtBearer Nuget</b> package to your project.
+ 2. Create an env.local file in Visual Studio Code with your Firebase API Key
 
- 3. Update the ConfigureServices() method in Startup.cs to configure your web API to understand and validate Firebase JWT authentication.
+ `REACT_APP_API_KEY=FIREBASE_API_KEY `
 
-* 
+* Run the Sql queries in the SqlQuery folder (01_PryVata_Create_DB.sql, then 02_PryVata_Seed_Data.sql)
 
-* Serve the database api
- 
- `json-server -p 8088 -w database.json`
+ 1. Make sure to replace users information to reflect your Firebase accounts in the Seed Data
 
+* Execute the PryVata API in Visual Studios
 
-* Run the code
+* Run the front end code in Visual Studio Code by going to the client folder
 
     `npm start`
-
-<img src= "Images/HomeExample.gif" height="500" width="auto" />
 
 
 ## Design and Development
 
-### DbDiagram.io - Entity Relationship Diagram
+### DbDiagram.io - [Entity Relationship Diagram] (https://dbdiagram.io/d/616504a1940c4c4eec90304a)
 
-<img src= "Images/ERD.png" height="100" width="auto" />
+<img src= "PryVata/client/src/components/image/PryVata.png" height="300" width="auto" />
 
+## Special Thanks
 
-### WireFrame
-<img src= "Images/Homepage.png" height="150" width="auto" />
-<img src= "Images/ChildDetail.png" height="150" width="auto" />
-<img src= "Images/MileProv.png" height="150" width="auto" />
-<img src= "Images/ForLoc.png" height="150" width="auto" />
+* NSS Instructors: Joe Shephard, Josh Barton, Christina Ashworth, and Bryan Ford
+* Indoor Kids: [Michael Trevino](https://github.com/mtrevin93)
