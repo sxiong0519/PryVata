@@ -78,3 +78,4 @@ To get a local copy up and running follow these simple steps.
 
 * NSS Instructors: Joe Shephard, Josh Barton, Christina Ashworth, and Bryan Ford
 * Indoor Kids: [Michael Trevino](https://github.com/mtrevin93)
+* Solitaire card game - my go-to daily activity to decompress after a stressful but successful day of coding
