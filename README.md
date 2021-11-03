@@ -6,6 +6,7 @@ A healthcare privacy allegation tracking mechanism providing CRUD functionality 
 
 ### Data Breach Risk Assessment Reference: 
 [Blake Bundham Handout](https://assets.hcca-info.org/Portals/0/PDFs/Resources/Conference_Handouts/Regional_Conference/2016/Orlando/BlakeBudmanhandout.pdf)
+<br/>
 [NCHICA HITECH Act Breach Notification Risk Assessment Tool](https://assets.hcca-info.org/Portals/0/PDFs/Resources/Conference_Handouts/Compliance_Institute/2010/410handout2.pdf)
 
 ### Built With 
