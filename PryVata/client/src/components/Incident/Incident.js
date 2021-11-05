@@ -19,6 +19,9 @@ const Incident = ({ incident }) => {
           <div>
             {incident.user.fullName}
           </div>
+          <div>
+            {incident.reportable !== null ? "Closed" : " "}
+          </div>
       
       </CardBody>   
     </Card>
