@@ -67,14 +67,6 @@ const DBRAForm = ({ incident }) => {
     if(dbraId)
     {getDBRAById(dbraId).then((res) => { 
         setDBRA(res)
-        DBRAExceptions(res.exceptionId)
-        if(res.exceptionId === 5)
-        {
-            DBRARecipients(res.recipientId);
-            DBRACircumstances(res.circumstanceId);
-            DBRAMethods(res.methodId);
-            DBRADispositions(res.dispositionId);
-        }
     })}
     getAllCircumstances().then((c) => {
       setCircumstances(c);
@@ -151,8 +143,6 @@ const DBRAForm = ({ incident }) => {
     values += riskValue[i];
   }
 
-  console.log(dbraInformation, "risk")
-  
 
   return (
     <>
