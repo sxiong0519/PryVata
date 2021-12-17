@@ -50,7 +50,7 @@ To get a local copy up and running follow these simple steps.
         "FirebaseProjectId": "FIREBASE_PROJECT_ID_HERE"
         }`
 
-    3. Create an env.local file in Visual Studio Code with your Firebase API Key
+    3. Create an .env.local file in Visual Studio Code with your Firebase API Key
 
         `REACT_APP_API_KEY=FIREBASE_API_KEY `
 
