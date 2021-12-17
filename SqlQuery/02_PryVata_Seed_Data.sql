@@ -26,7 +26,7 @@ set identity_insert [User] on
 insert into [User] (Id, [FullName], Email, FirebaseUserId, UserTypeId, FacilityId, isActive) values (1, 'Rachel Green', 'rachel@green.com', '7jET0TCGZNNJHwYsMlyuDESvYLS2', 2, 3, 1);
 insert into [User] (Id, [FullName], Email, FirebaseUserId, UserTypeId, FacilityId, isActive) values (2, 'Ross Geller', 'ross@geller.com', 'qQzTjWJoM3YU2wgUUG8bKERZPit1', 2, 2, 1);
 insert into [User] (Id, [FullName], Email, FirebaseUserId, UserTypeId, FacilityId, isActive) values (3, 'Monica Geller', 'monica@geller.com', 'BNxfNDfalHYwMDp2xqsjXI1b80K3', 2, 1, 1);
-insert into [User] (Id, [FullName], Email, FirebaseUserId, UserTypeId, FacilityId, isActive) values (4, 'Chandler Bing', 'chandler@bing.com', '6HEjc1XOxkWEaeupluCSiLmCy0F3', 1, NULL, 1);
+insert into [User] (Id, [FullName], Email, FirebaseUserId, UserTypeId, FacilityId, isActive) values (4, 'Chandler Bing', 'chandler@bing.com', 'fuaQJpx2zhP5P8w4alB9Q0u8cDq2', 1, NULL, 1);
 insert into [User] (Id, [FullName], Email, FirebaseUserId, UserTypeId, FacilityId, isActive) values (5, 'Phoebe Buffay', 'phoebe@buffay.com', 'JxYbc7vcooSJmgbgWtnNicBBq7G3', 2, 2, 1);
 insert into [User] (Id, [FullName], Email, FirebaseUserId, UserTypeId, FacilityId, isActive) values (6, 'Joey Tribbiani', 'joey@tribbiani.com', '3hZJ8GS2GRYHYChcDLPEqkdrotG3', 1, NULL, 1);
 set identity_insert [User] off

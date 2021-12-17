@@ -34,10 +34,6 @@ To get a local copy up and running follow these simple steps.
 
 ## Installation 
 
-* Install NodeJs and Firebase in your terminal
-
-    `npm install react-router-dom firebase`
-
 * Clone the repository 
 
     `git clone git@github.com:sxiong0519/PryVata.git`
@@ -55,13 +51,17 @@ To get a local copy up and running follow these simple steps.
 
     2. Create an env.local file in Visual Studio Code with your Firebase API Key
 
- `REACT_APP_API_KEY=FIREBASE_API_KEY `
+        `REACT_APP_API_KEY=FIREBASE_API_KEY `
 
 * Run the Sql queries in the SqlQuery folder (01_PryVata_Create_DB.sql, then 02_PryVata_Seed_Data.sql)
 
     1. Make sure to replace users information to reflect your Firebase accounts in the Seed Data
 
 * Execute the PryVata API in Visual Studios
+
+* Install NodeJs and Firebase in your terminal in the `client` folder
+
+    `npm install react-router-dom firebase`
 
 * Run the front end code in Visual Studio Code by going to the client folder
 
