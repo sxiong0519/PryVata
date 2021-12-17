@@ -43,13 +43,14 @@ To get a local copy up and running follow these simple steps.
 
 * Once you've created your Firebase project:
 
-    1. Update the appsettings.json file to add a "FirebaseProjectId" key in PryVata.sln in Visual Studios. Make the value of this key your Firebase project id.
+    1. Create a sub-file under the appsettings.json file and name it `appsettings.Development.json`
+    2. Add the code below to the new file and update the "FIREBASE_PROJECT_ID_HERE" key to the value of your Firebase project id.
 
         `{
         "FirebaseProjectId": "FIREBASE_PROJECT_ID_HERE"
         }`
 
-    2. Create an env.local file in Visual Studio Code with your Firebase API Key
+    3. Create an env.local file in Visual Studio Code with your Firebase API Key
 
         `REACT_APP_API_KEY=FIREBASE_API_KEY `
 
