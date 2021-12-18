@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useHistory, useParams, render } from "react-router-dom";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { addPatient } from "../../modules/patientManager";
 import './Patient.css'
 

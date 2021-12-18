@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, useParams, render } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { addNotes, getNotesById, updateNotes } from "../../modules/notesManager";
 
 
@@ -15,7 +15,7 @@ const NotesForm = ({incident}) => {
         if(notesId) {
             getNotesById(notesId).then((n) => setNote(n))
         }
-    }, [])
+    }, [notesId])
 
     const handleControlledInputChange = (event) => {
         const newNote = { ...note };

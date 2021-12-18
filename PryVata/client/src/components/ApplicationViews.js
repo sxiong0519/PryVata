@@ -10,14 +10,14 @@ import DBRAForm from "./DBRA/DBRAForm";
 import MyIncidentList from "./Incident/MyIncidentList";
 import { getCurrentUser } from '../modules/userManager';
 
-export default function ApplicationViews({ isLoggedIn}) {
+export default function ApplicationViews({ isLoggedIn }) {
   const [ user, setUser] = useState({})
 
   useEffect(() => {
     if(isLoggedIn){
       getCurrentUser().then((user) => setUser(user))
     }
-  }, []);
+  }, [isLoggedIn]);
 
   console.log(user, 'us')
   return (

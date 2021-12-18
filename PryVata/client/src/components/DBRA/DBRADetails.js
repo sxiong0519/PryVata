@@ -15,7 +15,7 @@ const DBRADetails = () => {
     getDBRAById(dbraId).then((i) => { 
         setDBRA(i)
             })
-}, []);
+}, [dbraId]);
 
 const deleteADBRA = (event) => {
     event.preventDefault();
