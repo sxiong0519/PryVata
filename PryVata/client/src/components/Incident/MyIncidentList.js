@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getMyIncidents } from "../../modules/IncidentManager.js";
 import Incident from './Incident.js'
-import { Link } from "react-router-dom";
 
 
 const MyIncidentList = () => {

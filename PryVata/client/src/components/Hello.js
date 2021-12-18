@@ -5,7 +5,6 @@ import IncidentCard from "./Incident/IncidentCard";
 import './HomePage.css'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid,
   Legend, Tooltip } from 'recharts';
-import { Link } from "react-router-dom";
 
 const Hello = ({user}) => {
   const [ incidents, setIncidents] = useState([]);
@@ -36,7 +35,7 @@ const Hello = ({user}) => {
     } else if (i.confirmed === null)
     {
       i.pieValue = 2;
-    } else if (i.confirmed === true && i.reportable === null || i.reportable === false)
+    } else if ((i.confirmed === true && i.reportable === null) || i.reportable === false)
     {
       i.pieValue = 3;
     } else
@@ -103,7 +102,7 @@ console.log(sortedIncidentsByDueDate, totalConfirmedReportable.length, totalUnde
     {user.userTypeId === 1 ? <>
     <div className="homePage">
     <div className="mostRecent">
-    <h3>Most Recent Allegations Received</h3>
+    <h3>Most Recent </h3>
       <div className="recent">{incidentMap.slice(0,3)}</div>
       </div>
       <div className="dueDate">

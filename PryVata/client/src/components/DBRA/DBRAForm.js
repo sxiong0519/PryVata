@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, useParams, render } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { getDBRAById, addDBRA, updateDBRA } from "../../modules/dbraManager";
 import { getAllCircumstances } from "../../modules/circumstanceManager";
 import { getAllControls } from "../../modules/controlsManager";
@@ -8,7 +8,6 @@ import { getAllInformation } from "../../modules/informationManager";
 import { getAllMethods } from "../../modules/methodManager";
 import { getAllRecipients } from "../../modules/recipientManager";
 import { getAllDispositions } from "../../modules/dispositionManager";
-import { addNotes } from "../../modules/notesManager";
 import "./DBRA.css";
 
 const DBRAForm = ({ incident }) => {
@@ -55,9 +54,9 @@ const DBRAForm = ({ incident }) => {
   const DBRAMethods = (methodId) => setDbraMethod(methodId);
   const DBRARecipients = (recipientId) => setDbraRecipient(recipientId);
   const DBRACircumstances = (circumstanceId) => setDbraCircumstance(circumstanceId);
-  const DBRAControls = (controlId) => setDbraControl(controlId);
+  //const DBRAControls = (controlId) => setDbraControl(controlId);
   const DBRAExceptions = (exceptionId) => setDbraException(exceptionId);
-  const DBRAInformations = (informationId) => setDbraInformation(informationId);
+  //const DBRAInformations = (informationId) => setDbraInformation(informationId);
   const DBRADispositions = (dispositionId) => setDbraDisposition(dispositionId);
 
   console.log(dbra, dbraException, dbraMethod, dbraRecipient, dbraInformation, "sos");
@@ -83,15 +82,15 @@ const DBRAForm = ({ incident }) => {
     });
     getAllMethods().then((m) => setMethods(m));
     getAllRecipients().then((r) => setRecipients(r));
-  }, []);
+  }, [dbraId]);
 
   console.log(dbra)
 
-  const handleControlledInputChange = (event) => {
-    const newDBRA = { ...dbra };
-    newDBRA[event.target.id] = event.target.value;
-    setDBRA(newDBRA);
-  };
+  // const handleControlledInputChange = (event) => {
+  //   const newDBRA = { ...dbra };
+  //   newDBRA[event.target.id] = event.target.value;
+  //   setDBRA(newDBRA);
+  // };
 
   const handleClickSaveDBRA = () => {
     if (dbra.exception === null) {

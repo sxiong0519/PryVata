@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, useParams, render } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { getAllFacilities } from "../../modules/facilityManager";
 import {
   addIncident,
@@ -43,7 +43,7 @@ const IncidentForm = ({user}) => {
     getAllFacilities().then((f) => {
       setFacilities(f);
     });
-  }, []);
+  }, [id]);
 
   const handleControlledInputChange = (event) => {
     const newIncident = { ...incident };
@@ -245,10 +245,10 @@ const IncidentForm = ({user}) => {
               <input id="off" name="state-d" type="radio" value="false" onClick={ShowB} checked={confirmed === false ? true : false}/>
               <label htmlFor="off">NO</label>
 
-              <a></a>
+              <a href="#/">  </a>
             </div>
           {confirmed === true && !incident.id ? "Create the incident before completing the assessment" : ""}
-          {incident.id && incident.confirmed === true || incident.id && confirmed === true ? <> 
+          {(incident.id && incident.confirmed === true) || (incident.id && confirmed === true) ? <> 
           <div style={style}>
           <DBRAForm incident={incident} />
           </div>
@@ -274,7 +274,7 @@ const IncidentForm = ({user}) => {
               <input id="Roff" name="state-dd" type="radio" onClick={ShowF} checked={reportable === false ? true : false}/>
               <label htmlFor="Roff">NO</label>
 
-              <a></a>
+              <a href="#/">  </a>
             </div>
           </div>
           </fieldset>

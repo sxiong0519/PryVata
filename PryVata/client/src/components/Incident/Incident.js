@@ -20,7 +20,7 @@ const Incident = ({ incident }) => {
             {incident.user.fullName}
           </div>
           <div>
-            {incident.reportable !== null ? "Closed" : " "}
+            {incident.reportable !== null ? "Closed" : "Open"}
           </div>
       
       </CardBody>   

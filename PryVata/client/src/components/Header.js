@@ -65,7 +65,7 @@ export default function Header({ isLoggedIn}) {
             {isLoggedIn &&
               <>
                 <NavItem>
-                  <a aria-current="page" className="nav-link"
+                  <a href="#/" aria-current="page" className="nav-link"
                     style={{ cursor: "pointer" }} onClick={logout}>Logout</a>
                 </NavItem>
               </>

@@ -24,7 +24,7 @@ const IncidentDetails = () => {
         setIncident(i)
             })
     getAllPatients().then((p) => setPatients(p))
-}, []);
+}, [id]);
 
 const deleteAnIncident = (event) => {
     event.preventDefault();
@@ -67,29 +67,38 @@ return (
     <div className="container">
         <h1>{incident.title}</h1>
         <br/>
-        Assigned: {incident.user.fullName}
+        <h4>Incident Details:</h4>
+        <b>Assigned:</b> {incident.user.fullName}
         <br/>
-        Description: {incident.description}
+        <b>Description</b>: {incident.description}
         <br/>
-        Date Occurred: {new Date(incident.dateOccurred).toLocaleDateString()} 
+        <b>Date Occurred:</b> {new Date(incident.dateOccurred).toLocaleDateString()} 
         <br/>
-        Date Reported/Received: {new Date(incident.dateReported).toLocaleDateString()} 
+        <b>Date Reported/Received:</b> {new Date(incident.dateReported).toLocaleDateString()} 
         <br/>
-        Due Date: {addThirty(30)}
+        <b>Due Date:</b> {addThirty(30)}
         <br/>
-        Facility: {incident.facility.facilityName}
+        <b>Facility:</b> {incident.facility.facilityName}
         <br/>
-        Confirmed? {incident.confirmed === null ? "Undetermined" : <>{incident.confirmed === true ? "Yes" : "No"}</>}
+        <b>Confirmed?</b> {incident.confirmed === null ? "Undetermined" : <>{incident.confirmed === true ? "Yes" : "No"}</>}
         <br/>
-        Reportable? {incident.reportable === null ? "Undetermined" : <>{incident.reportable === true ? "Yes" : "No"}</>}
+        <b>Reportable?</b> {incident.reportable === null ? "Undetermined" : <>{incident.reportable === true ? "Yes" : "No"}</>}
         <br/>
+        {incident.confirmed === true ? <><b>DBRA: </b>
+        <div className="dbList">
+        <DBRAList/>
+        </div> </>: <><b>DBRA: </b>Insufficient evidence, DBRA not necessary </>}
+        <br/>
+        <Link className="Link" to={`/incident/edit/${incident.id}`}>Edit</Link> || {" "}
+        <Link className="Link" onClick={deleteAnIncident}>Delete</Link>
+        <p/>
+        <h4>Patient Involved: </h4>
         <Link className="Link" onClick={showPatientForm}>Add Patient</Link>
         <br/>
         
         <div style={patientStyle}>
         <PatientForm incident={incident}/>
         </div>
-        Patient Involved: 
         <ListGroup>
         {incident.patient.map(pt => 
             <ListGroupItem className="ListGroupItem">{pt.firstName} {pt.lastName} <button className="Link" onClick={(event) => {
@@ -104,14 +113,11 @@ return (
               }
             }}>Delete Patient</button></ListGroupItem>)}
         </ListGroup>
-        <br/>
-        <Link className="Link" to={`/incident/edit/${incident.id}`}>Edit</Link> || {" "}
-        <Link className="Link" onClick={deleteAnIncident}>Delete</Link>
-        <div className="dbList">
-        <DBRAList/>
-        </div>
+        <p/>
+        <p/>
+        <h4>Notes:</h4>
         <div>
-        <Link className="Link" onClick={showNoteForm}>New note</Link>
+        <Link className="Link" onClick={showNoteForm}>Add note</Link>
       </div>
       <div style={style}>
         <NotesForm incident={incident} />

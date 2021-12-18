@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getAllNotes } from "../../modules/notesManager.js";
-import { getIncidentById } from "../../modules/IncidentManager.js";
-import { useParams, useHistory, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Notes from "./Notes.js";
 
 
 const NotesList = () => {
   const [ notes, setNotes] = useState([]);
-  const [ incident, setIncident ] = useState({})
   const {id} = useParams()
 
   const getNotes = () => {
@@ -16,8 +14,6 @@ const NotesList = () => {
 
   useEffect(() => {
     getNotes()
-    getIncidentById(id)
-    .then((resp) => setIncident(resp))
   }, []);
 
   const findNote = notes.filter(n => n.incidentId === parseInt(id))
